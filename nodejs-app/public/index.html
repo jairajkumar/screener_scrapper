@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .metric-card.pass {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .metric-card.fail {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .metric-card.na {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-chart-line text-2xl"></i>
+                    <h1 class="text-2xl font-bold">Stock Analysis Tool</h1>
+                </div>
+                <div class="text-sm opacity-75">
+                    Powered by Screener.in & AI
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Search Section -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">
+                    <i class="fas fa-search mr-2"></i>Search & Analyze Stocks
+                </h2>
+                
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Enter company name (e.g., TCS, Reliance, Infosys)"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                        <div id="suggestions" class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden"></div>
+                    </div>
+                    <button 
+                        onclick="analyzeStock()" 
+                        id="analyzeBtn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center"
+                    >
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        Analyze
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden mt-4 text-center">
+                    <div class="loading-spinner mx-auto mb-2"></div>
+                    <p class="text-gray-600">Analyzing stock data...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden max-w-6xl mx-auto">
+            <!-- Company Info -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800" id="companyName"></h3>
+                    <a id="companyUrl" href="#" target="_blank" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-external-link-alt mr-1"></i>View on Screener.in
+                    </a>
+                </div>
+                
+                <!-- Verdict Badge -->
+                <div class="mb-4">
+                    <span id="verdictBadge" class="px-4 py-2 rounded-full text-white font-semibold text-sm"></span>
+                </div>
+
+                <!-- Score -->
+                <div class="flex items-center space-x-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="scoreDisplay"></div>
+                        <div class="text-sm text-gray-600">Score</div>
+                    </div>
+                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                        <div id="scoreBar" class="bg-blue-600 h-2 rounded-full transition-all duration-500"></div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-600" id="percentageDisplay"></div>
+                        <div class="text-sm text-gray-600">%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div class="metric-card pass rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">ROE</h4>
+                            <p class="text-2xl font-bold" id="roeValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="roeStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card fail rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">P/E Ratio</h4>
+                            <p class="text-2xl font-bold" id="peValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="peStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card pass rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">Debt/Equity</h4>
+                            <p class="text-2xl font-bold" id="debtValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="debtStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card pass rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">ROCE</h4>
+                            <p class="text-2xl font-bold" id="roceValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="roceStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card fail rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">Cash Flow</h4>
+                            <p class="text-2xl font-bold" id="cashFlowValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="cashFlowStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card na rounded-lg p-4 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold">PEG Ratio</h4>
+                            <p class="text-2xl font-bold" id="pegValue">-</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="pegStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights -->
+            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                    <i class="fas fa-robot mr-2"></i>AI Insights
+                </h3>
+                <div id="aiInsights" class="prose max-w-none">
+                    <p class="text-gray-600">AI insights will appear here after analysis...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Section -->
+        <div id="errorSection" class="hidden max-w-4xl mx-auto">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
+                    <div>
+                        <h3 class="text-lg font-semibold text-red-800">Analysis Failed</h3>
+                        <p id="errorMessage" class="text-red-600 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                Stock Analysis Tool - Powered by Screener.in data and AI insights
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
