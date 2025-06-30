@@ -10,5 +10,10 @@ module.exports = {
     eps_growth_max: 15,
     peg_max: 1,
     intrinsic_value_multiplier: 22.5
+  },
+  // Login credentials - add your email and password here
+  LOGIN: {
+    email: "sanskritiagrawal.scoe@gmail.com", // Replace with your email
+    password: "Sanskriti@1234"        // Replace with your password
   }
 }; 
