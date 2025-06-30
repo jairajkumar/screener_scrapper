@@ -209,7 +209,7 @@ async function loginToScreener(page) {
   }
 }
 
-async function fetchStockData(stockName) {
+async function fetchStockData(stockName, directUrl = null) {
   console.log(`🔍 Searching for stock: ${stockName}`);
   
   // Advanced anti-bot evasion setup
@@ -263,21 +263,31 @@ async function fetchStockData(stockName) {
     console.log('⚠️ User not logged in - some data may be limited');
   }
   
-  // Try direct company URL
-  const directUrl = `https://www.screener.in/company/${stockName.toUpperCase()}/`;
-  console.log(`📊 Going to: ${directUrl}`);
+  // Use direct URL if provided, otherwise build URL using company name
   let companyUrl = null;
-  try {
-    await page.goto(directUrl, { waitUntil: 'networkidle2', timeout: 30000 });
-    const pageTitle = await page.title();
-    console.log(`Page title: ${pageTitle}`);
-    if (!pageTitle.includes('404') && !pageTitle.includes('Not Found')) {
-      companyUrl = directUrl;
+  
+  if (directUrl) {
+    // Use the direct URL provided from frontend
+    companyUrl = `https://www.screener.in/${directUrl}`;
+    console.log(`📊 Using direct URL: ${companyUrl}`);
+  } else {
+    // Build company URL using Screener.in format
+    const companySlug = stockName.toUpperCase();
+    const builtUrl = `https://www.screener.in/company/${companySlug}/`;
+    console.log(`📊 Going to: ${builtUrl}`);
+    
+    try {
+      await page.goto(builtUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+      const pageTitle = await page.title();
+      console.log(`Page title: ${pageTitle}`);
+      if (!pageTitle.includes('404') && !pageTitle.includes('Not Found')) {
+        companyUrl = builtUrl;
+      }
+    } catch (directError) {
+      console.log(`❌ Direct URL failed: ${directError.message}`);
+      await browser.close();
+      return null;
     }
-  } catch (directError) {
-    console.log(`❌ Direct URL failed: ${directError.message}`);
-    await browser.close();
-    return null;
   }
 
   if (!companyUrl) {

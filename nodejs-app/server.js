@@ -39,6 +39,7 @@ app.get('/api/search', async (req, res) => {
     const screenerResults = await screenerRes.json();
 
     // Return results as-is (or map if needed)
+    console.log("screenerResults",screenerResults);
     res.json({
       success: true,
       results: screenerResults,
@@ -53,21 +54,36 @@ app.get('/api/search', async (req, res) => {
 // Analyze stock endpoint
 app.post('/api/analyze', async (req, res) => {
   try {
-    const { companyName, companyUrl } = req.body;
+    const { companyName, companyUrl, slug } = req.body;
     
-    if (!companyName) {
-      return res.status(400).json({ error: 'Company name is required' });
+    if (!companyName && !companyUrl && !slug) {
+      return res.status(400).json({ error: 'Company name, URL, or slug is required' });
     }
 
-    console.log(`🔍 API: Analyzing stock: ${companyName}`);
+    // If companyUrl is provided from frontend, use it directly
+    let targetCompany = companyName;
+    let useDirectUrl = false;
+    
+    if (companyUrl) {
+      // Extract slug from the URL for logging and fallback
+      const urlMatch = companyUrl.match(/\/company\/([^\/]+)/);
+      if (urlMatch) {
+        targetCompany = urlMatch[1];
+        useDirectUrl = true;
+      }
+    } else if (slug) {
+      targetCompany = slug;
+    }
+
+    console.log(`🔍 API: Analyzing stock: ${targetCompany}${useDirectUrl ? ' (using direct URL)' : ''}`);
     
     // Fetch stock data using existing function
-    const stockData = await fetchStockData(companyName);
+    const stockData = await fetchStockData(targetCompany, useDirectUrl ? companyUrl : null);
     
     if (!stockData) {
       return res.status(404).json({ 
         error: 'Stock not found', 
-        message: `Could not find data for ${companyName}` 
+        message: `Could not find data for ${targetCompany}` 
       });
     }
 
@@ -80,7 +96,8 @@ app.post('/api/analyze', async (req, res) => {
     const result = {
       success: true,
       company: {
-        name: companyName,
+        name: companyName || targetCompany,
+        slug: slug || targetCompany,
         url: stockData.url
       },
       data: stockData.data,
@@ -88,6 +105,7 @@ app.post('/api/analyze', async (req, res) => {
       aiInsights: aiInsights,
       timestamp: new Date().toISOString()
     };
+    console.log("result",result);
 
     res.json(result);
 
