@@ -3,13 +3,13 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 const fetch = require('node-fetch');
+const { PORT } = require('./config');
 
 const fetchStockData = require('./fetchData');
 const analyzeStock = require('./analyzeStock');
 const generateAIInsights = require('./aiInsights');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());

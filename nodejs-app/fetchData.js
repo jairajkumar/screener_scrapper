@@ -3,6 +3,17 @@ const { SCREENER_SEARCH_URL, LOGIN } = require('./config');
 const fs = require('fs');
 const path = require('path');
 
+// Validate credentials on startup
+function validateCredentials() {
+  if (!LOGIN.email || !LOGIN.password) {
+    console.log('⚠️  Warning: Screener.in credentials not found in environment variables');
+    console.log('   Please set SCREENER_EMAIL and SCREENER_PASSWORD in your .env file');
+    console.log('   Some data fields may be unavailable without login');
+    return false;
+  }
+  return true;
+}
+
 // Path to store cookies for session persistence
 const COOKIES_FILE = path.join(__dirname, 'screener_cookies.json');
 
@@ -43,6 +54,12 @@ async function checkIfLoggedIn(page) {
 
 async function loginToScreener(page) {
   console.log('🔐 Attempting to login to Screener.in...');
+  
+  // Check if credentials are available
+  if (!validateCredentials()) {
+    console.log('❌ Cannot login: Missing credentials in environment variables');
+    return false;
+  }
   
   try {
     // Go to login page
@@ -211,6 +228,9 @@ async function loginToScreener(page) {
 
 async function fetchStockData(stockName, directUrl = null) {
   console.log(`🔍 Searching for stock: ${stockName}`);
+  
+  // Validate credentials at startup
+  validateCredentials();
   
   // Advanced anti-bot evasion setup
   const browser = await puppeteer.launch({

@@ -4,11 +4,12 @@ A comprehensive stock analysis tool for Indian stocks that automatically fetches
 
 ## 🎯 Features
 
-- **Automated Data Fetching**: Scrapes financial data from Screener.in
+- **Automated Data Fetching**: Scrapes financial data from Screener.in using Puppeteer
 - **Investment Criteria Analysis**: Applies your specific investment criteria
 - **AI-Powered Insights**: Uses Gemini AI for additional analysis and recommendations
 - **Simple Verdict**: Clear BUY/HOLD/NA recommendations
-- **Multiple Interfaces**: Command-line and web interface options
+- **Web Interface**: Modern web-based interface for easy analysis
+- **Login Support**: Authenticated access to additional financial data
 
 ## 📊 Investment Criteria
 
@@ -30,73 +31,105 @@ The tool analyzes stocks based on these criteria:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd companyAnalysis
+cd companyAnalysis/nodejs-app
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
 ```
 
-### 2. Setup API Key (Optional)
+### 2. Setup Environment Variables
 
-For AI insights, you'll need a Gemini API key:
+For AI insights and login functionality, you'll need to configure environment variables:
 
-1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Create a `.env` file in the project root:
+1. Copy the example environment file:
 ```bash
-cp env_example.txt .env
+cp .env.example .env
 ```
-3. Add your API key to the `.env` file:
+
+2. Edit the `.env` file and add your credentials:
+```bash
+# Screener.in Login Credentials (Required for full data access)
+SCREENER_EMAIL=your_email@example.com
+SCREENER_PASSWORD=your_password_here
+
+# Google Gemini AI API Key (Optional - for AI insights)
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Server Configuration (Optional - defaults provided)
+PORT=3000
+NODE_ENV=development
 ```
-GEMINI_API_KEY=your_actual_api_key_here
-```
+
+**Important Notes:**
+- **Screener.in Credentials**: Required for accessing additional financial data fields
+- **Gemini API Key**: Optional but recommended for AI-powered insights
+- **Investment Criteria**: Can be customized via environment variables (see `.env.example` for all options)
 
 ### 3. Usage
+
+#### Web Interface (Recommended)
+
+```bash
+# Start the web server
+npm start
+
+# Or for development with auto-restart
+npm run dev
+```
+
+Then open your browser to `http://localhost:3000`
 
 #### Command Line Interface
 
 ```bash
+# Test environment variable configuration
+npm run test-env
+
 # Analyze a specific stock
-python main.py TCS
+npm run analyze "TCS"
 
-# Interactive mode
-python main.py
+# Or directly
+node index.js "TCS"
 ```
-
-#### Web Interface
-
-```bash
-# Start the Streamlit web app
-streamlit run web_app.py
-```
-
-Then open your browser to `http://localhost:8501`
 
 ## 📁 Project Structure
 
 ```
-companyAnalysis/
-├── main.py              # Command-line interface
-├── web_app.py           # Streamlit web interface
-├── data_fetcher.py      # Web scraping from Screener.in
-├── stock_analyzer.py    # Investment criteria analysis
-├── ai_advisor.py        # Gemini AI integration
-├── config.py            # Configuration and settings
-├── requirements.txt     # Python dependencies
-├── env_example.txt      # Environment variables example
-└── README.md           # This file
+nodejs-app/
+├── server.js              # Express web server
+├── index.js               # Command-line interface
+├── fetchData.js           # Web scraping from Screener.in
+├── analyzeStock.js        # Investment criteria analysis
+├── aiInsights.js          # Gemini AI integration
+├── config.js              # Configuration and settings
+├── package.json           # Node.js dependencies
+├── public/                # Web interface files
+│   ├── index.html         # Main web page
+│   └── script.js          # Frontend JavaScript
+├── screenshots/           # Debug screenshots (auto-created)
+└── README.md             # Node.js app documentation
 ```
 
 ## 🔧 How It Works
 
-1. **Data Fetching**: Uses Selenium to scrape financial data from Screener.in
-2. **Analysis**: Applies your investment criteria to calculate a score
-3. **Verdict**: Provides BUY/HOLD/NA recommendation based on score
-4. **AI Insights**: Uses Gemini to provide additional analysis and recommendations
+1. **Data Fetching**: Uses Puppeteer to scrape financial data from Screener.in
+2. **Login Support**: Authenticates with Screener.in for access to additional data
+3. **Analysis**: Applies your investment criteria to calculate a score
+4. **Verdict**: Provides BUY/HOLD/NA recommendation based on score
+5. **AI Insights**: Uses Gemini to provide additional analysis and recommendations
 
 ## 💡 Example Usage
 
+### Web Interface
+1. Start the server: `npm start`
+2. Open `http://localhost:3000`
+3. Enter a stock name (e.g., "TCS", "RELIANCE")
+4. Click "Analyze Stock"
+5. View results with detailed analysis and AI insights
+
+### Command Line
 ```bash
-$ python main.py TCS
+$ npm run analyze "TCS"
 
 🔍 Analyzing TCS...
 Fetching data from screener.in...
@@ -130,22 +163,34 @@ Fetching data from screener.in...
 
 - **Data Source**: All financial data is sourced from Screener.in
 - **AI Features**: Require a valid Gemini API key
-- **Web Scraping**: May be affected by website changes
+- **Web Scraping**: Uses Puppeteer with anti-bot evasion techniques
+- **Login Required**: Some data fields require Screener.in login
 - **Investment Advice**: This tool is for educational purposes only
 
 ## 🛠️ Troubleshooting
 
 ### Common Issues
 
-1. **Chrome Driver Issues**: The tool automatically downloads ChromeDriver
-2. **API Key Errors**: Check your `.env` file and API key validity
-3. **Data Fetching Errors**: Try different stock names or check internet connection
+1. **Missing Credentials**: Check your `.env` file and ensure `SCREENER_EMAIL` and `SCREENER_PASSWORD` are set
+2. **Connection Errors**: The app includes anti-bot evasion techniques
+3. **Login Failures**: Check screenshots in the `screenshots/` folder for debugging
+4. **API Key Errors**: Check your `.env` file and API key validity
+5. **Data Fetching Errors**: Try different stock names or check internet connection
+6. **Environment Variables**: Ensure `.env` file is in the `nodejs-app` directory and properly formatted
 
 ### Dependencies
 
-- Python 3.8+
-- Chrome browser (for Selenium)
+- Node.js 16+
+- Chrome browser (for Puppeteer)
 - Internet connection
+
+## 🔍 Debug Features
+
+- **Credential Validation**: Automatic checking for required environment variables
+- **Screenshots**: Automatically saves screenshots to `screenshots/` folder for debugging
+- **Login Status**: Verifies login success and provides detailed error messages
+- **Network Logs**: Detailed logging for troubleshooting connection issues
+- **Environment Variables**: Validates configuration on startup with helpful error messages
 
 ## 🤝 Contributing
 
