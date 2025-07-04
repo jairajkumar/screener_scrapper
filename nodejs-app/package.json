@@ -7,7 +7,12 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "analyze": "node index.js",
-    "test-env": "node testEnv.js"
+    "test-env": "node testEnv.js",
+    "docker:build": "./build-docker.sh",
+    "docker:build:quick": "./build-docker-quick.sh",
+    "docker:test": "./test-docker.sh",
+    "docker:run": "docker run -p 3000:3000 --env-file .env stock-analysis:latest",
+    "docker:compose": "docker-compose up -d"
   },
   "keywords": [
     "stock",

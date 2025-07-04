@@ -24,6 +24,258 @@ The tool analyzes stocks based on these criteria:
 - **PEG** < 1
 - **Intrinsic Value** = 22.5 × EPS × BV
 
+## 🌐 GitHub Container Registry (Recommended)
+
+For the best cross-platform experience, use GitHub Container Registry (GHCR) to distribute your Docker image. This allows anyone to pull and run your application on Windows, Mac, or Linux with a single command.
+
+### 🚀 Quick Start
+
+#### For Developers (Build and Push)
+
+```bash
+# 1. Setup GitHub Container Registry (one-time)
+# Follow the guide: ./setup-github-registry.md
+
+# 2. Build and push to GitHub
+./build-and-push.sh YOUR_GITHUB_USERNAME
+```
+
+#### For Users (Pull and Run)
+
+**Linux/Mac:**
+```bash
+./pull-and-run.sh YOUR_GITHUB_USERNAME start
+```
+
+**Windows:**
+```cmd
+pull-and-run.bat YOUR_GITHUB_USERNAME start
+```
+
+### 📋 Complete Workflow
+
+#### Step 1: Setup GitHub Container Registry
+
+1. **Create Personal Access Token:**
+   - Go to [GitHub Settings > Tokens](https://github.com/settings/tokens)
+   - Generate token with `write:packages` and `read:packages` scopes
+
+2. **Login to GHCR:**
+   ```bash
+   echo YOUR_TOKEN | docker login ghcr.io -u YOUR_USERNAME --password-stdin
+   ```
+
+3. **Build and Push:**
+   ```bash
+   ./build-and-push.sh YOUR_USERNAME
+   ```
+
+#### Step 2: Share with Users
+
+Just share your GitHub username! Users can run:
+
+```bash
+# Linux/Mac
+./pull-and-run.sh YOUR_USERNAME start
+
+# Windows
+pull-and-run.bat YOUR_USERNAME start
+```
+
+### 🎯 Benefits
+
+- ✅ **Cross-platform**: Works on Windows, Mac, Linux
+- ✅ **Zero build time**: Users just pull and run
+- ✅ **Version control**: Images are tracked and versioned
+- ✅ **Easy sharing**: Just share your GitHub username
+- ✅ **Free hosting**: GitHub provides free container registry
+- ✅ **Automatic updates**: Users can pull latest version anytime
+- ✅ **Security**: Private images supported
+
+### 🔧 Advanced Usage
+
+```bash
+# Run in background
+./pull-and-run.sh YOUR_USERNAME background
+
+# View logs
+./pull-and-run.sh YOUR_USERNAME logs
+
+# Stop application
+./pull-and-run.sh YOUR_USERNAME stop
+
+# Update to latest version
+./pull-and-run.sh YOUR_USERNAME update
+```
+
+### 📦 Image URLs
+
+Your image will be available at:
+- **Registry**: `ghcr.io/YOUR_USERNAME/stock-analysis`
+- **Web URL**: `https://ghcr.io/YOUR_USERNAME/stock-analysis`
+
+## 🚀 Portable Docker Image (Run Anywhere)
+
+For the ultimate portability, you can create a pre-built Docker image that runs instantly from anywhere without any build process.
+
+### Step 1: Build Once, Use Everywhere
+
+```bash
+# Build and save the image (do this once)
+./build-and-save-image.sh
+```
+
+This creates `stock-analysis.tar` - a portable image file (~500MB) that contains everything needed.
+
+### Step 2: Run from Any Directory
+
+```bash
+# Simple start
+./start.sh
+
+# Or use the full control script
+./run-anywhere.sh start          # Start in foreground
+./run-anywhere.sh background     # Start in background
+./run-anywhere.sh stop           # Stop the application
+./run-anywhere.sh logs           # View logs
+./run-anywhere.sh status         # Check status
+./run-anywhere.sh restart        # Restart the application
+```
+
+### Step 3: Share and Deploy
+
+The `stock-analysis.tar` file can be:
+- **Shared** with team members
+- **Copied** to any machine
+- **Deployed** to servers
+- **Run** without internet connection
+
+### Quick Commands
+
+```bash
+# Load and run in one command
+docker load -i stock-analysis.tar && docker run -p 3000:3000 stock-analysis:latest
+
+# Run with environment variables
+docker load -i stock-analysis.tar && docker run -p 3000:3000 --env-file .env stock-analysis:latest
+```
+
+### Benefits
+
+- ✅ **Zero build time** - Runs instantly
+- ✅ **No dependencies** - Everything included
+- ✅ **Portable** - Works on any machine with Docker
+- ✅ **Offline capable** - No internet needed to run
+- ✅ **Consistent** - Same image everywhere
+
+## 🚀 Docker Deployment
+
+The application can be deployed using Docker for consistent operation across Windows, Mac, and Linux.
+
+### Quick Start with Docker
+
+1. **Build the Docker image:**
+   ```bash
+   # Using the build script (recommended)
+   ./build-docker.sh
+   
+   # Or manually
+   docker build -t stock-analysis:latest .
+   ```
+
+2. **Run with Docker:**
+   ```bash
+   # Simple run
+   docker run -p 3000:3000 --env-file .env stock-analysis:latest
+   
+   # Or with docker-compose (recommended)
+   docker-compose up -d
+   ```
+
+3. **Access the application:**
+   - Web Interface: http://localhost:3000
+   - API Health Check: http://localhost:3000/api/health
+
+### Docker Features
+
+- **Self-contained**: Includes Puppeteer's Chrome installation (~170MB)
+- **Cross-platform**: Works on Windows, Mac, and Linux
+- **Security**: Runs as non-root user
+- **Health checks**: Automatic health monitoring
+- **Volume mounts**: Screenshots and cookies persist across restarts
+- **Environment variables**: Full support for .env configuration
+
+### Docker Commands
+
+```bash
+# Build image
+docker build -t stock-analysis:latest .
+
+# Run container
+docker run -p 3000:3000 --env-file .env stock-analysis:latest
+
+# Run in background
+docker run -d -p 3000:3000 --env-file .env --name stock-analysis stock-analysis:latest
+
+# View logs
+docker logs stock-analysis
+
+# Stop container
+docker stop stock-analysis
+
+# Remove container
+docker rm stock-analysis
+
+# Using docker-compose
+docker-compose up -d          # Start in background
+docker-compose down           # Stop and remove
+docker-compose logs -f        # View logs
+```
+
+### Docker Compose
+
+The `docker-compose.yml` file provides easy deployment with:
+- Automatic restart on failure
+- Volume mounts for screenshots and cookies
+- Health checks
+- Environment variable support
+
+```bash
+# Start the application
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+```
+
+### Environment Variables in Docker
+
+Create a `.env` file in the `nodejs-app` directory:
+
+```bash
+# Required for full functionality
+SCREENER_EMAIL=your_email@example.com
+SCREENER_PASSWORD=your_password_here
+
+# Optional for AI insights
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Optional server configuration
+PORT=3000
+NODE_ENV=production
+```
+
+### Troubleshooting Docker
+
+1. **Build fails**: Ensure you have sufficient disk space (~500MB)
+2. **Chrome issues**: The image includes all necessary dependencies
+3. **Permission errors**: The container runs as non-root user
+4. **Port conflicts**: Change the port mapping in docker-compose.yml
+5. **Environment variables**: Ensure .env file is in the correct location
+
 ## 🚀 Quick Start
 
 ### 1. Installation

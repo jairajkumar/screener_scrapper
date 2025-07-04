@@ -232,15 +232,20 @@ async function fetchStockData(stockName, directUrl = null) {
   // Validate credentials at startup
   validateCredentials();
   
-  // Advanced anti-bot evasion setup
+  // Advanced anti-bot evasion setup for Docker environment
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true, // Use headless mode in Docker
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-blink-features=AutomationControlled',
       '--disable-web-security',
-      '--disable-features=VizDisplayCompositor'
+      '--disable-features=VizDisplayCompositor',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process'
     ]
   });
   
