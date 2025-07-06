@@ -395,8 +395,9 @@ async function fetchStockData(stockName, directUrl = null) {
   console.log(`📊 Extracted data:`, data);
   
   // Take screenshot of the company page for debugging
+  let screenshotPath = ""
   try {
-    const screenshotPath = path.join(SCREENSHOTS_DIR, `company-page-${stockName.toLowerCase()}.png`);
+    screenshotPath = path.join(SCREENSHOTS_DIR, `company-page-${stockName.toLowerCase()}.png`);
     await page.screenshot({ 
       path: screenshotPath, 
       fullPage: true
@@ -407,7 +408,7 @@ async function fetchStockData(stockName, directUrl = null) {
   }
   
   await browser.close();
-  return { url: companyUrl, data };
+  return { url: companyUrl, data, screenshotPath: screenshotPath };
 }
 
 module.exports = fetchStockData; 

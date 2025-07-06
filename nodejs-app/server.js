@@ -91,8 +91,7 @@ app.post('/api/analyze', async (req, res) => {
     const analysis = analyzeStock(stockData.data);
     
     // Generate AI insights
-    const aiInsights = await generateAIInsights(stockData.data, analysis);
-    
+    const aiInsights = await generateAIInsights(stockData.data, analysis, stockData.screenshotPath);
     const result = {
       success: true,
       company: {
@@ -139,7 +138,7 @@ app.get('/api/analyze/:companyName', async (req, res) => {
     const analysis = analyzeStock(stockData.data);
     
     // Generate AI insights
-    const aiInsights = await generateAIInsights(stockData.data, analysis);
+    const aiInsights = await generateAIInsights(stockData.data, analysis, analysis.screenshotPath);
     
     const result = {
       success: true,
