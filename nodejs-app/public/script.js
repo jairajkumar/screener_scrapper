@@ -125,6 +125,7 @@ function displayResults(data) {
 
 // ===== Update Score Card =====
 function updateScoreCard(type, scoreData) {
+    const cardEl = document.getElementById(`${type}Card`);
     const scoreEl = document.getElementById(`${type}Score`);
     const barEl = document.getElementById(`${type}Bar`);
     const interpretationEl = document.getElementById(`${type}Interpretation`);
@@ -134,10 +135,18 @@ function updateScoreCard(type, scoreData) {
     barEl.style.width = `${scoreData.percent}%`;
     interpretationEl.textContent = scoreData.interpretation;
 
-    // Status badge
+    // Determine pass/fail
     const isPass = scoreData.score >= 7;
+
+    // Add passing/failing class to card for visual effect
+    cardEl.classList.remove('passing', 'failing');
+    cardEl.classList.add(isPass ? 'passing' : 'failing');
+
+    // Status badge with clear text
     statusEl.className = `score-card-status ${isPass ? 'pass' : 'fail'}`;
-    statusEl.innerHTML = `<i class="fas fa-${isPass ? 'check' : 'times'}"></i> ${isPass ? '≥7 PASS' : '<7'}`;
+    statusEl.innerHTML = isPass
+        ? `<i class="fas fa-check-circle"></i> PASSING (≥7)`
+        : `<i class="fas fa-times-circle"></i> NEEDS WORK`;
 }
 
 // ===== Render Factor Details =====
