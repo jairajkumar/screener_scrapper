@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Stock Analysis - Docker Build and Push Script
-# Builds and pushes Docker image to GitHub Container Registry (ghcr.io)
+# Builds and pushes multi-platform Docker image to GitHub Container Registry (ghcr.io)
+# Supports both AMD64 (Windows/Linux) and ARM64 (Mac M1/M2)
 
 set -e
 
@@ -14,9 +15,10 @@ FULL_IMAGE_NAME="${REGISTRY}/${REPO_OWNER}/${IMAGE_NAME}"
 # Get version tag from argument or use 'latest'
 VERSION="${1:-latest}"
 
-echo "🐳 Stock Analysis - Docker Build and Push"
-echo "=========================================="
+echo "🐳 Stock Analysis - Multi-Platform Docker Build and Push"
+echo "========================================================="
 echo "📦 Image: ${FULL_IMAGE_NAME}:${VERSION}"
+echo "🏗️  Platforms: linux/amd64, linux/arm64"
 echo ""
 
 # Check if Docker is running
@@ -50,31 +52,46 @@ fi
 
 echo "✅ Logged in to ${REGISTRY}"
 
-# Build the Docker image
+# Setup buildx for multi-platform builds
 echo ""
-echo "🔨 Building Docker image..."
-docker build -t ${FULL_IMAGE_NAME}:${VERSION} .
+echo "🔧 Setting up Docker Buildx..."
+BUILDER_NAME="multiarch-builder"
+
+# Check if builder exists, create if not
+if ! docker buildx inspect ${BUILDER_NAME} > /dev/null 2>&1; then
+    echo "   Creating new buildx builder..."
+    docker buildx create --name ${BUILDER_NAME} --driver docker-container --bootstrap
+fi
+
+# Use the builder
+docker buildx use ${BUILDER_NAME}
+echo "✅ Buildx ready"
+
+# Build and push multi-platform image
+echo ""
+echo "🔨 Building and pushing multi-platform Docker image..."
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --tag ${FULL_IMAGE_NAME}:${VERSION} \
+    --push \
+    .
 
 if [ $? -ne 0 ]; then
     echo "❌ Docker build failed"
+    docker logout ${REGISTRY}
     exit 1
 fi
 
-echo "✅ Image built: ${FULL_IMAGE_NAME}:${VERSION}"
+echo "✅ Image built and pushed: ${FULL_IMAGE_NAME}:${VERSION}"
 
 # Also tag as latest if a specific version was provided
 if [ "${VERSION}" != "latest" ]; then
-    echo "🏷️  Also tagging as 'latest'..."
-    docker tag ${FULL_IMAGE_NAME}:${VERSION} ${FULL_IMAGE_NAME}:latest
-fi
-
-# Push the image
-echo ""
-echo "📤 Pushing image to ${REGISTRY}..."
-docker push ${FULL_IMAGE_NAME}:${VERSION}
-
-if [ "${VERSION}" != "latest" ]; then
-    docker push ${FULL_IMAGE_NAME}:latest
+    echo "🏷️  Also pushing 'latest' tag..."
+    docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        --tag ${FULL_IMAGE_NAME}:latest \
+        --push \
+        .
 fi
 
 echo ""
@@ -86,7 +103,7 @@ echo "🔐 Logging out from ${REGISTRY}..."
 docker logout ${REGISTRY}
 
 echo ""
-echo "🚀 Others can now run:"
+echo "🚀 Others can now run (on Windows, Mac, or Linux):"
 echo "   docker pull ${FULL_IMAGE_NAME}:${VERSION}"
 echo "   docker run -p 3000:3000 --env-file .env ${FULL_IMAGE_NAME}:${VERSION}"
 echo ""
