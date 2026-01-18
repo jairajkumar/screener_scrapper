@@ -1,357 +1,163 @@
 # Backend Documentation
 
 ## Overview
+The Stock Analysis Tool backend is a Node.js/Express application that scrapes financial data from Screener.in and applies four investment scoring methodologies to analyze stocks.
 
-The backend is a Node.js/Express API server that scrapes stock data from Screener.in, analyzes it based on investment criteria, and generates AI-powered insights using Google Gemini.
-
-## Technology Stack
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Node.js | 18+ | Runtime |
-| Express | 4.18 | Web framework |
-| Puppeteer-core | 23.x | Web scraping |
-| @google/generative-ai | 0.2 | Gemini AI |
-| dotenv | 16.3 | Environment variables |
-| cors | 2.8 | Cross-origin requests |
-| node-fetch | 2.7 | HTTP client |
-
----
-
-## Directory Structure
+## Architecture
 
 ```
-nodejs-app/
-├── src/
-│   ├── server.js              # Entry point
-│   ├── services/
-│   │   ├── scraper.js         # Puppeteer scraping
-│   │   ├── analyzer.js        # Stock analysis
-│   │   └── aiService.js       # Gemini AI
-│   ├── routes/
-│   │   └── api.js             # API endpoints
-│   └── utils/
-│       └── cookies.js         # Cookie persistence
-├── config/
-│   └── index.js               # Configuration
-├── scripts/
-│   ├── analyze.js             # CLI tool
-│   ├── build-and-push.sh      # Docker push
-│   └── test-env.js            # Env test
-└── public/                    # Frontend files
+src/
+├── server.js          # Express app entry point
+├── routes/
+│   └── api.js         # API endpoints
+└── services/
+    ├── scraper.js       # Screener.in data extraction
+    ├── analyzer.js      # Combines 4 scoring systems
+    ├── piotroskiScore.js # Piotroski F-Score (9 marks)
+    ├── buffettScore.js   # Warren Buffett Score (10 marks)
+    ├── grahamScore.js    # Benjamin Graham Score (10 marks)
+    ├── lynchScore.js     # Peter Lynch Score (10 marks)
+    └── aiService.js      # Gemini AI insights
 ```
 
 ---
 
-## Configuration (config/index.js)
+## Scoring Services
 
-### Environment Variables
+### Piotroski F-Score (`piotroskiScore.js`)
+**Total: 9 marks** - Measures financial health
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | 3000 | Server port |
-| `NODE_ENV` | development | Environment |
-| `SCREENER_EMAIL` | - | Screener.in login |
-| `SCREENER_PASSWORD` | - | Screener.in password |
-| `GEMINI_API_KEY` | - | Google AI API key |
+| Factor | Condition | Marks |
+|--------|-----------|-------|
+| Net Profit Positive | Net Profit > 0 | 1 |
+| CFO Positive | Cash Flow from Operations > 0 | 1 |
+| ROA Improved | Current ROA > Previous Year | 1 |
+| CFO > Profit | CFO > Net Profit | 1 |
+| Debt Reduced | Borrowings decreased YoY | 1 |
+| Current Ratio Improved | Current Ratio > 1.5 | 1 |
+| No Equity Dilution | No new shares issued | 1 |
+| OPM Improved | OPM % increased YoY | 1 |
+| Asset Turnover Improved | Asset Turnover improved YoY | 1 |
 
-### Investment Criteria
+### Warren Buffett Score (`buffettScore.js`)
+**Total: 10 marks** - Measures long-term business quality
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ROE_MIN` | 15 | Min Return on Equity (%) |
-| `PE_MAX` | 20 | Max P/E Ratio |
-| `DEBT_TO_EQUITY_MAX` | 0.5 | Max Debt/Equity |
-| `ROCE_MIN` | 15 | Min Return on Capital (%) |
-| `EPS_GROWTH_MIN` | 10 | Min EPS Growth (%) |
-| `EPS_GROWTH_MAX` | 15 | Max EPS Growth (%) |
-| `PEG_MAX` | 1 | Max PEG Ratio |
-| `INTRINSIC_VALUE_MULTIPLIER` | 22.5 | IV calculation multiplier |
+| Factor | Condition | Marks |
+|--------|-----------|-------|
+| High ROE | ROE > 15% | 2 |
+| Low Debt | Debt/Equity < 0.5 | 2 |
+| Profit Consistency | Net Profit positive for 5 years | 2 |
+| Strong FCF | Free Cash Flow positive | 2 |
+| Reasonable Valuation | Stock P/E < Industry P/E | 2 |
+
+### Benjamin Graham Score (`grahamScore.js`)
+**Total: 10 marks** - Value investing with margin of safety
+
+| Factor | Condition | Marks |
+|--------|-----------|-------|
+| Low P/E | P/E < 15 | 1 |
+| Low P/B | Price/Book < 1.5 | 1 |
+| Debt Safety | Debt/Equity < 1 | 2 |
+| Strong Liquidity | Current Ratio > 2 | 2 |
+| Earnings Stability | No loss year in 5 years | 2 |
+| Dividend Record | Dividend paid regularly | 2 |
+
+**Graham Number**: `sqrt(22.5 × EPS × Book Value)`
+
+### Peter Lynch Score (`lynchScore.js`)
+**Total: 10 marks** - Growth at Reasonable Price (GARP)
+
+| Factor | Condition | Marks |
+|--------|-----------|-------|
+| EPS Growth | 5Y Profit Growth > 10% | 3 |
+| Low PEG | PEG Ratio < 1.5 | 3 |
+| Low Debt | Debt/Equity < 0.5 | 2 |
+| Business Simplicity | Stable business | 2 |
 
 ---
 
-## Services
+## Scraper Service (`scraper.js`)
 
-### 1. Scraper Service (src/services/scraper.js)
+### Data Extraction
+The scraper uses Puppeteer to extract data from Screener.in company pages.
 
-#### Main Function
-```javascript
-async function fetchStockData(stockName, directUrl = null)
-```
+#### Selectors Used
+| Section | Selector | Data |
+|---------|----------|------|
+| Top Ratios | `#top-ratios li` | P/E, ROE, ROCE, Book Value |
+| P&L | `#profit-loss table tbody tr` | Sales, Net Profit, OPM, EPS |
+| Balance Sheet | `#balance-sheet table tbody tr` | Borrowings, Equity, Assets |
+| Cash Flow | `#cash-flow table tbody tr` | CFO, CFI, CFF |
+| Growth Rates | `table.ranges-table` | 5Y/10Y Profit & Sales Growth |
+| Peers | `#peers` | Industry P/E |
 
-**Parameters:**
-- `stockName`: Stock symbol or company name
-- `directUrl`: Optional direct URL to company page
-
-**Returns:**
+#### Extracted Fields
 ```javascript
 {
-  url: string,           // Company URL on Screener.in
-  data: {
-    roe: number | null,
-    pe_ratio: number | null,
-    debt_to_equity: number | null,
-    roce: number | null,
-    eps_growth: number | null,
-    peg: number | null,
-    eps: number | null,
-    book_value: number | null,
-    cash_flow: number | null
-  },
-  screenshotPath: string  // Path to screenshot
+  // Top Card Ratios
+  stockPE, roe, roce, bookValue, dividendYield, marketCap, currentPrice, industryPE,
+  
+  // Calculated Ratios
+  debtToEquity, roa, assetTurnover, fcf, pegRatio, priceToBook, grahamNumber, currentRatio,
+  
+  // Growth Rates
+  profitGrowth5Y, profitGrowth10Y, profitGrowth3Y, salesGrowth5Y, salesGrowth10Y, salesGrowth3Y,
+  
+  // Historical Data (arrays)
+  historical: { sales, netProfit, opmPercent, eps, dividendPayout, borrowings, equityCapital, reserves, totalAssets, cfo, cfi, cff }
 }
 ```
 
-**Features:**
-- Headless Chrome via Puppeteer
-- Session cookie persistence
-- Automatic login to Screener.in
-- Anti-bot detection evasion
-- Full-page screenshot capture
+---
 
-#### Internal Functions
+## Analyzer Service (`analyzer.js`)
 
-| Function | Purpose |
-|----------|---------|
-| `validateCredentials()` | Check if login credentials exist |
-| `checkIfLoggedIn(page)` | Check login status on page |
-| `loginToScreener(page)` | Perform login flow |
-| `getChromePath()` | Get Chrome executable path |
-
-### 2. Analyzer Service (src/services/analyzer.js)
-
-#### Main Function
+### Final Decision Logic
 ```javascript
-function analyzeStock(data)
+const scoresAbove7 = [piotroski, buffett, graham, lynch].filter(s => s.score >= 7).length;
+
+if (scoresAbove7 >= 3) finalDecision = 'BUY';
+else if (scoresAbove7 === 2) finalDecision = 'HOLD';
+else finalDecision = 'AVOID';
 ```
-
-**Parameters:**
-- `data`: Stock data object from scraper
-
-**Returns:**
-```javascript
-{
-  verdict: 'BUY' | 'HOLD' | 'NA',
-  score: number,      // Passed criteria count
-  total: number,      // Total valid criteria
-  percent: number,    // Score percentage
-  analysis: {
-    roe: 'PASS' | 'FAIL' | 'NA',
-    pe_ratio: 'PASS' | 'FAIL' | 'NA',
-    debt_to_equity: 'PASS' | 'FAIL' | 'NA',
-    roce: 'PASS' | 'FAIL' | 'NA',
-    cash_flow: 'PASS' | 'FAIL' | 'NA',
-    eps_growth: 'PASS' | 'FAIL' | 'NA',
-    peg: 'PASS' | 'FAIL' | 'NA',
-    intrinsic_value: number | 'NA'
-  }
-}
-```
-
-**Investment Criteria:**
-
-| Metric | Condition | Pass If |
-|--------|-----------|---------|
-| ROE | > ROE_MIN | > 15% |
-| P/E Ratio | < PE_MAX | < 20 |
-| Debt/Equity | < DEBT_TO_EQUITY_MAX | < 0.5 |
-| ROCE | > ROCE_MIN | > 15% |
-| Cash Flow | > 0 | Positive |
-| EPS Growth | Between MIN and MAX | 10-15% |
-| PEG | < PEG_MAX | < 1 |
-
-**Verdict Logic:**
-```javascript
-if (percent >= 70) verdict = 'BUY';
-else if (percent >= 50) verdict = 'HOLD';
-else verdict = 'NA';  // Consider selling
-```
-
-### 3. AI Service (src/services/aiService.js)
-
-#### Main Function
-```javascript
-async function generateAIInsights(stockData, analysis, imagePath = null)
-```
-
-**Parameters:**
-- `stockData`: Raw stock metrics
-- `analysis`: Analysis results
-- `imagePath`: Optional screenshot path
-
-**Returns:**
-- HTML-formatted investment insights string
-
-**Features:**
-- Uses Gemini 2.5 Flash model
-- Supports image input (screenshot)
-- Returns HTML for direct rendering
 
 ---
 
-## Routes (src/routes/api.js)
+## API Endpoints
 
-### Endpoints
+### `GET /api/analyze/:companyName`
+Analyze a stock by name or symbol.
 
-#### GET /api/health
+### `POST /api/analyze`
+Analyze using direct Screener.in URL.
+```json
+{ "companyUrl": "company/TCS/", "companyName": "TCS" }
+```
+
+### `GET /api/search?query=...`
+Search for companies by name.
+
+### `GET /api/health`
 Health check endpoint.
 
-**Response:**
-```json
-{
-  "status": "OK",
-  "message": "Stock Analysis API is running"
-}
-```
+---
 
-#### GET /api/search
-Search for companies.
+## Environment Variables
 
-**Query Parameters:**
-- `query`: Search term (required)
-
-**Response:**
-```json
-{
-  "success": true,
-  "results": [
-    { "id": "TCS", "name": "Tata Consultancy Services Ltd", "url": "/company/TCS/" }
-  ],
-  "query": "TCS"
-}
-```
-
-#### GET /api/analyze/:companyName
-Analyze stock by name/symbol.
-
-**Parameters:**
-- `companyName`: Stock symbol (e.g., "TCS")
-
-**Response:** See Analysis Response Format below.
-
-#### POST /api/analyze
-Analyze stock with additional options.
-
-**Body:**
-```json
-{
-  "companyName": "TCS",
-  "companyUrl": "/company/TCS/",
-  "slug": "TCS"
-}
-```
-
-**Response:** See Analysis Response Format below.
-
-### Analysis Response Format
-
-```json
-{
-  "success": true,
-  "company": {
-    "name": "Tata Consultancy Services Ltd",
-    "slug": "TCS",
-    "url": "https://www.screener.in/company/TCS/"
-  },
-  "data": {
-    "roe": 45.2,
-    "pe_ratio": 28.5,
-    "debt_to_equity": 0.05,
-    "roce": 55.3,
-    "eps_growth": null,
-    "peg": 2.1,
-    "eps": 115.5,
-    "book_value": 280.0,
-    "cash_flow": 35000
-  },
-  "analysis": {
-    "verdict": "HOLD",
-    "score": 4,
-    "total": 7,
-    "percent": 57.14,
-    "analysis": {
-      "roe": "PASS",
-      "pe_ratio": "FAIL",
-      "debt_to_equity": "PASS",
-      "roce": "PASS",
-      "cash_flow": "PASS",
-      "eps_growth": "NA",
-      "peg": "FAIL",
-      "intrinsic_value": 729337.5
-    }
-  },
-  "aiInsights": "<h3>Analysis</h3>...",
-  "timestamp": "2026-01-18T10:30:00.000Z"
-}
-```
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `PORT` | Server port (default: 3000) | No |
+| `GEMINI_API_KEY` | Google Gemini API key for AI insights | No |
+| `SCREENER_SESSION` | Screener.in session cookie for authenticated data | No |
 
 ---
 
-## Server (src/server.js)
+## Dependencies
 
-### Middleware Stack
-
-```javascript
-app.use(cors());                    // Enable CORS
-app.use(express.json());            // Parse JSON bodies
-app.use(express.static('public'));  // Serve frontend
-```
-
-### Route Mounting
-
-```javascript
-app.use('/api', apiRoutes);         // API routes
-app.get('/', serveIndex);           // Frontend
-```
-
----
-
-## Utils
-
-### Cookie Management (src/utils/cookies.js)
-
-| Function | Purpose |
-|----------|---------|
-| `saveCookies(page)` | Save cookies to file |
-| `loadCookies(page)` | Load cookies from file |
-| `COOKIES_FILE` | Cookie file path |
-
-**Cookie File Location:** `screener_cookies.json` (project root)
-
----
-
-## Scripts
-
-### CLI Analyze (scripts/analyze.js)
-```bash
-node scripts/analyze.js TCS
-```
-
-### Build & Push (scripts/build-and-push.sh)
-```bash
-./scripts/build-and-push.sh         # Push as 'latest'
-./scripts/build-and-push.sh v1.0.0  # Push with version
-```
-
-### Test Environment (scripts/test-env.js)
-```bash
-node scripts/test-env.js
-```
-
----
-
-## Error Handling
-
-All endpoints return errors in this format:
-```json
-{
-  "error": "Error type",
-  "message": "Detailed error message"
-}
-```
-
-**HTTP Status Codes:**
-- `200`: Success
-- `400`: Bad request (missing parameters)
-- `404`: Stock not found
-- `500`: Server error
+| Package | Purpose |
+|---------|---------|
+| `express` | Web framework |
+| `puppeteer-core` | Browser automation |
+| `@google/generative-ai` | Gemini AI integration |
+| `cors` | Cross-origin requests |
+| `dotenv` | Environment variables |

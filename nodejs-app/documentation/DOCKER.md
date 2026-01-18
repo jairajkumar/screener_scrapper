@@ -2,7 +2,7 @@
 
 ## Overview
 
-The application is containerized using Docker and published to GitHub Container Registry (ghcr.io).
+The application is containerized using Docker and published to GitHub Container Registry (ghcr.io). Multi-platform images are built for both AMD64 (Windows/Linux) and ARM64 (Mac M1/M2).
 
 ---
 
@@ -12,8 +12,9 @@ The application is containerized using Docker and published to GitHub Container 
 |----------|-------|
 | Registry | `ghcr.io` |
 | Image | `ghcr.io/jairajkumar/stock-analysis` |
-| Base Image | `node:18-slim` |
+| Base Image | `node:18-bookworm` |
 | Exposed Port | 3000 |
+| Platforms | `linux/amd64`, `linux/arm64` |
 
 ---
 
@@ -51,20 +52,42 @@ docker compose down
 ## Dockerfile Explained
 
 ```dockerfile
-# Base image with Node.js 18 (Debian slim)
-FROM node:18-slim
+# Base image - Bookworm for better Chromium support
+FROM node:18-bookworm
 
-# Install Chromium and Puppeteer dependencies
+# Install Chromium and all dependencies
 RUN apt-get update \
     && apt-get install -y \
     chromium \
     ca-certificates \
     fonts-liberation \
+    fonts-noto-color-emoji \
     libasound2 \
-    ...
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libxss1 \
+    libxtst6 \
+    xdg-utils \
+    dbus \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set Puppeteer to use system Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV CHROME_PATH=/usr/bin/chromium
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -76,7 +99,7 @@ RUN npm install --production
 # Copy source code
 COPY . .
 
-# Create screenshots directory
+# Create necessary directories
 RUN mkdir -p screenshots
 
 # Create non-root user for security
@@ -99,21 +122,50 @@ CMD ["node", "src/server.js"]
 
 | Feature | Reason |
 |---------|--------|
-| `node:18-slim` | Smaller image, Debian-based for apt-get |
+| `node:18-bookworm` | Full Debian with better library support for Chromium |
 | System Chromium | More reliable than Puppeteer's bundled Chrome |
+| Crashpad disabled | Flags in scraper.js prevent `chrome_crashpad_handler` errors |
 | Non-root user | Security best practice |
-| Health check | Container orchestration support |
+| Multi-platform | Works on both AMD64 (Windows/Linux) and ARM64 (Mac) |
 
 ---
 
-## docker-compose.yml Explained
+## Chromium Configuration
+
+The scraper uses these flags to ensure Chromium runs correctly in Docker:
+
+```javascript
+const browser = await puppeteer.launch({
+    headless: 'new',
+    executablePath: '/usr/bin/chromium',
+    dumpio: true,
+    handleSIGINT: false,
+    handleSIGTERM: false,
+    handleSIGHUP: false,
+    args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-extensions',
+        '--disable-breakpad',           // Prevents crashpad errors
+        '--disable-crash-reporter',      // Prevents crashpad errors
+        '--disable-features=Crashpad'    // Prevents crashpad errors
+    ]
+});
+```
+
+---
+
+## docker-compose.yml
 
 ```yaml
 services:
   stock-analysis:
     image: ghcr.io/jairajkumar/stock-analysis:latest
-    # Uncomment to build locally:
-    # build: .
     container_name: stock-analysis-app
     ports:
       - "3000:3000"
@@ -126,144 +178,55 @@ services:
       - ./screenshots:/usr/src/app/screenshots
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "node", "-e", "..."]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', ...)"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 ```
 
-### Volume Mounts
-
-| Host Path | Container Path | Purpose |
-|-----------|----------------|---------|
-| `./screenshots` | `/usr/src/app/screenshots` | Persist debug screenshots |
-
 ---
 
 ## Environment Variables
 
-Create a `.env` file with these variables:
-
 ```bash
-# Required
+# Optional - For authenticated Screener.in access
 SCREENER_EMAIL=your-email@example.com
 SCREENER_PASSWORD=your-password
+
+# Optional - For AI insights
 GEMINI_API_KEY=your-gemini-key
 
 # Optional
 PORT=3000
 NODE_ENV=production
-
-# Investment Criteria (Optional)
-ROE_MIN=15
-PE_MAX=20
-DEBT_TO_EQUITY_MAX=0.5
-ROCE_MIN=15
-EPS_GROWTH_MIN=10
-EPS_GROWTH_MAX=15
-PEG_MAX=1
 ```
 
 ---
 
-## Build & Push Script
+## Multi-Platform Build
 
-### Location
-`scripts/build-and-push.sh`
+The build script uses `docker buildx` to create images for both platforms:
 
-### Usage
 ```bash
 ./scripts/build-and-push.sh           # Build and push as 'latest'
 ./scripts/build-and-push.sh v1.0.0    # Build and push with version tag
 ```
 
-### What It Does
-1. Extracts GitHub token from git remote URL
-2. Logs in to ghcr.io
-3. Builds Docker image
-4. Pushes to registry
-5. Logs out from registry
-
-### Making Images Public
-After pushing, go to:
-```
-https://github.com/users/YOUR_USERNAME/packages/container/stock-analysis/settings
-```
-Change visibility to **Public**.
-
----
-
-## Commands Reference
-
-### Build
-
-```bash
-# Build with default tag
-docker build -t stock-analysis:latest .
-
-# Build with specific tag
-docker build -t stock-analysis:v1.0.0 .
-
-# Build with no cache
-docker build --no-cache -t stock-analysis:latest .
-```
-
-### Run
-
-```bash
-# Basic run
-docker run -p 3000:3000 --env-file .env stock-analysis:latest
-
-# Run in background
-docker run -d -p 3000:3000 --env-file .env stock-analysis:latest
-
-# Run with name
-docker run -d --name stock-app -p 3000:3000 --env-file .env stock-analysis:latest
-```
-
-### Manage
-
-```bash
-# View running containers
-docker ps
-
-# View logs
-docker logs stock-analysis-app
-docker logs -f stock-analysis-app  # Follow logs
-
-# Stop container
-docker stop stock-analysis-app
-
-# Remove container
-docker rm stock-analysis-app
-
-# List images
-docker images | grep stock-analysis
-
-# Remove image
-docker rmi ghcr.io/jairajkumar/stock-analysis:latest
-```
-
-### Registry
-
-```bash
-# Login to ghcr.io
-echo "TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
-
-# Pull image
-docker pull ghcr.io/jairajkumar/stock-analysis:latest
-
-# Push image
-docker push ghcr.io/jairajkumar/stock-analysis:latest
-
-# Logout
-docker logout ghcr.io
-```
+### Build Steps
+1. Creates/uses `multiplatform` buildx builder
+2. Builds for `linux/amd64` and `linux/arm64`
+3. Pushes to ghcr.io with platform manifest
 
 ---
 
 ## Troubleshooting
+
+### `chrome_crashpad_handler: --database is required`
+
+This error was fixed by:
+1. Switching from `node:18-slim` to `node:18-bookworm`
+2. Adding crashpad-disabling flags in `scraper.js`
 
 ### Container won't start
 
@@ -277,46 +240,20 @@ docker logout ghcr.io
    docker logs stock-analysis-app
    ```
 
-3. Verify .env file exists and has correct values
-
-### Puppeteer/Chrome issues
-
-The container uses system Chromium (`/usr/bin/chromium`). If you see Chrome-related errors:
-
-1. Verify Chromium is installed in the image
-2. Check `PUPPETEER_EXECUTABLE_PATH` is set correctly
-3. Ensure the container has enough memory (>512MB)
-
 ### Permission denied errors
 
 The container runs as non-root user `nodejs`. Ensure:
 - Screenshots directory is writable
-- Cookie file can be created
+- Volume mounts have correct permissions
 
 ---
 
-## Files
+## Files Reference
 
 | File | Purpose |
 |------|---------|
 | `Dockerfile` | Container build instructions |
 | `docker-compose.yml` | Multi-container orchestration |
 | `.dockerignore` | Files to exclude from build |
-| `scripts/build-and-push.sh` | Build and push script |
+| `scripts/build-and-push.sh` | Multi-platform build script |
 | `.env.example` | Environment variable template |
-
----
-
-## .dockerignore
-
-```
-node_modules
-.git
-.env
-.env.local
-*.log
-*.md
-screenshots/
-.vscode/
-.idea/
-```

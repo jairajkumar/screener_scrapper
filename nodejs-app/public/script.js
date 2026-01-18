@@ -1,10 +1,12 @@
-// Global variables
-let currentAnalysis = null;
-let suggestions = [];
-let verdictCache = {};
-let isAnalyzing = false; // Add flag to prevent duplicate calls
+// Stock Analysis Tool - Modern Frontend Script
+// Handles 4-Score Investment Analysis Display
 
-// DOM elements
+// ===== Global State =====
+let currentAnalysis = null;
+let currentFactorsTab = 'piotroski';
+let isAnalyzing = false;
+
+// ===== DOM Elements =====
 const searchInput = document.getElementById('searchInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const loadingState = document.getElementById('loadingState');
@@ -12,297 +14,208 @@ const resultsSection = document.getElementById('resultsSection');
 const errorSection = document.getElementById('errorSection');
 const suggestionsDiv = document.getElementById('suggestions');
 
-// Add enter key support
-searchInput.addEventListener('keypress', function(e) {
+// ===== Event Listeners =====
+searchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         hideSuggestions();
-        // Only analyze if not already analyzing
-        if (!isAnalyzing) {
-            analyzeStock();
-        }
+        if (!isAnalyzing) analyzeStock();
     }
 });
 
-// Hide suggestions when clicking outside
-document.addEventListener('click', function(e) {
+analyzeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!isAnalyzing) analyzeStock();
+});
+
+document.addEventListener('click', (e) => {
     if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
         hideSuggestions();
     }
 });
 
-// Hide suggestions when input loses focus
-searchInput.addEventListener('blur', function() {
-    // Small delay to allow clicking on suggestions
-    setTimeout(() => {
-        hideSuggestions();
-    }, 200);
+// Factor tabs
+document.querySelectorAll('.factor-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.factor-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFactorsTab = tab.dataset.tab;
+        if (currentAnalysis) {
+            renderFactors(currentFactorsTab);
+        }
+    });
 });
 
-// Hide suggestions function
-function hideSuggestions() {
-    suggestionsDiv.classList.add('hidden');
-    suggestionsDiv.innerHTML = '';
-}
-
-// Add analyze button click handler
-analyzeBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (!isAnalyzing) {
-        analyzeStock();
-    }
-});
-
-// Main analysis function
+// ===== Main Analysis Function =====
 async function analyzeStock(companyNameOrSlug) {
-    // Prevent duplicate calls
-    if (isAnalyzing) {
-        console.log('Analysis already in progress, skipping...');
-        return;
-    }
-    
+    if (isAnalyzing) return;
+
     const companyName = companyNameOrSlug || searchInput.value.trim();
-    
     if (!companyName) {
         showError('Please enter a company name');
         return;
     }
 
-    // Set analyzing flag
     isAnalyzing = true;
-
-    // Show loading state
     showLoading(true);
     hideResults();
     hideError();
 
     try {
-        // Call the API
-        const response = await fetch(`/api/analyze/${encodeURIComponent(companyName)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+        const response = await fetch(`/api/analyze/${encodeURIComponent(companyName)}`);
         const data = await response.json();
 
         if (!response.ok) {
             throw new Error(data.message || 'Analysis failed');
         }
 
-        // Store the analysis data
         currentAnalysis = data;
-        
-        // Display results
         displayResults(data);
-        
+
     } catch (error) {
         console.error('Analysis error:', error);
         showError(error.message || 'Failed to analyze stock');
     } finally {
         showLoading(false);
-        isAnalyzing = false; // Reset flag
+        isAnalyzing = false;
     }
 }
 
-// Display analysis results
+// ===== Display Results =====
 function displayResults(data) {
     // Company info
     document.getElementById('companyName').textContent = data.company.name;
     document.getElementById('companyUrl').href = data.company.url;
-    
-    // Verdict and score
-    const verdict = data.analysis.verdict;
-    const score = data.analysis.score;
-    const total = data.analysis.total;
-    const percentage = data.analysis.percent;
-    
-    // Update verdict badge
+
+    const analysis = data.analysis;
+
+    // Final Decision Badge
     const verdictBadge = document.getElementById('verdictBadge');
-    verdictBadge.textContent = verdict;
-    verdictBadge.className = `px-4 py-2 rounded-full text-white font-semibold text-sm ${getVerdictClass(verdict)}`;
-    
-    // Update score display
-    document.getElementById('scoreDisplay').textContent = `${score}/${total}`;
-    document.getElementById('percentageDisplay').textContent = `${Math.round(percentage)}%`;
-    
-    // Update score bar
-    const scoreBar = document.getElementById('scoreBar');
-    scoreBar.style.width = `${percentage}%`;
-    scoreBar.className = `h-2 rounded-full transition-all duration-500 ${getScoreBarClass(percentage)}`;
-    
-    // Update metrics
-    updateMetric('roe', data.data.roe, data.analysis.analysis.roe);
-    updateMetric('pe', data.data.pe_ratio, data.analysis.analysis.pe_ratio);
-    updateMetric('debt', data.data.debt_to_equity, data.analysis.analysis.debt_to_equity);
-    updateMetric('roce', data.data.roce, data.analysis.analysis.roce);
-    updateMetric('cashFlow', data.data.cash_flow, data.analysis.analysis.cash_flow);
-    updateMetric('peg', data.data.peg, data.analysis.analysis.peg);
-    
-    // Update AI insights
+    const verdictText = document.getElementById('verdictText');
+    const verdictSubtitle = document.getElementById('verdictSubtitle');
+
+    verdictText.textContent = analysis.finalDecision;
+    verdictSubtitle.textContent = `${analysis.scoresAbove7} out of 4 scores ≥ 7`;
+
+    verdictBadge.className = 'decision-badge ' + analysis.finalDecision.toLowerCase();
+
+    // Update each score card
+    updateScoreCard('piotroski', analysis.piotroski);
+    updateScoreCard('buffett', analysis.buffett);
+    updateScoreCard('graham', analysis.graham);
+    updateScoreCard('lynch', analysis.lynch);
+
+    // Render factors for current tab
+    renderFactors(currentFactorsTab);
+
+    // AI Insights
     const aiInsightsDiv = document.getElementById('aiInsights');
-    if (data.aiInsights) {
-        aiInsightsDiv.innerHTML = `
-            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-lightbulb text-blue-400"></i>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-blue-700">
-                            ${data.aiInsights}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        `;
+    if (data.aiInsights && !data.aiInsights.includes('Error')) {
+        aiInsightsDiv.innerHTML = formatAIInsights(data.aiInsights);
     } else {
-        aiInsightsDiv.innerHTML = '<p class="text-gray-600">AI insights not available</p>';
+        aiInsightsDiv.innerHTML = '<p>AI insights are currently unavailable. Please check your Gemini API key.</p>';
     }
-    
+
     // Show results
     showResults();
 }
 
-// Update individual metric
-function updateMetric(metricName, value, status) {
-    const valueElement = document.getElementById(`${metricName}Value`);
-    const statusElement = document.getElementById(`${metricName}Status`);
-    const cardElement = document.querySelector(`#${metricName}Value`).closest('.metric-card');
-    
-    // Update value
-    if (value !== null && value !== undefined) {
-        valueElement.textContent = formatValue(metricName, value);
-    } else {
-        valueElement.textContent = 'N/A';
-    }
-    
-    // Update status
-    statusElement.textContent = status;
-    statusElement.className = `px-2 py-1 rounded text-xs font-semibold ${getStatusClass(status)}`;
-    
-    // Update card background
-    cardElement.className = `metric-card ${getStatusClass(status)} rounded-lg p-4 text-white`;
+// ===== Update Score Card =====
+function updateScoreCard(type, scoreData) {
+    const scoreEl = document.getElementById(`${type}Score`);
+    const barEl = document.getElementById(`${type}Bar`);
+    const interpretationEl = document.getElementById(`${type}Interpretation`);
+    const statusEl = document.getElementById(`${type}Status`);
+
+    scoreEl.textContent = scoreData.score;
+    barEl.style.width = `${scoreData.percent}%`;
+    interpretationEl.textContent = scoreData.interpretation;
+
+    // Status badge
+    const isPass = scoreData.score >= 7;
+    statusEl.className = `score-card-status ${isPass ? 'pass' : 'fail'}`;
+    statusEl.innerHTML = `<i class="fas fa-${isPass ? 'check' : 'times'}"></i> ${isPass ? '≥7 PASS' : '<7'}`;
 }
 
-// Format values for display
-function formatValue(metricName, value) {
+// ===== Render Factor Details =====
+function renderFactors(type) {
+    const factorsList = document.getElementById('factorsList');
+
+    if (!currentAnalysis || !currentAnalysis.analysis || !currentAnalysis.analysis[type]) {
+        factorsList.innerHTML = '<p>No factor data available</p>';
+        return;
+    }
+
+    const factors = currentAnalysis.analysis[type].factors;
+
+    factorsList.innerHTML = Object.entries(factors).map(([key, factor]) => {
+        const displayValue = formatFactorValue(factor.value);
+        return `
+            <div class="factor-item ${factor.pass ? 'pass' : 'fail'}">
+                <div class="factor-info">
+                    <div class="factor-name">${formatFactorName(key)}</div>
+                    <div class="factor-condition">${factor.condition}</div>
+                </div>
+                <div class="factor-value">${displayValue}</div>
+                <span class="factor-badge ${factor.pass ? 'pass' : 'fail'}">
+                    ${factor.marks} mark${factor.marks !== 1 ? 's' : ''}
+                </span>
+            </div>
+        `;
+    }).join('');
+}
+
+// ===== Format Helpers =====
+function formatFactorName(key) {
+    return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase())
+        .trim();
+}
+
+function formatFactorValue(value) {
     if (value === null || value === undefined) return 'N/A';
-    
-    switch (metricName) {
-        case 'roe':
-        case 'roce':
-            return `${value.toFixed(2)}%`;
-        case 'pe':
-        case 'peg':
-            return value.toFixed(1);
-        case 'debt':
-            return value.toFixed(2);
-        case 'cashFlow':
-            return value.toLocaleString();
-        default:
-            return value.toString();
+    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            return value.slice(-3).join(' → ');
+        }
+        return Object.entries(value)
+            .map(([k, v]) => `${k}: ${typeof v === 'number' ? v.toFixed?.(2) ?? v : v}`)
+            .join(', ');
     }
-}
-
-// Get CSS classes for verdict
-function getVerdictClass(verdict) {
-    switch (verdict) {
-        case 'BUY':
-            return 'bg-green-500';
-        case 'HOLD':
-            return 'bg-yellow-500';
-        case 'SELL':
-            return 'bg-red-500';
-        case 'NA':
-            return 'bg-gray-500';
-        default:
-            return 'bg-gray-500';
+    if (typeof value === 'number') {
+        return value.toFixed(2);
     }
+    return value.toString();
 }
 
-// Get CSS classes for score bar
-function getScoreBarClass(percentage) {
-    if (percentage >= 70) return 'bg-green-500';
-    if (percentage >= 50) return 'bg-yellow-500';
-    return 'bg-red-500';
+function formatAIInsights(text) {
+    // Convert markdown-like text to HTML
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>')
+        .replace(/• /g, '&bull; ');
 }
 
-// Get CSS classes for status
-function getStatusClass(status) {
-    switch (status) {
-        case 'PASS':
-            return 'pass bg-green-100 text-green-800';
-        case 'FAIL':
-            return 'fail bg-red-100 text-red-800';
-        case 'NA':
-            return 'na bg-gray-100 text-gray-800';
-        default:
-            return 'bg-gray-100 text-gray-800';
-    }
+// ===== Suggestions =====
+function hideSuggestions() {
+    suggestionsDiv.classList.add('hidden');
+    suggestionsDiv.innerHTML = '';
 }
 
-// Show/hide loading state
-function showLoading(show) {
-    if (show) {
-        loadingState.classList.remove('hidden');
-        analyzeBtn.disabled = true;
-        analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
-    } else {
-        loadingState.classList.add('hidden');
-        analyzeBtn.disabled = false;
-        analyzeBtn.innerHTML = '<i class="fas fa-chart-bar mr-2"></i>Analyze';
-    }
-}
-
-// Show/hide results
-function showResults() {
-    resultsSection.classList.remove('hidden');
-    resultsSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-function hideResults() {
-    resultsSection.classList.add('hidden');
-}
-
-// Show/hide error
-function showError(message) {
-    document.getElementById('errorMessage').textContent = message;
-    errorSection.classList.remove('hidden');
-    errorSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-function hideError() {
-    errorSection.classList.add('hidden');
-}
-
-// Export function for global access
-window.analyzeStock = analyzeStock;
-
-// Debounce helper
-function debounce(fn, delay) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
-
-// Fetch suggestions from backend
-const fetchSuggestions = debounce(async function() {
+const fetchSuggestions = debounce(async function () {
     const query = searchInput.value.trim();
     if (!query || query.length < 2) {
         hideSuggestions();
         return;
     }
-    
+
     try {
         const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
         const data = await res.json();
         if (data.success && data.results && data.results.length > 0) {
-            suggestions = data.results;
-            renderSuggestions();
+            renderSuggestions(data.results);
         } else {
             hideSuggestions();
         }
@@ -313,56 +226,32 @@ const fetchSuggestions = debounce(async function() {
 
 searchInput.addEventListener('input', fetchSuggestions);
 
-// Render suggestions dropdown
-function renderSuggestions() {
-    suggestionsDiv.innerHTML = suggestions.map((s, idx) => {
-        const verdict = verdictCache[s.url] || '';
-        return `<div class="px-4 py-2 cursor-pointer hover:bg-blue-50 flex justify-between items-center" data-idx="${idx}" data-url="${s.url}">
-            <span>${s.name} <span class="text-xs text-gray-400 ml-2">(${s.id})</span></span>
-            <span class="ml-2 text-xs font-bold">${verdict ? verdictBadgeHtml(verdict) : ''}</span>
-        </div>`;
-    }).join('');
+function renderSuggestions(suggestions) {
+    suggestionsDiv.innerHTML = suggestions.map((s, idx) => `
+        <div class="suggestion-item" data-idx="${idx}" data-url="${s.url}" data-name="${s.name}">
+            <strong>${s.name}</strong>
+            <span style="color: #9ca3af; margin-left: 8px; font-size: 0.875rem">${s.id}</span>
+        </div>
+    `).join('');
     suggestionsDiv.classList.remove('hidden');
 
-    // Add click listeners
-    Array.from(suggestionsDiv.children).forEach(child => {
-        child.onclick = async function(e) {
+    suggestionsDiv.querySelectorAll('.suggestion-item').forEach(item => {
+        item.onclick = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            const idx = this.getAttribute('data-idx');
-            const companyUrl = this.getAttribute('data-url');
-            const company = suggestions[idx];
-            
-            // Update input and hide suggestions immediately
-            searchInput.value = company.name;
+            const name = item.dataset.name;
+            const url = item.dataset.url;
+            searchInput.value = name;
             hideSuggestions();
-            
-            // Prevent any other event handlers from firing
-            setTimeout(() => {
-                // Trigger analysis with companyUrl (this will also get the verdict)
-                analyzeStockWithUrl(companyUrl, company.name);
-            }, 10);
+            analyzeStockWithUrl(url, name);
         };
     });
 }
 
-// Analyze stock with companyUrl using POST endpoint
 async function analyzeStockWithUrl(companyUrl, companyName) {
-    // Prevent duplicate calls
-    if (isAnalyzing) {
-        console.log('Analysis already in progress, skipping...');
-        return;
-    }
-    
-    if (!companyUrl) {
-        showError('Please enter a company name');
-        return;
-    }
+    if (isAnalyzing) return;
 
-    // Set analyzing flag
     isAnalyzing = true;
-
     showLoading(true);
     hideResults();
     hideError();
@@ -370,38 +259,65 @@ async function analyzeStockWithUrl(companyUrl, companyName) {
     try {
         const response = await fetch('/api/analyze', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                companyUrl: companyUrl,
-                companyName: companyName 
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ companyUrl, companyName })
         });
 
         const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Analysis failed');
-        }
+        if (!response.ok) throw new Error(data.message || 'Analysis failed');
 
         currentAnalysis = data;
         displayResults(data);
-        
+
     } catch (error) {
         console.error('Analysis error:', error);
         showError(error.message || 'Failed to analyze stock');
     } finally {
         showLoading(false);
-        isAnalyzing = false; // Reset flag
+        isAnalyzing = false;
     }
 }
 
-// Verdict badge HTML
-function verdictBadgeHtml(verdict) {
-    let color = 'bg-gray-400';
-    if (verdict === 'BUY') color = 'bg-green-500';
-    else if (verdict === 'HOLD') color = 'bg-yellow-500';
-    else if (verdict === 'SELL') color = 'bg-red-500';
-    return `<span class="px-2 py-1 rounded text-white ${color}">${verdict}</span>`;
-} 
+// ===== UI State Functions =====
+function showLoading(show) {
+    if (show) {
+        loadingState.classList.remove('hidden');
+        analyzeBtn.disabled = true;
+        analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    } else {
+        loadingState.classList.add('hidden');
+        analyzeBtn.disabled = false;
+        analyzeBtn.innerHTML = '<i class="fas fa-chart-bar"></i> Analyze';
+    }
+}
+
+function showResults() {
+    resultsSection.classList.remove('hidden');
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideResults() {
+    resultsSection.classList.add('hidden');
+}
+
+function showError(message) {
+    document.getElementById('errorMessage').textContent = message;
+    errorSection.classList.remove('hidden');
+    errorSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideError() {
+    errorSection.classList.add('hidden');
+}
+
+// ===== Utilities =====
+function debounce(fn, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Export for global access
+window.analyzeStock = analyzeStock;
