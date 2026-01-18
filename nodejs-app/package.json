@@ -6,6 +6,15 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "test": "jest --testPathPattern=tests/unit",
+    "test:unit": "jest tests/unit --verbose",
+    "test:integration": "jest tests/integration --runInBand",
+    "test:e2e": "jest tests/e2e --runInBand",
+    "test:html": "jest tests/e2e/htmlStructure.test.js --runInBand",
+    "test:scraper": "jest tests/e2e/scraper.test.js --runInBand",
+    "test:all": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest tests/unit --coverage",
     "analyze": "node scripts/analyze.js",
     "test-env": "node scripts/test-env.js",
     "docker:build": "./scripts/build-and-push.sh",
@@ -29,6 +38,8 @@
     "puppeteer-core": "^23.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "jest": "^30.2.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.2.2"
   }
 }
