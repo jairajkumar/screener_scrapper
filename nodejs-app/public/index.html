@@ -181,6 +181,50 @@
                 <div id="aiInsights" class="ai-content">
                     <p>AI insights will appear here after analysis...</p>
                 </div>
+
+                <!-- AI Action Buttons -->
+                <div class="ai-actions">
+                    <button id="copyAnalysisBtn" class="ai-action-btn copy-btn" disabled>
+                        <i class="fas fa-copy"></i>
+                        Copy Analysis
+                    </button>
+                    <button id="continueAIBtn" class="ai-action-btn continue-btn" disabled>
+                        <i class="fas fa-comments"></i>
+                        Continue in AI Chat
+                    </button>
+                </div>
+
+                <!-- AI Chat Selection Modal -->
+                <div id="aiChatModal" class="ai-modal hidden">
+                    <div class="ai-modal-content">
+                        <h4><i class="fas fa-robot"></i> Continue in AI Chat</h4>
+                        <p class="modal-subtitle">Screenshot in clipboard! Choose your AI.</p>
+                        <div class="modal-steps">
+                            <small>1️⃣ Paste screenshot (Ctrl+V) • 2️⃣ Copy Prompt below • 3️⃣ Paste prompt</small>
+                        </div>
+                        <div class="ai-chat-options">
+                            <button class="ai-option" data-url="https://gemini.google.com/app">
+                                <i class="fab fa-google"></i>
+                                Google Gemini
+                            </button>
+                            <button class="ai-option" data-url="https://chat.openai.com">
+                                <i class="fas fa-brain"></i>
+                                ChatGPT
+                            </button>
+                            <button class="ai-option" data-url="https://claude.ai">
+                                <i class="fas fa-comment-dots"></i>
+                                Claude
+                            </button>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="copyPromptBtn" class="copy-prompt-btn">
+                                <i class="fas fa-clipboard"></i>
+                                Copy Prompt Text
+                            </button>
+                        </div>
+                        <button id="closeModalBtn" class="modal-close">Cancel</button>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -118,6 +118,9 @@ function displayResults(data) {
 
     // Show results
     showResults();
+
+    // Enable AI action buttons
+    enableAIButtons();
 }
 
 // ===== Update Score Card =====
@@ -317,6 +320,335 @@ function debounce(fn, delay) {
         clearTimeout(timeout);
         timeout = setTimeout(() => fn.apply(this, args), delay);
     };
+}
+
+// ===== AI Chat Feature =====
+const copyAnalysisBtn = document.getElementById('copyAnalysisBtn');
+const continueAIBtn = document.getElementById('continueAIBtn');
+const aiChatModal = document.getElementById('aiChatModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+// Enable buttons when analysis is complete
+function enableAIButtons() {
+    if (copyAnalysisBtn) copyAnalysisBtn.disabled = false;
+    if (continueAIBtn) continueAIBtn.disabled = false;
+}
+
+// Generate analysis text for copying
+function generateAnalysisText() {
+    if (!currentAnalysis) return '';
+
+    const { company, data, analysis } = currentAnalysis;
+
+    return `You are a stock analysis assistant. I'm sharing a screenshot from Screener.in along with analyzed data for ${company.name}. Please help me understand this stock better.
+
+📊 COMPANY: ${company.name}
+🔗 Source: Screener.in
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📈 KEY FINANCIAL METRICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Stock P/E: ${data.stockPE} | Industry P/E: ${data.industryPE || 'N/A'}
+• ROE: ${data.roe}% | ROCE: ${data.roce}%
+• Debt/Equity: ${data.debtToEquity?.toFixed(2)}
+• Current Ratio: ${data.currentRatio?.toFixed(2)}
+• Book Value: ₹${data.bookValue}
+• Current Price: ₹${data.currentPrice}
+• Market Cap: ₹${data.marketCap} Cr
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 GROWTH RATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• 5Y Profit Growth: ${data.profitGrowth5Y}%
+• 5Y Sales Growth: ${data.salesGrowth5Y}%
+• EPS Growth: ${data.epsGrowth}%
+• PEG Ratio: ${data.pegRatio?.toFixed(2) || 'N/A'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 INVESTMENT SCORES (Analyzed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Piotroski F-Score: ${analysis.piotroski.score}/9 → ${analysis.piotroski.interpretation}
+• Warren Buffett Score: ${analysis.buffett.score}/10 → ${analysis.buffett.interpretation}
+• Benjamin Graham Score: ${analysis.graham.score}/10 → ${analysis.graham.interpretation}
+• Peter Lynch Score: ${analysis.lynch.score}/10 → ${analysis.lynch.interpretation}
+
+✅ FINAL DECISION: ${analysis.finalDecision}
+(${analysis.scoresAbove7} out of 4 scores ≥ 7)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💬 I've attached a screenshot from Screener.in for visual reference.
+Based on this data, please answer any questions I have about this stock.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+}
+
+// Generate URL with pre-filled prompt for different AI services
+function getAIUrlWithPrompt(service, promptText) {
+    const encodedPrompt = encodeURIComponent(promptText);
+
+    switch (service) {
+        case 'gemini':
+            // Gemini doesn't support direct prompt in URL, but we'll try
+            return `https://gemini.google.com/app`;
+        case 'chatgpt':
+            // ChatGPT doesn't support direct prompt in free tier
+            return `https://chat.openai.com`;
+        case 'claude':
+            return `https://claude.ai`;
+        default:
+            return service;
+    }
+}
+
+// Copy analysis text to clipboard
+if (copyAnalysisBtn) {
+    copyAnalysisBtn.addEventListener('click', async () => {
+        const text = generateAnalysisText();
+
+        try {
+            await navigator.clipboard.writeText(text);
+
+            // Visual feedback
+            const originalHTML = copyAnalysisBtn.innerHTML;
+            copyAnalysisBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyAnalysisBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyAnalysisBtn.innerHTML = originalHTML;
+                copyAnalysisBtn.classList.remove('copied');
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+            alert('Failed to copy to clipboard. Please try again.');
+        }
+    });
+}
+
+// Fetch Puppeteer screenshot and copy as HTML with embedded image + text
+async function captureAndCopyScreenshot() {
+    try {
+        // Check if we have a screenshot URL from the analysis
+        if (!currentAnalysis || !currentAnalysis.screenshotUrl) {
+            console.warn('No screenshot URL available');
+            return { success: false, method: 'none' };
+        }
+
+        // Fetch the Puppeteer screenshot from the API
+        const response = await fetch(currentAnalysis.screenshotUrl);
+        if (!response.ok) {
+            throw new Error('Failed to fetch screenshot');
+        }
+
+        const imageBlob = await response.blob();
+
+        // Convert image to base64 for HTML embedding
+        const base64Image = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(imageBlob);
+        });
+
+        // Generate the prompt text
+        const promptText = generateAnalysisText();
+
+        // Create HTML with embedded image + text
+        const htmlContent = `
+<div>
+<img src="${base64Image}" alt="Screener.in Screenshot" style="max-width: 100%; margin-bottom: 20px;">
+<pre style="white-space: pre-wrap; font-family: monospace; background: #f5f5f5; padding: 15px; border-radius: 8px;">
+${promptText}
+</pre>
+</div>`;
+
+        const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+        const textBlob = new Blob([promptText], { type: 'text/plain' });
+
+        // Copy with multiple formats: HTML (with image), plain text (fallback), and raw image
+        if (navigator.clipboard && navigator.clipboard.write) {
+            try {
+                // Try with all three formats
+                const clipboardItem = new ClipboardItem({
+                    'text/html': htmlBlob,
+                    'text/plain': textBlob,
+                    'image/png': imageBlob
+                });
+
+                await navigator.clipboard.write([clipboardItem]);
+                console.log('HTML with image + text + raw image copied to clipboard!');
+                return { success: true, method: 'clipboard' };
+            } catch (clipboardError) {
+                console.warn('Multi-type clipboard write failed:', clipboardError);
+
+                // Fallback: Try just image + text
+                try {
+                    const clipboardItem = new ClipboardItem({
+                        'image/png': imageBlob,
+                        'text/plain': textBlob
+                    });
+                    await navigator.clipboard.write([clipboardItem]);
+                    console.log('Image + text copied');
+                    return { success: true, method: 'image-text' };
+                } catch (e) {
+                    // Fallback: Try just the image
+                    try {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': imageBlob })
+                        ]);
+                        return { success: true, method: 'image-only' };
+                    } catch (e2) {
+                        console.warn('All clipboard methods failed:', e2);
+                    }
+                }
+            }
+        }
+
+        // Final fallback: download the image
+        const url = URL.createObjectURL(imageBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${currentAnalysis.company.name}_screener_screenshot.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+        return { success: true, method: 'download' };
+
+    } catch (err) {
+        console.error('Screenshot fetch/copy failed:', err);
+        return { success: false, method: 'error', error: err.message };
+    }
+}
+
+// Continue in AI button - capture screenshot and show modal
+if (continueAIBtn) {
+    continueAIBtn.addEventListener('click', async () => {
+        // Show loading state
+        continueAIBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting screenshot...';
+        continueAIBtn.disabled = true;
+
+        // Fetch and copy Puppeteer screenshot
+        const result = await captureAndCopyScreenshot();
+
+        // Reset button
+        continueAIBtn.innerHTML = '<i class="fas fa-comments"></i> Continue in AI Chat';
+        continueAIBtn.disabled = false;
+
+        // Show modal with appropriate message
+        if (aiChatModal) {
+            const modalSubtitle = aiChatModal.querySelector('.modal-subtitle');
+            if (modalSubtitle) {
+                if (result.method === 'clipboard') {
+                    modalSubtitle.textContent = '✓ Screenshot + Prompt copied! Just paste (Ctrl+V) in chat.';
+                    modalSubtitle.style.color = 'var(--success)';
+                } else if (result.method === 'image-only') {
+                    modalSubtitle.textContent = '✓ Screenshot copied! Paste it, then use Copy Analysis for text.';
+                    modalSubtitle.style.color = 'var(--success)';
+                } else if (result.method === 'download') {
+                    modalSubtitle.textContent = 'Screenshot downloaded. Upload it after opening.';
+                    modalSubtitle.style.color = 'var(--warning)';
+                } else {
+                    modalSubtitle.textContent = 'Screenshot not available. Use Copy Analysis button for text.';
+                    modalSubtitle.style.color = 'var(--danger)';
+                }
+            }
+            aiChatModal.classList.remove('hidden');
+        }
+    });
+}
+
+// Modal close button
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        aiChatModal.classList.add('hidden');
+    });
+}
+
+// Close modal on backdrop click
+if (aiChatModal) {
+    aiChatModal.addEventListener('click', (e) => {
+        if (e.target === aiChatModal) {
+            aiChatModal.classList.add('hidden');
+        }
+    });
+}
+
+// AI option buttons - just open the AI service (clipboard already has both image + text)
+document.querySelectorAll('.ai-option').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const url = btn.dataset.url;
+        if (url) {
+            // Open the AI service
+            window.open(url, '_blank');
+
+            // Hide modal
+            aiChatModal.classList.add('hidden');
+
+            // Show toast notification
+            showToast('🎉 Clipboard ready! Paste with Ctrl+V');
+        }
+    });
+});
+
+// Copy Prompt button in modal - for Gemini users who need text separately
+const copyPromptBtn = document.getElementById('copyPromptBtn');
+if (copyPromptBtn) {
+    copyPromptBtn.addEventListener('click', async () => {
+        const promptText = generateAnalysisText();
+
+        try {
+            await navigator.clipboard.writeText(promptText);
+
+            // Visual feedback
+            const originalHTML = copyPromptBtn.innerHTML;
+            copyPromptBtn.innerHTML = '<i class="fas fa-check"></i> Prompt Copied!';
+            copyPromptBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyPromptBtn.innerHTML = originalHTML;
+                copyPromptBtn.classList.remove('copied');
+            }, 2000);
+
+            showToast('📋 Prompt text copied! Now paste in your AI chat.');
+        } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            showToast('❌ Failed to copy. Please try again.');
+        }
+    });
+}
+
+// Toast notification for user feedback
+function showToast(message) {
+    // Create toast element if it doesn't exist
+    let toast = document.getElementById('toast-notification');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-size: 14px;
+        `;
+        document.body.appendChild(toast);
+    }
+
+    // Show toast
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+
+    // Hide after 4 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 4000);
 }
 
 // Export for global access
