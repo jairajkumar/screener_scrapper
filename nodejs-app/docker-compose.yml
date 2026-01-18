@@ -11,9 +11,9 @@ services:
       - PORT=3000
     env_file:
       - .env
-    volumes:
+    # volumes:
       # Mount screenshots directory for debugging
-      - ./screenshots:/usr/src/app/screenshots
+      # - ./screenshots:/usr/src/app/screenshots
       # Note: Cookie file is stored inside the container (not persisted on host)
       # To persist cookies, first create an empty file: touch screener_cookies.json
       # Then uncomment: - ./screener_cookies.json:/usr/src/app/screener_cookies.json
