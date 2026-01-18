@@ -1,37 +1,15 @@
 {
     "name": "Stock Analysis Tool",
-    "dockerComposeFile": [
-        "../nodejs-app/docker-compose.yml",
-        "docker-compose.extend.yml"
-    ],
-    "service": "stock-analysis",
-    "workspaceFolder": "/usr/src/app",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": true,
-            "installOhMyZsh": true,
-            "configureZshAsDefaultShell": true,
-            "username": "nodejs",
-            "userUid": "automatic",
-            "userGid": "automatic"
-        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
         "ghcr.io/devcontainers/features/git:1": {}
     },
     "customizations": {
         "vscode": {
             "extensions": [
-                "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode",
-                "ms-azuretools.vscode-docker",
-                "humao.rest-client",
-                "christian-kohler.npm-intellisense",
-                "formulahendry.auto-rename-tag"
-            ],
-            "settings": {
-                "terminal.integrated.defaultProfile.linux": "zsh",
-                "editor.formatOnSave": true,
-                "editor.defaultFormatter": "esbenp.prettier-vscode"
-            }
+                "ms-azuretools.vscode-docker"
+            ]
         }
     },
     "forwardPorts": [
@@ -43,6 +21,6 @@
             "onAutoForward": "notify"
         }
     },
-    "postCreateCommand": "cp nodejs-app/.env.example nodejs-app/.env && echo '✅ Created .env file. Edit nodejs-app/.env with your credentials, then run: docker compose -f .devcontainer/docker-compose.extend.yml up -d'",
-    "remoteUser": "nodejs"
+    "postCreateCommand": "cp nodejs-app/.env.example nodejs-app/.env 2>/dev/null || true",
+    "postAttachCommand": "echo '✅ Codespace ready! Run: cd nodejs-app && docker compose up -d'"
 }
