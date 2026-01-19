@@ -41,19 +41,15 @@ function calculatePiotroskiScore(data) {
     score += factors.cfoPositive.marks;
 
     // 3. ROA Improvement (1 mark)
-    // ROA = Net Profit / Total Assets
+    // ROA values come from scraper (Screener first, calculated as fallback)
     const latestAssets = getLatest(historical.totalAssets);
     const prevAssets = getPrevious(historical.totalAssets);
-    const prevProfit = getPrevious(historical.netProfit);
-
-    const currentROA = latestAssets > 0 ? (latestProfit / latestAssets) * 100 : null;
-    const prevROA = prevAssets > 0 && prevProfit !== null ? (prevProfit / prevAssets) * 100 : null;
 
     factors.roaImproved = {
-        value: { current: currentROA?.toFixed(2), previous: prevROA?.toFixed(2) },
+        value: { current: data.roa?.toFixed?.(2) || data.roa, previous: data.roaPrevYear?.toFixed?.(2) || data.roaPrevYear },
         condition: 'Current ROA > Previous Year',
-        pass: currentROA !== null && prevROA !== null && currentROA > prevROA,
-        marks: currentROA !== null && prevROA !== null && currentROA > prevROA ? 1 : 0
+        pass: data.roa !== null && data.roaPrevYear !== null && data.roa > data.roaPrevYear,
+        marks: data.roa !== null && data.roaPrevYear !== null && data.roa > data.roaPrevYear ? 1 : 0
     };
     score += factors.roaImproved.marks;
 

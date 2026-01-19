@@ -33,7 +33,16 @@ function validateCredentials() {
 async function checkIfLoggedIn(page) {
     try {
         const isLoggedIn = await page.evaluate(() => {
-            return !!document.querySelector('a[href*="logout"], .user-menu, .profile-menu, [data-testid="user-menu"]');
+            // Check for logout link
+            if (document.querySelector('a[href*="logout"]')) return true;
+            // Check for user menu/profile elements
+            if (document.querySelector('.user-menu, .profile-menu, .user-info, [data-testid="user-menu"]')) return true;
+            // Check for "My Screens" or account-specific elements
+            if (document.querySelector('a[href*="screens"], a[href*="watchlist"]')) return true;
+            // Check if we're not on login page (means we navigated away successfully)
+            const isOnLoginPage = window.location.href.includes('/login/');
+            if (!isOnLoginPage && document.querySelector('.company-name, #top-ratios')) return true;
+            return false;
         });
         return isLoggedIn;
     } catch (error) {
@@ -460,6 +469,40 @@ async function fetchStockData(stockName, directUrl = null) {
         const marketCap = getTopCardValue('Market Cap');
         const currentPrice = getTopCardValue('Current Price');
 
+        // Top Card - for fallback values (logged-in users get these)
+        // Field names must match EXACTLY what Screener shows
+        const topCardROA = getTopCardValue('Return on assets');
+        const topCardROAPrevYear = getTopCardValue('ROA Prev Yr');
+        const topCardAssetTurnover = getTopCardValue('Asset Turnover');
+        const topCardDebtToEquity = getTopCardValue('Debt to equity');
+        const topCardCurrentRatio = getTopCardValue('Current ratio');
+        const topCardPEGRatio = getTopCardValue('PEG Ratio');
+
+        // Top Card - shareholder data (logged-in feature)
+        const numShareholders = getTopCardValue('No. of Share Holders');
+        const numShareholdersPrevYear = getTopCardValue('No. of Share Holders 1Yr');
+
+        // Screener's Piotroski (for verification - we use our own calculation)
+        const screenerPiotroski = getTopCardValue('Piotroski score');
+
+        // ===== CUSTOM SCREENER RATIOS (logged-in users only) =====
+        // These provide more accurate values than our calculations
+        // Non-logged-in users will get calculated fallbacks
+
+        // Interest Coverage (hard to calculate - needs EBIT)
+        const topCardInterestCoverage = getTopCardValue('Interest Coverage');
+
+        // Free Cash Flow data
+        const topCardFCF = getTopCardValue('Free Cash Flow');
+        const topCardFCFPrevYear = getTopCardValue('FCF Prev Ann');
+        const topCardPriceToFCF = getTopCardValue('CMP / FCF');
+
+        // ROIC - Return on Invested Capital (better than ROE)
+        const topCardROIC = getTopCardValue('ROIC');
+
+        // Graham Number (for Graham score verification)
+        const topCardGrahamNumber = getTopCardValue('Graham Number');
+
         // P&L Data (historical years)
         const sales = getTableRowData('#profit-loss', 'sales');
         const netProfit = getTableRowData('#profit-loss', 'net profit');
@@ -496,6 +539,7 @@ async function fetchStockData(stockName, directUrl = null) {
         const currentRatioFromRatios = getCurrentRatio();
 
         // ===== CALCULATE DERIVED METRICS =====
+        // Strategy: Calculate first, fallback to top-ratios if calculation fails
 
         // Use totalAssets or totalLiabilities (they should be equal)
         const assets = totalAssets.length > 0 ? totalAssets : totalLiabilities;
@@ -505,40 +549,78 @@ async function fetchStockData(stockName, directUrl = null) {
         const latestReserves = reserves[reserves.length - 1] || 0;
         const latestEquity = latestEquityCapital + latestReserves;
 
-        const debtToEquity = latestEquity > 0 ? latestBorrowings / latestEquity : null;
+        // Debt to Equity: Screener first, calculate as fallback
+        const calculatedDebtToEquity = latestEquity > 0 ? latestBorrowings / latestEquity : null;
+        const debtToEquity = topCardDebtToEquity !== null ? topCardDebtToEquity : calculatedDebtToEquity;
 
         const latestAssets = assets[assets.length - 1] || 0;
         const latestProfit = netProfit[netProfit.length - 1] || 0;
-        const roa = latestAssets > 0 ? (latestProfit / latestAssets) * 100 : null;
+        const prevProfit = netProfit[netProfit.length - 2] || 0;
+        const prevAssets = assets[assets.length - 2] || 0;
+
+        // ROA: Screener first, calculate as fallback
+        const calculatedROA = latestAssets > 0 ? (latestProfit / latestAssets) * 100 : null;
+        const roa = topCardROA !== null ? topCardROA : calculatedROA;
+
+        // ROA Previous Year: Screener first, calculate as fallback
+        const calculatedROAPrevYear = prevAssets > 0 ? (prevProfit / prevAssets) * 100 : null;
+        const roaPrevYear = topCardROAPrevYear !== null ? topCardROAPrevYear : calculatedROAPrevYear;
 
         const latestSales = sales[sales.length - 1] || 0;
-        const assetTurnover = latestAssets > 0 ? latestSales / latestAssets : null;
+
+        // Asset Turnover: Screener first, calculate as fallback
+        const calculatedAssetTurnover = latestAssets > 0 ? latestSales / latestAssets : null;
+        const assetTurnover = topCardAssetTurnover !== null ? topCardAssetTurnover : calculatedAssetTurnover;
 
         const latestCFO = cfo[cfo.length - 1] || 0;
         const latestCFI = cfi[cfi.length - 1] || 0;
-        // FCF = CFO - CapEx (CapEx is usually negative in CFI)
-        const fcf = latestCFO + latestCFI; // CFI is usually negative, so this is CFO - |CFI|
+
+        // ===== FCF and related (Screener first, calculate as fallback) =====
+        // FCF = CFO - CapEx (CapEx is usually part of CFI, which is negative)
+        const calculatedFCF = latestCFO + latestCFI; // Our calculation
+        const fcf = topCardFCF !== null ? topCardFCF : calculatedFCF;
+        const fcfPrevYear = topCardFCFPrevYear; // Only available from Screener
+
+        // Price to FCF: Screener first, calculate as fallback
+        const calculatedPriceToFCF = (marketCap && fcf && fcf > 0) ? marketCap / fcf : null;
+        const priceToFCF = topCardPriceToFCF !== null ? topCardPriceToFCF : calculatedPriceToFCF;
 
         const latestEPS = eps[eps.length - 1] || 0;
 
-        // PEG Ratio = P/E / EPS Growth Rate
+        // PEG Ratio: Screener first, calculate as fallback
         // Use 5Y profit growth as proxy for EPS growth
-        const pegRatio = (stockPE && profitGrowth5Y && profitGrowth5Y > 0)
+        const calculatedPegRatio = (stockPE && profitGrowth5Y && profitGrowth5Y > 0)
             ? stockPE / profitGrowth5Y : null;
+        const pegRatio = topCardPEGRatio !== null ? topCardPEGRatio : calculatedPegRatio;
 
         const priceToBook = (currentPrice && bookValue && bookValue > 0)
             ? currentPrice / bookValue : null;
 
-        // Graham Number = sqrt(22.5 * EPS * Book Value)
-        const grahamNumber = (latestEPS > 0 && bookValue > 0)
+        // Graham Number: Screener first, calculate as fallback
+        // Formula: sqrt(22.5 * EPS * Book Value)
+        const calculatedGrahamNumber = (latestEPS > 0 && bookValue > 0)
             ? Math.sqrt(22.5 * latestEPS * bookValue) : null;
+        const grahamNumber = topCardGrahamNumber !== null ? topCardGrahamNumber : calculatedGrahamNumber;
 
-        // Current Ratio - use from Ratios section if available, else calculate
+        // ROIC: Screener only (hard to calculate accurately without invested capital)
+        // Fallback: Use ROCE as proxy
+        const roic = topCardROIC !== null ? topCardROIC : roce;
+
+        // Interest Coverage: Screener only (needs EBIT which we don't have directly)
+        // Fallback: Approximate using Operating Profit / Interest
+        const latestInterest = getTableRowData('#profit-loss', 'interest');
+        const latestOPM = opmPercent[opmPercent.length - 1] || 0;
+        const operatingProfit = latestSales * (latestOPM / 100);
+        const latestInterestValue = latestInterest[latestInterest.length - 1] || 0;
+        const calculatedInterestCoverage = latestInterestValue > 0 ? operatingProfit / latestInterestValue : null;
+        const interestCoverage = topCardInterestCoverage !== null ? topCardInterestCoverage : calculatedInterestCoverage;
+
+        // Current Ratio: Screener/Ratios first, calculate as fallback
         const latestOtherAssets = otherAssets[otherAssets.length - 1] || 0;
         const latestOtherLiabilities = otherLiabilities[otherLiabilities.length - 1] || 0;
         const calculatedCurrentRatio = latestOtherLiabilities > 0
             ? latestOtherAssets / latestOtherLiabilities : null;
-        const currentRatio = currentRatioFromRatios || calculatedCurrentRatio;
+        const currentRatio = topCardCurrentRatio !== null ? topCardCurrentRatio : (currentRatioFromRatios || calculatedCurrentRatio);
 
         return {
             // Basic Info from Top Card
@@ -551,15 +633,22 @@ async function fetchStockData(stockName, directUrl = null) {
             currentPrice,
             industryPE,
 
-            // Calculated Ratios
+            // Calculated Ratios (Screener first, calculation fallback)
             debtToEquity,
             roa,
+            roaPrevYear,  // For Piotroski YoY comparison
             assetTurnover,
-            fcf,
+            currentRatio,
             pegRatio,
             priceToBook,
-            grahamNumber,
-            currentRatio,
+
+            // Custom Screener Ratios (logged-in: Screener values, else: calculated)
+            fcf,                 // Free Cash Flow
+            fcfPrevYear,         // FCF previous year (Screener only)
+            priceToFCF,          // Price to Free Cash Flow
+            grahamNumber,        // Graham Number
+            roic,                // Return on Invested Capital
+            interestCoverage,    // Interest Coverage Ratio
 
             // Growth Rates (from ranges-table)
             profitGrowth10Y,
@@ -569,6 +658,13 @@ async function fetchStockData(stockName, directUrl = null) {
             salesGrowth5Y,
             salesGrowth3Y,
             epsGrowth: profitGrowth5Y, // Use profit growth as proxy
+
+            // Shareholder data (logged-in feature)
+            numShareholders,
+            numShareholdersPrevYear,
+
+            // Screener's Piotroski (for verification - we use our own calculation)
+            screenerPiotroski,
 
             // Historical Data (arrays - oldest to newest)
             historical: {
@@ -602,6 +698,24 @@ async function fetchStockData(stockName, directUrl = null) {
                     netProfit: netProfit.length,
                     borrowings: borrowings.length,
                     cfo: cfo.length
+                },
+                // Top-card values for verification (compare with calculated)
+                topCardValues: {
+                    roa: topCardROA,
+                    roaPrevYear: topCardROAPrevYear,
+                    assetTurnover: topCardAssetTurnover,
+                    debtToEquity: topCardDebtToEquity,
+                    currentRatio: topCardCurrentRatio,
+                    pegRatio: topCardPEGRatio
+                },
+                // Our calculated values (for comparison)
+                calculatedValues: {
+                    roa: calculatedROA,
+                    roaPrevYear: calculatedROAPrevYear,
+                    assetTurnover: calculatedAssetTurnover,
+                    debtToEquity: calculatedDebtToEquity,
+                    currentRatio: calculatedCurrentRatio,
+                    pegRatio: calculatedPegRatio
                 }
             }
         };

@@ -129,3 +129,55 @@ All financial data is scraped from [Screener.in](https://www.screener.in):
 
 **Scores ≥7**: 2 (Buffett, Graham)
 **Decision**: **HOLD**
+
+---
+
+## Custom Screener.in Ratios Setup
+
+For **logged-in users**, the application uses more accurate data from Screener.in custom ratios. Non-logged-in users get calculated fallback values.
+
+### Required Custom Ratios (Add in Screener)
+
+Navigate to any company page → Click "Add ratio to table" → Search for these **exact** names:
+
+| Priority | Screener Ratio Name | Purpose | Fallback Calculation |
+|----------|---------------------|---------|---------------------|
+| 1 | `Interest Coverage` | Debt analysis | OPM × Sales / Interest |
+| 2 | `ROIC` | Return on Invested Capital | Uses ROCE as fallback |
+| 3 | `Free Cash Flow` | Latest FCF value | CFO + CFI |
+| 4 | `FCF Prev Ann` | FCF previous year | None (Screener only) |
+| 5 | `No. of Share Holders` | Retail interest | None (Screener only) |
+| 6 | `No. of Share Holders 1Yr` | YoY change | None (Screener only) |
+| 7 | `ROA Prev Yr` | Piotroski ROA | Net Profit / Assets (prev year) |
+| 8 | `CMP / FCF` | Price to FCF | Market Cap / FCF |
+| 9 | `Graham Number` | Graham score | √(22.5 × EPS × BV) |
+| 10 | `Piotroski score` | Verification | Our own calculation |
+
+### Optional Ratios (Already Available or Easy to Calculate)
+
+These don't need to be in custom ratios - we get them from tables or calculate:
+
+| Ratio | Source |
+|-------|--------|
+| Debt to equity | Balance Sheet calculation |
+| EPS | P&L table |
+| PEG Ratio | P/E ÷ Growth calculation |
+| Net profit | P&L table |
+| Return on assets | Net Profit / Assets calculation |
+| Current ratio | Ratios section |
+| Asset Turnover | Sales / Assets calculation |
+
+### Screener Login Credentials
+
+Set these in your `.env` file:
+```
+SCREENER_EMAIL=your_email@example.com
+SCREENER_PASSWORD=your_password
+```
+
+### Verification
+
+After setting up custom ratios, the scraper output will show:
+- **Logged-in**: Values from Screener custom ratios
+- **Non-logged-in**: Calculated fallback values
+- **`screenerPiotroski`**: Compare with our calculated Piotroski score
