@@ -104,17 +104,53 @@ Sell Above: 2,495.79 × 1.25 = ₹3,119.74
 
 ## Decision Matrix
 
-The final investment decision combines the **4-Score System** decision with the **Price Zone**:
+The final investment decision combines the **4-Score System** decision with the **Price Zone**.
 
-### Score-Based Decision
+### Score-Based Decision (All 4 Scores Considered)
+
+The Score Decision is derived from **ALL 4 investment methodologies**:
+
+| # | Score | Creator | Focus | Max Points |
+|---|-------|---------|-------|------------|
+| 1 | **Piotroski F-Score** | Joseph Piotroski | Financial Health | 9 |
+| 2 | **Buffett Score** | Warren Buffett | Business Quality | 10 |
+| 3 | **Graham Score** | Benjamin Graham | Value Investing | 10 |
+| 4 | **Lynch Score** | Peter Lynch | GARP Strategy | 10 |
+
+#### Calculation Logic
+
+```javascript
+// Each score is normalized to percentage (out of 100%)
+// A score "passes" if it reaches 70% or higher
+
+scoresAbove7 = [piotroski, buffett, graham, lynch]
+                .filter(score => score.percent >= 70)
+                .length;
+```
 
 | Condition | Score Decision |
 |-----------|----------------|
-| 3+ scores ≥ 7 | BUY |
-| 2 scores ≥ 7 | HOLD |
-| < 2 scores ≥ 7 | AVOID |
+| **3+ scores ≥ 70%** | BUY |
+| **2 scores ≥ 70%** | HOLD |
+| **< 2 scores ≥ 70%** | AVOID |
+
+#### Example: ALKEM Laboratories
+
+| Score | Value | Percent | ≥70%? |
+|-------|-------|---------|-------|
+| Piotroski | 6/9 | 67% | ❌ No |
+| Buffett | 10/10 | 100% | ✅ Yes |
+| Graham | 8/10 | 80% | ✅ Yes |
+| Lynch | 7/10 | 70% | ✅ Yes |
+
+**Result**: `scoresAbove7 = 3` → Score Decision = **BUY**
+
+> [!IMPORTANT]
+> All 4 scores contribute equally to the decision. Even if Piotroski and Buffett individually fail, a stock can still receive a BUY decision if the other scores compensate.
 
 ### Matrix Table
+
+The Score Decision is then combined with the Price Zone:
 
 | Score Decision | Strong Buy Zone | Buy Zone | Hold Zone | Sell Zone | Strong Sell Zone |
 |----------------|-----------------|----------|-----------|-----------|-----------------|
@@ -122,11 +158,26 @@ The final investment decision combines the **4-Score System** decision with the 
 | **HOLD** | ACCUMULATE | HOLD | HOLD | SELL | SELL |
 | **AVOID** | AVOID | AVOID | AVOID | AVOID | AVOID |
 
-**Example**:
+### Complete Example: ALKEM
+
 ```
-Score Decision: BUY (3 scores ≥ 7)
-Price Zone: STRONG_SELL (price 5,750 > sell threshold 3,119)
-Final Decision: AVOID (quality stock but too expensive)
+Step 1: Calculate Score Decision
+  - Piotroski: 6/9 (67%) ❌
+  - Buffett: 10/10 (100%) ✅
+  - Graham: 8/10 (80%) ✅
+  - Lynch: 7/10 (70%) ✅
+  - scoresAbove7 = 3 → Score Decision: BUY
+
+Step 2: Determine Price Zone
+  - Current Price: ₹5,750
+  - Fair Value: ₹2,495.79
+  - Sell Threshold: ₹3,119.74
+  - 5,750 > 3,119.74 → Price Zone: STRONG_SELL
+
+Step 3: Apply Matrix
+  - BUY + STRONG_SELL → Final Decision: AVOID
+
+Interpretation: Quality stock (3 scores pass), but too expensive (>125% of fair value)
 ```
 
 ---

@@ -952,7 +952,6 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 50px 0 80px 0;
-    /* Space for staggered labels above and below */
 }
 
 /* Price Bands Visual - The main meter */
@@ -1008,39 +1007,33 @@ body {
     flex: 0.25;
 }
 
-/* Zone Border Price Labels - Show on Hover */
+/* Zone Border Price Labels - Positioned relative to meter */
 .zone-border-prices {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    bottom: 0;
     pointer-events: none;
+    z-index: 15;
 }
 
 .border-price {
     position: absolute;
     transform: translateX(-50%);
-    z-index: 15;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
-/* 4 DIFFERENT LEVELS - each label at a different height */
-#borderPrice1 {
-    bottom: calc(100% + 65px);
-}
-
-#borderPrice2 {
-    bottom: calc(100% + 35px);
-}
-
+/* Two alternating levels - tight to the bar */
+#borderPrice1,
 #borderPrice3 {
-    bottom: calc(100% + 65px);
+    top: -38px;
 }
 
+#borderPrice2,
 #borderPrice4 {
-    bottom: calc(100% + 35px);
+    top: -20px;
 }
 
 /* Show on meter hover */
@@ -1048,50 +1041,43 @@ body {
     opacity: 1;
 }
 
-/* iOS Glassmorphism Price Label */
+/* iOS Glassmorphism Price Label - smaller */
 .border-price-value {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: var(--gray-800);
-    padding: 0.3rem 0.6rem;
-    border-radius: 8px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--gray-700);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 600;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    cursor: default;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Vertical line for border prices - different lengths based on level */
+/* Vertical lines - connect directly to bar */
 .border-price::after {
     content: '';
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 2px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.08) 100%);
+    width: 1px;
+    background: rgba(0, 0, 0, 0.25);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-/* Line heights to reach the bar from each level */
-#borderPrice1::after {
-    height: 73px;
-}
-
-#borderPrice2::after {
-    height: 43px;
-}
-
+/* Line heights matching label positions */
+#borderPrice1::after,
 #borderPrice3::after {
-    height: 73px;
+    height: 38px;
 }
 
+#borderPrice2::after,
 #borderPrice4::after {
-    height: 43px;
+    height: 20px;
 }
 
 .meter-gauge-wrapper:hover .border-price::after {
