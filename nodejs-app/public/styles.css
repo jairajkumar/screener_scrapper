@@ -1387,6 +1387,357 @@ body {
     color: #dc2626;
 }
 
+/* ===== Header Final Decision Badge ===== */
+.header-decision {
+    text-align: right;
+}
+
+.header-final-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.header-final-badge.strong-buy,
+.header-final-badge.buy {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white;
+}
+
+.header-final-badge.accumulate {
+    background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+    color: white;
+}
+
+.header-final-badge.hold {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    color: white;
+}
+
+.header-final-badge.sell {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    color: white;
+}
+
+.header-final-badge.avoid {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+}
+
+.header-decision-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.header-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    letter-spacing: 0.04em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Header Status Badge Colors - Match Valuation Status */
+.header-status-badge.deeply-undervalued {
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+}
+
+.header-status-badge.undervalued {
+    background: rgba(52, 211, 153, 0.15);
+    color: #10b981;
+}
+
+.header-status-badge.fairly-valued {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+.header-status-badge.overvalued {
+    background: rgba(249, 115, 22, 0.15);
+    color: #ea580c;
+}
+
+.header-status-badge.highly-overvalued {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+.header-confidence {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--gray-500);
+    font-size: 0.75rem;
+}
+
+/* ===== Premium Decision Breakdown ===== */
+.decision-breakdown {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    margin-top: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 4px 24px rgba(99, 102, 241, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.breakdown-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin: 0 0 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.breakdown-title i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+/* Breakdown Row - Horizontal Flow */
+.breakdown-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Each Decision Element */
+.breakdown-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-width: auto;
+    max-width: none;
+    flex: 0 0 auto;
+}
+
+.breakdown-card.final {
+    background: transparent;
+    border: none;
+}
+
+.breakdown-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0;
+}
+
+.breakdown-card-header i {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+}
+
+/* Premium Pill Badge */
+.breakdown-card-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Score Badge - Soft Colors with subtle glow */
+.breakdown-card-badge.buy,
+.breakdown-card-badge[class*="buy"]:not(.zone):not(.final) {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.2) 100%);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.breakdown-card-badge.hold,
+.breakdown-card-badge[class*="hold"]:not(.zone):not(.final) {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.2) 100%);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.breakdown-card-badge.avoid,
+.breakdown-card-badge[class*="avoid"]:not(.zone):not(.final) {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(248, 113, 113, 0.18) 100%);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Zone Badge - Pill style with colors */
+.breakdown-card-badge.zone {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.85rem;
+}
+
+.breakdown-card-badge.zone.strong-buy {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.25) 100%);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.breakdown-card-badge.zone.buy {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.15) 0%, rgba(110, 231, 183, 0.2) 100%);
+    color: #10b981;
+    border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.breakdown-card-badge.zone.hold {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.2) 100%);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.breakdown-card-badge.zone.sell {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 146, 60, 0.2) 100%);
+    color: #ea580c;
+    border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.breakdown-card-badge.zone.strong-sell {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(248, 113, 113, 0.2) 100%);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Final Badge - Large, Solid, Premium */
+.breakdown-card-badge.final {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    color: white;
+    border: none;
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.15),
+        0 2px 6px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.breakdown-card-badge.final.strong-buy,
+.breakdown-card-badge.final.buy {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
+
+.breakdown-card-badge.final.accumulate {
+    background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+}
+
+.breakdown-card-badge.final.hold {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+}
+
+.breakdown-card-badge.final.sell {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    box-shadow: 0 4px 20px rgba(234, 88, 12, 0.4);
+}
+
+.breakdown-card-badge.final.avoid {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+}
+
+.breakdown-card-detail {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Operators - Elegant */
+.breakdown-operator {
+    font-size: 1.75rem;
+    font-weight: 200;
+    color: var(--gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 60px;
+}
+
+/* Breakdown Footer - Clean */
+.breakdown-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(99, 102, 241, 0.08);
+    flex-wrap: wrap;
+}
+
+.breakdown-footer .valuation-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.breakdown-footer .status-label {
+    color: var(--gray-500);
+    font-weight: 500;
+}
+
+.breakdown-footer .confidence-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.breakdown-footer .data-source {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+}
+
 /* Responsive Valuation Section */
 @media (max-width: 768px) {
     .price-meter-container {
@@ -1505,6 +1856,38 @@ body {
 
     .valuation-stat-value {
         font-size: 0.9rem;
+    }
+
+    /* Decision Matrix responsive */
+    .valuation-decision-container {
+        padding: 1rem;
+    }
+
+    .decision-matrix-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .matrix-input,
+    .matrix-result {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .matrix-operator {
+        font-size: 1.2rem;
+        transform: rotate(90deg);
+    }
+
+    .matrix-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+        min-width: 80px;
+    }
+
+    .decision-meta-row {
+        flex-direction: column;
+        gap: 0.75rem;
     }
 }
 

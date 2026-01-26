@@ -89,15 +89,8 @@ function displayResults(data) {
 
     const analysis = data.analysis;
 
-    // Final Decision Badge
-    const verdictBadge = document.getElementById('verdictBadge');
-    const verdictText = document.getElementById('verdictText');
-    const verdictSubtitle = document.getElementById('verdictSubtitle');
-
-    verdictText.textContent = analysis.finalDecision;
-    verdictSubtitle.textContent = `${analysis.scoresAbove7} out of 4 scores ≥ 7`;
-
-    verdictBadge.className = 'decision-badge ' + analysis.finalDecision.toLowerCase();
+    // Store analysis for access in other functions (including displayValuation)
+    window.lastAnalysis = analysis;
 
     // Display Valuation Analysis
     if (analysis.valuation) {
@@ -180,20 +173,74 @@ function displayValuation(valuation) {
     // Update price marker position
     updatePriceMarker(valuation);
 
-    // Update final decision badge
-    const finalBadge = document.getElementById('valuationFinalBadge');
-    const finalText = document.getElementById('valuationFinalText');
-    finalText.textContent = valuation.finalDecision;
-    finalBadge.className = 'valuation-final-badge ' + valuation.finalDecision.toLowerCase().replace('_', '-');
-
-    // Update valuation status badge
-    const statusBadge = document.getElementById('valuationStatusBadge');
-    if (valuation.valuationStatus) {
-        statusBadge.textContent = valuation.valuationStatus.replace('_', ' ');
-        statusBadge.className = 'valuation-status-badge ' + valuation.valuationStatus.toLowerCase().replace('_', '-');
+    // Update Header Final Decision (the main badge at top)
+    const headerFinalBadge = document.getElementById('headerFinalBadge');
+    const headerFinalText = document.getElementById('headerFinalText');
+    if (headerFinalBadge && headerFinalText) {
+        headerFinalText.textContent = valuation.finalDecision || 'N/A';
+        headerFinalBadge.className = 'header-final-badge ' + (valuation.finalDecision?.toLowerCase().replace('_', '-') || '');
     }
 
-    // Update confidence indicator
+    // Update header valuation status
+    const headerValuationStatus = document.getElementById('headerValuationStatus');
+    if (headerValuationStatus && valuation.valuationStatus) {
+        headerValuationStatus.textContent = valuation.valuationStatus.replace(/_/g, ' ');
+        headerValuationStatus.className = 'header-status-badge ' + valuation.valuationStatus.toLowerCase().replace(/_/g, '-');
+    }
+
+    // Update header confidence
+    const headerConfidence = document.getElementById('headerConfidence');
+    if (headerConfidence) {
+        const confidence = valuation.confidence?.toLowerCase() || 'medium';
+        headerConfidence.innerHTML = `
+            <span class="confidence-dot ${confidence}"></span>
+            ${valuation.confidence || 'Medium'} Confidence
+        `;
+    }
+
+    // Update Score Decision badge (breakdown card)
+    const scoreDecisionBadge = document.getElementById('scoreDecisionBadge');
+    const scoreDecisionDetail = document.getElementById('scoreDecisionDetail');
+    if (scoreDecisionBadge) {
+        scoreDecisionBadge.textContent = valuation.scoreDecision || 'N/A';
+        scoreDecisionBadge.className = 'breakdown-card-badge ' + (valuation.scoreDecision?.toLowerCase() || '');
+    }
+    if (scoreDecisionDetail) {
+        const scoresAbove7 = window.lastAnalysis?.scoresAbove7 || 0;
+        scoreDecisionDetail.textContent = `${scoresAbove7} of 4 scores ≥70%`;
+    }
+
+    // Update Price Zone badge (breakdown card)
+    const priceZoneBadge = document.getElementById('priceZoneBadge');
+    const priceZoneDetail = document.getElementById('priceZoneDetail');
+    if (priceZoneBadge) {
+        const zoneText = valuation.priceZone?.replace('_', ' ') || 'N/A';
+        priceZoneBadge.textContent = zoneText;
+        priceZoneBadge.className = 'breakdown-card-badge zone ' + (valuation.priceZone?.toLowerCase().replace('_', '-') || '');
+    }
+    if (priceZoneDetail && valuation.priceBands) {
+        const price = valuation.currentPrice;
+        const fairValue = valuation.fairValue;
+        const ratio = price && fairValue ? ((price / fairValue) * 100).toFixed(0) : 0;
+        priceZoneDetail.textContent = `${ratio}% of fair value`;
+    }
+
+    // Update Final Decision badge (breakdown card)
+    const finalDecisionBadge = document.getElementById('finalDecisionBadge');
+    const finalDecisionText = document.getElementById('finalDecisionText');
+    if (finalDecisionBadge && finalDecisionText) {
+        finalDecisionText.textContent = valuation.finalDecision || 'N/A';
+        finalDecisionBadge.className = 'breakdown-card-badge final ' + (valuation.finalDecision?.toLowerCase().replace('_', '-') || '');
+    }
+
+    // Update valuation status badge (footer)
+    const statusBadge = document.getElementById('valuationStatusBadge');
+    if (valuation.valuationStatus) {
+        statusBadge.textContent = valuation.valuationStatus.replace(/_/g, ' ');
+        statusBadge.className = 'valuation-status-badge ' + valuation.valuationStatus.toLowerCase().replace(/_/g, '-');
+    }
+
+    // Update confidence indicator (footer)
     const confidenceEl = document.getElementById('confidenceIndicator');
     const confidence = valuation.confidence?.toLowerCase() || 'medium';
     confidenceEl.innerHTML = `
@@ -201,12 +248,14 @@ function displayValuation(valuation) {
         <span>${valuation.confidence || 'Medium'} Confidence</span>
     `;
 
-    // Update subtitle with data source info
-    const subtitle = document.getElementById('valuationSubtitle');
-    const sourceInfo = valuation.dataSource?.grahamNumber === 'screener'
-        ? 'Using Screener data'
-        : 'Using calculated values';
-    subtitle.textContent = `${sourceInfo} • Score: ${valuation.scoreDecision}`;
+    // Update data source info
+    const dataSourceInfo = document.getElementById('dataSourceInfo');
+    if (dataSourceInfo) {
+        const sourceText = valuation.dataSource?.grahamNumber === 'screener'
+            ? 'Using Screener data'
+            : 'Using calculated values';
+        dataSourceInfo.textContent = sourceText;
+    }
 
     // Render risk flags
     const riskFlagsEl = document.getElementById('riskFlags');
