@@ -1390,21 +1390,121 @@ body {
 /* Responsive Valuation Section */
 @media (max-width: 768px) {
     .price-meter-container {
-        padding: 1.25rem;
+        padding: 1rem;
     }
 
+    .meter-gauge-wrapper {
+        padding: 40px 0 70px 0;
+        max-width: 100%;
+    }
+
+    .price-bands-visual {
+        height: 40px;
+        border-radius: 20px;
+    }
+
+    .price-zone {
+        font-size: 0.5rem;
+        padding: 0 0.15rem;
+    }
+
+    /* Hide hover labels on mobile - too cluttered */
+    .zone-border-prices {
+        display: none;
+    }
+
+    /* Price marker smaller on mobile */
+    .price-marker-value {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    .price-marker-line {
+        height: 40px;
+    }
+
+    #priceMarker {
+        bottom: -10px;
+    }
+
+    .price-marker-arrow {
+        border-left-width: 8px;
+        border-right-width: 8px;
+        border-bottom-width: 10px;
+    }
+
+    /* Price band labels responsive */
+    .price-band-labels {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .price-label {
+        flex: 1 1 45%;
+        min-width: 80px;
+        font-size: 0.6rem;
+    }
+
+    .price-label .value {
+        font-size: 0.75rem;
+    }
+
+    /* Valuation details grid */
     .valuation-details {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
     }
 
+    .valuation-stat {
+        padding: 0.75rem;
+    }
+
+    .valuation-stat-value {
+        font-size: 1rem;
+    }
+
+    /* Decision section */
     .valuation-decision {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+        padding: 1rem;
+    }
+
+    .decision-info {
+        text-align: center;
+    }
+
+    .decision-badges {
+        justify-content: center;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .price-meter-container {
+        padding: 0.75rem;
     }
 
     .price-zone {
-        font-size: 0.55rem;
+        font-size: 0.4rem;
+    }
+
+    .price-bands-visual {
+        height: 35px;
+    }
+
+    .price-label {
+        flex: 1 1 100%;
+    }
+
+    .valuation-details {
+        grid-template-columns: 1fr;
+    }
+
+    .valuation-stat-value {
+        font-size: 0.9rem;
     }
 }
 
