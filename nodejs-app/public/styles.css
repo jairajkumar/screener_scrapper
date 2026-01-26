@@ -916,6 +916,512 @@ body {
     color: var(--gray-600);
 }
 
+/* ===== Valuation Meter Section ===== */
+.valuation-section {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.valuation-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-800);
+}
+
+/* Price Meter Container - Glassmorphism */
+.price-meter-container {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Meter Gauge Wrapper */
+.meter-gauge-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 0 80px 0;
+    /* Space for staggered labels above and below */
+}
+
+/* Price Bands Visual - The main meter */
+.price-bands-visual {
+    position: relative;
+    height: 50px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+
+.price-zone {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.price-zone:hover {
+    filter: brightness(1.1);
+}
+
+.price-zone.strong-buy {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    flex: 0.75;
+}
+
+.price-zone.buy {
+    background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);
+    flex: 0.10;
+}
+
+.price-zone.hold {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    flex: 0.25;
+}
+
+.price-zone.sell {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    flex: 0.15;
+}
+
+.price-zone.strong-sell {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    flex: 0.25;
+}
+
+/* Zone Border Price Labels - Show on Hover */
+.zone-border-prices {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    pointer-events: none;
+}
+
+.border-price {
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 15;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 4 DIFFERENT LEVELS - each label at a different height */
+#borderPrice1 {
+    bottom: calc(100% + 65px);
+}
+
+#borderPrice2 {
+    bottom: calc(100% + 35px);
+}
+
+#borderPrice3 {
+    bottom: calc(100% + 65px);
+}
+
+#borderPrice4 {
+    bottom: calc(100% + 35px);
+}
+
+/* Show on meter hover */
+.meter-gauge-wrapper:hover .border-price {
+    opacity: 1;
+}
+
+/* iOS Glassmorphism Price Label */
+.border-price-value {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--gray-800);
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: default;
+}
+
+/* Vertical line for border prices - different lengths based on level */
+.border-price::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.08) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Line heights to reach the bar from each level */
+#borderPrice1::after {
+    height: 73px;
+}
+
+#borderPrice2::after {
+    height: 43px;
+}
+
+#borderPrice3::after {
+    height: 73px;
+}
+
+#borderPrice4::after {
+    height: 43px;
+}
+
+.meter-gauge-wrapper:hover .border-price::after {
+    opacity: 1;
+}
+
+/* Current Price Marker - Positioned BELOW the bar */
+.price-marker {
+    position: absolute;
+    bottom: -15px;
+    transform: translateX(-50%);
+    z-index: 10;
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.price-marker-arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid var(--primary);
+    margin: 0 auto;
+    filter: drop-shadow(0 -2px 4px rgba(99, 102, 241, 0.3));
+}
+
+/* Purple line - always visible */
+.price-marker-line {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+}
+
+/* iOS Glassmorphism Current Price Label - Below the bar */
+.price-marker-value {
+    position: relative;
+    margin-top: 4px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+/* Price Band Labels */
+.price-band-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    padding: 0 0.5rem;
+}
+
+.price-label {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    text-align: center;
+}
+
+.price-label .value {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    margin-top: 2px;
+}
+
+/* Valuation Details Grid */
+.valuation-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.valuation-stat {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-100);
+    transition: all 0.2s ease;
+}
+
+.valuation-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.valuation-stat-label {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.valuation-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.valuation-stat-value.positive {
+    color: var(--success);
+}
+
+.valuation-stat-value.negative {
+    color: var(--danger);
+}
+
+.valuation-stat-value.neutral {
+    color: var(--warning);
+}
+
+/* Valuation Decision Display */
+.valuation-decision {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-100);
+}
+
+.valuation-decision-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.valuation-decision-title {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.valuation-decision-subtitle {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+}
+
+/* Final Decision Badge - Enhanced */
+.valuation-final-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    animation: pulseDecision 2s ease-in-out infinite;
+}
+
+@keyframes pulseDecision {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+    }
+}
+
+.valuation-final-badge.strong-buy {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+}
+
+.valuation-final-badge.buy {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white;
+}
+
+.valuation-final-badge.accumulate {
+    background: linear-gradient(135deg, #22c55e 0%, #86efac 100%);
+    color: white;
+}
+
+.valuation-final-badge.hold {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    color: white;
+}
+
+.valuation-final-badge.sell {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    color: white;
+}
+
+.valuation-final-badge.avoid,
+.valuation-final-badge.strong-sell {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+}
+
+.valuation-final-badge.data-insufficient {
+    background: linear-gradient(135deg, var(--gray-500) 0%, var(--gray-600) 100%);
+    color: white;
+}
+
+/* Risk Flags */
+.risk-flags {
+    margin-top: 1rem;
+}
+
+.risk-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.risk-flag i {
+    font-size: 0.65rem;
+}
+
+/* Confidence Indicator */
+.confidence-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.confidence-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.confidence-dot.high {
+    background: var(--success);
+    box-shadow: 0 0 6px var(--success);
+}
+
+.confidence-dot.medium {
+    background: var(--warning);
+    box-shadow: 0 0 6px var(--warning);
+}
+
+.confidence-dot.low {
+    background: var(--danger);
+    box-shadow: 0 0 6px var(--danger);
+}
+
+/* Valuation Status Badge */
+.valuation-status-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.valuation-status-badge.deeply-undervalued {
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+}
+
+.valuation-status-badge.undervalued {
+    background: rgba(52, 211, 153, 0.15);
+    color: #10b981;
+}
+
+.valuation-status-badge.fairly-valued {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+.valuation-status-badge.overvalued {
+    background: rgba(249, 115, 22, 0.15);
+    color: #ea580c;
+}
+
+.valuation-status-badge.highly-overvalued {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+/* Responsive Valuation Section */
+@media (max-width: 768px) {
+    .price-meter-container {
+        padding: 1.25rem;
+    }
+
+    .valuation-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .valuation-decision {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .price-zone {
+        font-size: 0.55rem;
+    }
+}
+
 /* ===== Footer ===== */
 .footer {
     background: var(--gray-800);

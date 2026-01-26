@@ -80,6 +80,118 @@
                 </div>
             </div>
 
+            <!-- Valuation Meter Section -->
+            <div id="valuationSection" class="valuation-section hidden">
+                <h3>
+                    <i class="fas fa-tachometer-alt"></i>
+                    Valuation Analysis
+                </h3>
+
+                <div class="price-meter-container">
+                    <!-- Meter Gauge -->
+                    <div class="meter-gauge-wrapper">
+                        <div class="price-bands-visual">
+                            <div class="price-zone strong-buy">Strong Buy</div>
+                            <div class="price-zone buy">Buy</div>
+                            <div class="price-zone hold">Hold</div>
+                            <div class="price-zone sell">Sell</div>
+                            <div class="price-zone strong-sell">Strong Sell</div>
+                        </div>
+
+                        <!-- Zone Border Price Labels (on the color bands) -->
+                        <div class="zone-border-prices">
+                            <div class="border-price" id="borderPrice1" style="left: 50%;">
+                                <span class="border-price-value" id="borderPriceValue1">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice2" style="left: 56.67%;">
+                                <span class="border-price-value" id="borderPriceValue2">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice3" style="left: 73.33%;">
+                                <span class="border-price-value" id="borderPriceValue3">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice4" style="left: 83.33%;">
+                                <span class="border-price-value" id="borderPriceValue4">₹0</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Marker (positioned by JS) -->
+                        <div id="priceMarker" class="price-marker" style="left: 50%;">
+                            <div class="price-marker-arrow"></div>
+                            <div class="price-marker-line"></div>
+                            <div class="price-marker-value" id="priceMarkerValue">₹0</div>
+                        </div>
+                    </div>
+
+                    <!-- Price Band Labels -->
+                    <div class="price-band-labels">
+                        <div class="price-label">
+                            Strong Buy
+                            <span class="value" id="strongBuyPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Buy Below
+                            <span class="value" id="buyPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            <strong>Fair Value</strong>
+                            <span class="value" id="fairValuePrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Hold Above
+                            <span class="value" id="holdPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Sell Above
+                            <span class="value" id="sellPrice">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Valuation Stats Grid -->
+                    <div class="valuation-details">
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Current Price</div>
+                            <div class="valuation-stat-value" id="currentPriceValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Fair Value</div>
+                            <div class="valuation-stat-value" id="fairValueValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Graham Number</div>
+                            <div class="valuation-stat-value" id="grahamNumberValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Lynch Fair Value</div>
+                            <div class="valuation-stat-value" id="lynchFairValue">₹0</div>
+                        </div>
+                    </div>
+
+                    <!-- Final Decision -->
+                    <div class="valuation-decision">
+                        <div class="valuation-decision-label">
+                            <span class="valuation-decision-title">Valuation Decision</span>
+                            <span class="valuation-decision-subtitle" id="valuationSubtitle">Based on price + quality
+                                scores</span>
+                            <div class="confidence-indicator" id="confidenceIndicator">
+                                <span class="confidence-dot high"></span>
+                                <span>High Confidence</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span id="valuationStatusBadge"
+                                class="valuation-status-badge undervalued">Undervalued</span>
+                            <span id="valuationFinalBadge" class="valuation-final-badge buy">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="valuationFinalText">BUY</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Risk Flags -->
+                    <div class="risk-flags" id="riskFlags"></div>
+                </div>
+            </div>
+
             <!-- Score Cards Grid -->
             <div class="scores-grid">
                 <!-- Piotroski Card -->

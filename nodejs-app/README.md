@@ -140,7 +140,9 @@ See the `/documentation` folder for detailed guides:
 - [Frontend Components](documentation/FRONTEND.md)
 - [API Reference](documentation/API_BRIDGE.md)
 - [Scoring Methodology](documentation/SCORING.md)
+- [**Valuation Engine**](documentation/VALUATION.md) - Fair value calculations & decision matrix
 - [Docker Setup](documentation/DOCKER.md)
+- [Testing Guide](documentation/TESTING.md)
 
 ---
 

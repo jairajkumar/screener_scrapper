@@ -3,6 +3,7 @@ const calculatePiotroskiScore = require('./piotroskiScore');
 const calculateBuffettScore = require('./buffettScore');
 const calculateGrahamScore = require('./grahamScore');
 const calculateLynchScore = require('./lynchScore');
+const calculateValuation = require('./valuationEngine');
 
 /**
  * Analyze stock data using all 4 scoring systems
@@ -51,6 +52,14 @@ function analyzeStock(data) {
         intrinsic_value: data.grahamNumber
     };
 
+    // Calculate valuation using the 4-score results
+    const valuation = calculateValuation(data, {
+        piotroski: piotroski.score,
+        buffett: buffett.score,
+        graham: graham.score,
+        lynch: lynch.score
+    });
+
     return {
         // Final Decision
         finalDecision,
@@ -70,6 +79,9 @@ function analyzeStock(data) {
             graham: `${graham.score}/${graham.total}`,
             lynch: `${lynch.score}/${lynch.total}`
         },
+
+        // Valuation Engine Results
+        valuation,
 
         // Legacy format for backward compatibility
         verdict: finalDecision,

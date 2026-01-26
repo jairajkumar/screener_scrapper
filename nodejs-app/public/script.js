@@ -99,6 +99,11 @@ function displayResults(data) {
 
     verdictBadge.className = 'decision-badge ' + analysis.finalDecision.toLowerCase();
 
+    // Display Valuation Analysis
+    if (analysis.valuation) {
+        displayValuation(analysis.valuation);
+    }
+
     // Update each score card
     updateScoreCard('piotroski', analysis.piotroski);
     updateScoreCard('buffett', analysis.buffett);
@@ -121,6 +126,150 @@ function displayResults(data) {
 
     // Enable AI action buttons
     enableAIButtons();
+}
+
+// ===== Display Valuation =====
+function displayValuation(valuation) {
+    const section = document.getElementById('valuationSection');
+
+    // Check if valuation data is valid
+    if (!valuation || valuation.finalDecision === 'DATA_INSUFFICIENT') {
+        section.classList.add('hidden');
+        return;
+    }
+
+    section.classList.remove('hidden');
+
+    // Format currency
+    const formatCurrency = (value) => {
+        if (value === null || value === undefined) return '₹--';
+        return '₹' + value.toLocaleString('en-IN');
+    };
+
+    // Update price band labels
+    document.getElementById('strongBuyPrice').textContent = formatCurrency(valuation.priceBands?.strongBuyBelow);
+    document.getElementById('buyPrice').textContent = formatCurrency(valuation.priceBands?.buyBelow);
+    document.getElementById('fairValuePrice').textContent = formatCurrency(valuation.fairValue);
+    document.getElementById('holdPrice').textContent = formatCurrency(valuation.priceBands?.holdAbove);
+    document.getElementById('sellPrice').textContent = formatCurrency(valuation.priceBands?.sellAbove);
+
+    // Update border price labels on the meter
+    document.getElementById('borderPriceValue1').textContent = formatCurrency(valuation.priceBands?.strongBuyBelow);
+    document.getElementById('borderPriceValue2').textContent = formatCurrency(valuation.priceBands?.buyBelow);
+    document.getElementById('borderPriceValue3').textContent = formatCurrency(valuation.priceBands?.holdAbove);
+    document.getElementById('borderPriceValue4').textContent = formatCurrency(valuation.priceBands?.sellAbove);
+
+    // Update valuation stats
+    const currentPriceEl = document.getElementById('currentPriceValue');
+    currentPriceEl.textContent = formatCurrency(valuation.currentPrice);
+
+    // Add color class based on valuation status
+    currentPriceEl.className = 'valuation-stat-value';
+    if (valuation.priceZone === 'STRONG_BUY' || valuation.priceZone === 'BUY') {
+        currentPriceEl.classList.add('positive');
+    } else if (valuation.priceZone === 'SELL' || valuation.priceZone === 'STRONG_SELL') {
+        currentPriceEl.classList.add('negative');
+    } else {
+        currentPriceEl.classList.add('neutral');
+    }
+
+    document.getElementById('fairValueValue').textContent = formatCurrency(valuation.fairValue);
+    document.getElementById('grahamNumberValue').textContent = formatCurrency(valuation.grahamNumber);
+    document.getElementById('lynchFairValue').textContent = formatCurrency(valuation.lynchFairValue);
+
+    // Update price marker position
+    updatePriceMarker(valuation);
+
+    // Update final decision badge
+    const finalBadge = document.getElementById('valuationFinalBadge');
+    const finalText = document.getElementById('valuationFinalText');
+    finalText.textContent = valuation.finalDecision;
+    finalBadge.className = 'valuation-final-badge ' + valuation.finalDecision.toLowerCase().replace('_', '-');
+
+    // Update valuation status badge
+    const statusBadge = document.getElementById('valuationStatusBadge');
+    if (valuation.valuationStatus) {
+        statusBadge.textContent = valuation.valuationStatus.replace('_', ' ');
+        statusBadge.className = 'valuation-status-badge ' + valuation.valuationStatus.toLowerCase().replace('_', '-');
+    }
+
+    // Update confidence indicator
+    const confidenceEl = document.getElementById('confidenceIndicator');
+    const confidence = valuation.confidence?.toLowerCase() || 'medium';
+    confidenceEl.innerHTML = `
+        <span class="confidence-dot ${confidence}"></span>
+        <span>${valuation.confidence || 'Medium'} Confidence</span>
+    `;
+
+    // Update subtitle with data source info
+    const subtitle = document.getElementById('valuationSubtitle');
+    const sourceInfo = valuation.dataSource?.grahamNumber === 'screener'
+        ? 'Using Screener data'
+        : 'Using calculated values';
+    subtitle.textContent = `${sourceInfo} • Score: ${valuation.scoreDecision}`;
+
+    // Render risk flags
+    const riskFlagsEl = document.getElementById('riskFlags');
+    if (valuation.riskFlags && valuation.riskFlags.length > 0) {
+        riskFlagsEl.innerHTML = valuation.riskFlags.map(flag => `
+            <span class="risk-flag">
+                <i class="fas fa-exclamation-triangle"></i>
+                ${flag}
+            </span>
+        `).join('');
+    } else {
+        riskFlagsEl.innerHTML = '';
+    }
+}
+
+// ===== Update Price Marker Position =====
+function updatePriceMarker(valuation) {
+    const marker = document.getElementById('priceMarker');
+    const markerValue = document.getElementById('priceMarkerValue');
+
+    if (!valuation.currentPrice || !valuation.fairValue) {
+        marker.style.left = '50%';
+        markerValue.textContent = '₹--';
+        return;
+    }
+
+    // Calculate position based on price zones
+    // Zone widths: Strong Buy (0.75), Buy (0.10), Hold (0.25), Sell (0.15), Strong Sell (0.25) = 1.5 total
+    const { currentPrice, priceBands, fairValue } = valuation;
+
+    let position;
+
+    if (currentPrice <= priceBands.strongBuyBelow) {
+        // Strong Buy zone (0% - 50%)
+        const ratio = currentPrice / priceBands.strongBuyBelow;
+        position = ratio * 50;
+    } else if (currentPrice <= priceBands.buyBelow) {
+        // Buy zone (50% - 56.67%)
+        const ratio = (currentPrice - priceBands.strongBuyBelow) / (priceBands.buyBelow - priceBands.strongBuyBelow);
+        position = 50 + (ratio * 6.67);
+    } else if (currentPrice <= priceBands.holdAbove) {
+        // Hold zone (56.67% - 73.33%)
+        const ratio = (currentPrice - priceBands.buyBelow) / (priceBands.holdAbove - priceBands.buyBelow);
+        position = 56.67 + (ratio * 16.67);
+    } else if (currentPrice <= priceBands.sellAbove) {
+        // Sell zone (73.33% - 83.33%)
+        const ratio = (currentPrice - priceBands.holdAbove) / (priceBands.sellAbove - priceBands.holdAbove);
+        position = 73.33 + (ratio * 10);
+    } else {
+        // Strong Sell zone (83.33% - 100%)
+        const ratio = Math.min((currentPrice - priceBands.sellAbove) / (priceBands.sellAbove * 0.25), 1);
+        position = 83.33 + (ratio * 16.67);
+    }
+
+    // Clamp position between 2% and 98%
+    position = Math.max(2, Math.min(98, position));
+
+    // Update marker with animation
+    setTimeout(() => {
+        marker.style.left = `${position}%`;
+    }, 100);
+
+    markerValue.textContent = '₹' + currentPrice.toLocaleString('en-IN');
 }
 
 // ===== Update Score Card =====
