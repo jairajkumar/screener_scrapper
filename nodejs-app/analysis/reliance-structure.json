@@ -1,0 +1,1074 @@
+{
+  "pageTitle": "Reliance Industries Ltd share price | About Reliance Industr | Key Insights - Screener",
+  "url": "https://www.screener.in/company/RELIANCE/",
+  "timestamp": "2026-01-19T16:26:29.014Z",
+  "sections": [
+    {
+      "id": "#quarters",
+      "title": "Quarterly Results",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Dec 2022",
+        "Mar 2023",
+        "Jun 2023",
+        "Sep 2023",
+        "Dec 2023",
+        "Mar 2024",
+        "Jun 2024",
+        "Sep 2024",
+        "Dec 2024",
+        "Mar 2025",
+        "Jun 2025",
+        "Sep 2025",
+        "Dec 2025"
+      ],
+      "tableRowLabels": [
+        "Sales +",
+        "Expenses +",
+        "Operating Profit",
+        "OPM %",
+        "Other Income +",
+        "Interest",
+        "Depreciation",
+        "Profit before tax",
+        "Tax %",
+        "Net Profit +",
+        "EPS in Rs",
+        "Raw PDF"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#profit-loss",
+      "title": "Profit & Loss",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Mar 2014",
+        "Mar 2015",
+        "Mar 2016",
+        "Mar 2017",
+        "Mar 2018",
+        "Mar 2019",
+        "Mar 2020",
+        "Mar 2021",
+        "Mar 2022",
+        "Mar 2023",
+        "Mar 2024",
+        "Mar 2025",
+        "TTM"
+      ],
+      "tableRowLabels": [
+        "Sales +",
+        "Expenses +",
+        "Operating Profit",
+        "OPM %",
+        "Other Income +",
+        "Interest",
+        "Depreciation",
+        "Profit before tax",
+        "Tax %",
+        "Net Profit +",
+        "EPS in Rs",
+        "Dividend Payout %"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#balance-sheet",
+      "title": "Balance Sheet",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Mar 2014",
+        "Mar 2015",
+        "Mar 2016",
+        "Mar 2017",
+        "Mar 2018",
+        "Mar 2019",
+        "Mar 2020",
+        "Mar 2021",
+        "Mar 2022",
+        "Mar 2023",
+        "Mar 2024",
+        "Mar 2025",
+        "Sep 2025"
+      ],
+      "tableRowLabels": [
+        "Equity Capital",
+        "Reserves",
+        "Borrowings +",
+        "Other Liabilities +",
+        "Total Liabilities",
+        "Fixed Assets +",
+        "CWIP",
+        "Investments",
+        "Other Assets +",
+        "Total Assets"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#cash-flow",
+      "title": "Cash Flows",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Mar 2014",
+        "Mar 2015",
+        "Mar 2016",
+        "Mar 2017",
+        "Mar 2018",
+        "Mar 2019",
+        "Mar 2020",
+        "Mar 2021",
+        "Mar 2022",
+        "Mar 2023",
+        "Mar 2024",
+        "Mar 2025"
+      ],
+      "tableRowLabels": [
+        "Cash from Operating Activity +",
+        "Cash from Investing Activity +",
+        "Cash from Financing Activity +",
+        "Net Cash Flow"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#ratios",
+      "title": "Ratios",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Mar 2014",
+        "Mar 2015",
+        "Mar 2016",
+        "Mar 2017",
+        "Mar 2018",
+        "Mar 2019",
+        "Mar 2020",
+        "Mar 2021",
+        "Mar 2022",
+        "Mar 2023",
+        "Mar 2024",
+        "Mar 2025"
+      ],
+      "tableRowLabels": [
+        "Debtor Days",
+        "Inventory Days",
+        "Days Payable",
+        "Cash Conversion Cycle",
+        "Working Capital Days",
+        "ROCE %"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#shareholding",
+      "title": "Shareholding Pattern",
+      "hasTable": true,
+      "tableHeaders": [
+        "",
+        "Dec 2022",
+        "Mar 2023",
+        "Jun 2023",
+        "Sep 2023",
+        "Dec 2023",
+        "Mar 2024",
+        "Jun 2024",
+        "Sep 2024",
+        "Dec 2024",
+        "Mar 2025",
+        "Jun 2025",
+        "Sep 2025"
+      ],
+      "tableRowLabels": [
+        "Promoters +",
+        "FIIs +",
+        "DIIs +",
+        "Government +",
+        "Public +",
+        "No. of Shareholders"
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#peers",
+      "title": "Peer comparison",
+      "hasTable": true,
+      "tableHeaders": [],
+      "tableRowLabels": [
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "5.",
+        "6.",
+        "7."
+      ],
+      "dataPoints": []
+    },
+    {
+      "id": "#documents",
+      "title": "Documents",
+      "hasTable": false,
+      "tableHeaders": [],
+      "tableRowLabels": [],
+      "dataPoints": []
+    }
+  ],
+  "tables": [
+    {
+      "index": 0,
+      "header": "Compounded Sales Growth",
+      "rows": [
+        {
+          "label": "10 Years:",
+          "value": "5%"
+        },
+        {
+          "label": "5 Years:",
+          "value": "9%"
+        },
+        {
+          "label": "3 Years:",
+          "value": "7%"
+        },
+        {
+          "label": "TTM:",
+          "value": "-6%"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "header": "Compounded Profit Growth",
+      "rows": [
+        {
+          "label": "10 Years:",
+          "value": "5%"
+        },
+        {
+          "label": "5 Years:",
+          "value": "0%"
+        },
+        {
+          "label": "3 Years:",
+          "value": "-4%"
+        },
+        {
+          "label": "TTM:",
+          "value": "13%"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "header": "Stock Price CAGR",
+      "rows": [
+        {
+          "label": "10 Years:",
+          "value": "20%"
+        },
+        {
+          "label": "5 Years:",
+          "value": "8%"
+        },
+        {
+          "label": "3 Years:",
+          "value": "8%"
+        },
+        {
+          "label": "1 Year:",
+          "value": "9%"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "header": "Return on Equity",
+      "rows": [
+        {
+          "label": "10 Years:",
+          "value": "9%"
+        },
+        {
+          "label": "5 Years:",
+          "value": "8%"
+        },
+        {
+          "label": "3 Years:",
+          "value": "8%"
+        },
+        {
+          "label": "Last Year:",
+          "value": "7%"
+        }
+      ]
+    }
+  ],
+  "ratioCards": [
+    {
+      "section": "top-ratios",
+      "ratios": [
+        {
+          "name": "Market Cap",
+          "value": "₹\n        19,13,344\n        \n          Cr."
+        },
+        {
+          "name": "Current Price",
+          "value": "₹\n        1,414"
+        },
+        {
+          "name": "High / Low",
+          "value": "₹ 1,612 / 1,115"
+        },
+        {
+          "name": "Stock P/E",
+          "value": "48.1"
+        },
+        {
+          "name": "Book Value",
+          "value": "₹\n        413"
+        },
+        {
+          "name": "Dividend Yield",
+          "value": "0.39\n        \n          %"
+        },
+        {
+          "name": "ROCE",
+          "value": "7.57\n        \n          %"
+        },
+        {
+          "name": "ROE",
+          "value": "6.61\n        \n          %"
+        },
+        {
+          "name": "Face Value",
+          "value": "₹\n        10.0"
+        },
+        {
+          "name": "Piotroski score",
+          "value": "5.00"
+        },
+        {
+          "name": "ROA Prev Yr",
+          "value": "4.45\n        \n          %"
+        },
+        {
+          "name": "No. Eq. Shares",
+          "value": "1,353"
+        },
+        {
+          "name": "No. of Share Holders",
+          "value": "43,93,764"
+        },
+        {
+          "name": "No. of Share Holders 1Yr",
+          "value": "38,34,968"
+        },
+        {
+          "name": "No. Eq. Shares PY",
+          "value": "1,353"
+        },
+        {
+          "name": "Asset Turnover",
+          "value": "0.52"
+        },
+        {
+          "name": "Free Cash Flow",
+          "value": "₹\n        42,127\n        \n          Cr."
+        },
+        {
+          "name": "FCF Prev Ann",
+          "value": "₹\n        39,802\n        \n          Cr."
+        },
+        {
+          "name": "Free Cash Flow 5Yrs",
+          "value": "₹\n        1,36,343\n        \n          Cr."
+        },
+        {
+          "name": "CMP / FCF",
+          "value": "53.1"
+        },
+        {
+          "name": "Interest Coverage",
+          "value": "7.61"
+        },
+        {
+          "name": "ROIC",
+          "value": "16.1\n        \n          %"
+        },
+        {
+          "name": "Graham Number",
+          "value": "₹\n        572"
+        },
+        {
+          "name": "PEG Ratio",
+          "value": "-13.0"
+        },
+        {
+          "name": "Return on assets",
+          "value": "3.53\n        \n          %"
+        },
+        {
+          "name": "Current ratio",
+          "value": "1.04"
+        },
+        {
+          "name": "Net profit",
+          "value": "₹\n        47,646\n        \n          Cr."
+        }
+      ]
+    }
+  ],
+  "dataFields": {
+    "companyInfo": "",
+    "prosAndCons": {
+      "pros": [],
+      "cons": [
+        "Stock is trading at 3.43 times its book value",
+        "The company has delivered a poor sales growth of 8.93% over past five years.",
+        "Company has a low return on equity of 8.13% over last 3 years.",
+        "Earnings include an other income of Rs.25,894 Cr."
+      ]
+    },
+    "chartAvailable": true,
+    "peers": {
+      "headers": [],
+      "companies": [
+        [],
+        [
+          "1.",
+          "Reliance Industr",
+          "1413.60",
+          "48.10",
+          "1913343.52",
+          "0.39",
+          "9396.00",
+          "7.74",
+          "121150.00",
+          "-2.60",
+          "7.57"
+        ],
+        [
+          "2.",
+          "I O C L",
+          "160.90",
+          "9.32",
+          "227238.90",
+          "3.11",
+          "8190.86",
+          "1388.14",
+          "178628.15",
+          "2.09",
+          "7.36"
+        ],
+        [
+          "3.",
+          "B P C L",
+          "361.25",
+          "7.28",
+          "156750.09",
+          "2.77",
+          "6191.49",
+          "168.30",
+          "104946.27",
+          "2.10",
+          "16.22"
+        ],
+        [
+          "4.",
+          "H P C L",
+          "453.20",
+          "6.92",
+          "96453.98",
+          "2.32",
+          "3859.30",
+          "2605.05",
+          "100855.60",
+          "0.90",
+          "10.52"
+        ],
+        [
+          "5.",
+          "M R P L",
+          "143.25",
+          "11.50",
+          "25057.94",
+          "0.00",
+          "1450.89",
+          "369.09",
+          "24711.65",
+          "12.99",
+          "4.38"
+        ],
+        [
+          "6.",
+          "C P C L",
+          "847.70",
+          "10.80",
+          "12628.36",
+          "0.59",
+          "719.19",
+          "213.49",
+          "16327.34",
+          "35.09",
+          "4.30"
+        ],
+        [
+          "7.",
+          "Rajasthan Securities",
+          "39.99",
+          "6.04",
+          "307.42",
+          "0.00",
+          "34.24",
+          "",
+          "0.00",
+          "",
+          "-0.49"
+        ]
+      ]
+    },
+    "detailedRatios": [
+      {
+        "label": "Debtor Days",
+        "values": [
+          "10",
+          "5",
+          "6",
+          "8",
+          "13",
+          "12",
+          "8",
+          "6",
+          "12",
+          "16",
+          "10",
+          "11"
+        ]
+      },
+      {
+        "label": "Inventory Days",
+        "values": [
+          "47",
+          "50",
+          "63",
+          "75",
+          "71",
+          "60",
+          "58",
+          "78",
+          "52",
+          "77",
+          "79",
+          "84"
+        ]
+      },
+      {
+        "label": "Days Payable",
+        "values": [
+          "64",
+          "75",
+          "123",
+          "151",
+          "160",
+          "119",
+          "106",
+          "180",
+          "151",
+          "108",
+          "121",
+          "115"
+        ]
+      },
+      {
+        "label": "Cash Conversion Cycle",
+        "values": [
+          "-6",
+          "-19",
+          "-54",
+          "-67",
+          "-76",
+          "-48",
+          "-40",
+          "-96",
+          "-87",
+          "-15",
+          "-32",
+          "-20"
+        ]
+      },
+      {
+        "label": "Working Capital Days",
+        "values": [
+          "-28",
+          "-41",
+          "-128",
+          "-152",
+          "-155",
+          "-111",
+          "-263",
+          "-136",
+          "-68",
+          "-77",
+          "-79",
+          "-91"
+        ]
+      },
+      {
+        "label": "ROCE %",
+        "values": [
+          "11%",
+          "10%",
+          "11%",
+          "10%",
+          "12%",
+          "11%",
+          "9%",
+          "6%",
+          "8%",
+          "10%",
+          "10%",
+          "8%"
+        ]
+      }
+    ],
+    "shareholding": [
+      {
+        "label": "Promoters +",
+        "values": [
+          "50.49%",
+          "50.41%",
+          "50.39%",
+          "50.27%",
+          "50.30%",
+          "50.31%",
+          "50.33%",
+          "50.24%",
+          "50.13%",
+          "50.10%",
+          "50.07%",
+          "50.01%"
+        ]
+      },
+      {
+        "label": "FIIs +",
+        "values": [
+          "23.48%",
+          "22.49%",
+          "22.55%",
+          "22.60%",
+          "22.13%",
+          "22.06%",
+          "21.75%",
+          "21.30%",
+          "19.16%",
+          "19.07%",
+          "19.21%",
+          "18.65%"
+        ]
+      },
+      {
+        "label": "DIIs +",
+        "values": [
+          "15.26%",
+          "16.06%",
+          "16.13%",
+          "15.99%",
+          "16.59%",
+          "16.98%",
+          "17.30%",
+          "17.61%",
+          "19.02%",
+          "19.36%",
+          "19.72%",
+          "20.25%"
+        ]
+      },
+      {
+        "label": "Government +",
+        "values": [
+          "0.16%",
+          "0.16%",
+          "0.17%",
+          "0.17%",
+          "0.18%",
+          "0.19%",
+          "0.19%",
+          "0.19%",
+          "0.18%",
+          "0.17%",
+          "0.17%",
+          "0.17%"
+        ]
+      },
+      {
+        "label": "Public +",
+        "values": [
+          "10.59%",
+          "10.89%",
+          "10.76%",
+          "10.98%",
+          "10.80%",
+          "10.46%",
+          "10.43%",
+          "10.67%",
+          "11.52%",
+          "11.29%",
+          "10.84%",
+          "10.92%"
+        ]
+      },
+      {
+        "label": "No. of Shareholders",
+        "values": [
+          "33,62,915",
+          "36,39,396",
+          "35,06,867",
+          "36,98,648",
+          "36,13,814",
+          "34,63,276",
+          "34,93,125",
+          "38,34,968",
+          "47,14,959",
+          "47,65,728",
+          "44,35,756",
+          "43,93,764"
+        ]
+      }
+    ]
+  },
+  "rawHTML": {
+    "top-ratios": "\n          \n\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Market Cap\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">19,13,344</span>\n        \n          Cr.\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Current Price\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">1,414</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        High / Low\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">₹ <span class=\"number\">1,612</span> / <span class=\"number\">1,115</span></span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Stock P/E\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">48.1</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Book Value\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">413</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Dividend Yield\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">0.39</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        ROCE\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">7.57</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        ROE\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">6.61</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"default\">\n    <span class=\"name\">\n      \n        Face Value\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">10.0</span>\n        \n      </span>\n    \n  </li>\n\n\n\n\n\n\n        \n\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Piotroski score\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">5.00</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        ROA Prev Yr\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">4.45</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        No. Eq. Shares\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">1,353</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        No. of Share Holders\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">43,93,764</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        No. of Share Holders 1Yr\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">38,34,968</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        No. Eq. Shares PY\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">1,353</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Asset Turnover\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">0.52</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Free Cash Flow\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">42,127</span>\n        \n          Cr.\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        FCF Prev Ann\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">39,802</span>\n        \n          Cr.\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Free Cash Flow 5Yrs\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">1,36,343</span>\n        \n          Cr.\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        CMP / FCF\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">53.1</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Interest Coverage\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">7.61</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        ROIC\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">16.1</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Graham Number\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">572</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        PEG Ratio\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">-13.0</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Return on assets\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">3.53</span>\n        \n          %\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Current ratio\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        \n        <span class=\"number\">1.04</span>\n        \n      </span>\n    \n  </li>\n\n  <li class=\"flex flex-space-between\" data-source=\"quick-ratio\">\n    <span class=\"name\">\n      \n        Net profit\n      \n    </span>\n\n    \n      <span class=\"nowrap value\">\n        ₹\n        <span class=\"number\">47,646</span>\n        \n          Cr.\n        \n      </span>\n    \n  </li>\n\n\n\n\n\n",
+    "company-info": "",
+    "#quarters": "\n      \n        <div class=\"flex-row flex-space-between flex-gap-16\">\n  <div>\n    <h2>Quarterly Results</h2>\n\n    <p class=\"sub\" style=\"margin: 0;\">\n      \n        Standalone Figures in Rs. Crores\n        /\n        <a href=\"/company/RELIANCE/consolidated/#quarters\" class=\"strong\">View Consolidated</a>\n      \n    </p>\n  </div>\n\n  <div class=\"flex flex-gap-8\" style=\"justify-content: flex-end;\n              align-items: center\">\n    \n\n    \n      <button data-segment-button-close=\"\" onclick=\"Segment.closeSegments('quarters')\" class=\"button-small hidden\">\n        <i class=\"icon-cancel\"></i>\n        Close Segments\n      </button>\n\n      \n        <button data-segment-button=\"1\" onclick=\"Segment.showSegment('quarters', '1')\" class=\"button-small button-secondary plausible-event-name=Segment+Results plausible-event-user=unregistered\">\n          <i class=\"icon-chart-pie\"></i>\n          Product Segments\n        </button>\n      \n    \n\n    \n  </div>\n</div>\n\n<div class=\"responsive-holder hidden\" data-segment-table=\"\"></div>\n\n\n\n\n<div class=\"responsive-holder fill-card-width\" data-result-table=\"\">\n  <table class=\"data-table responsive-text-nowrap\">\n    <thead>\n      <tr>\n        <th class=\"text\"></th>\n        \n          <th class=\"highlight-cell\">\n            Dec 2022\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Jun 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Sep 2023\n            \n          </th>\n        \n          <th class=\"highlight-cell\">\n            Dec 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Jun 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Sep 2024\n            \n          </th>\n        \n          <th class=\"highlight-cell\">\n            Dec 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2025\n            \n          </th>\n        \n          <th class=\"\">\n            Jun 2025\n            \n          </th>\n        \n          <th class=\"\">\n            Sep 2025\n            \n          </th>\n        \n          <th class=\"highlight-cell\">\n            Dec 2025\n            \n          </th>\n        \n      </tr>\n    </thead>\n    <tbody>\n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Sales', 'quarters', this)\">\n                  Sales&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"highlight-cell\">125,849</td>\n            \n              <td class=\"\">129,674</td>\n            \n              <td class=\"\">122,627</td>\n            \n              <td class=\"\">137,380</td>\n            \n              <td class=\"highlight-cell\">127,695</td>\n            \n              <td class=\"\">146,832</td>\n            \n              <td class=\"\">129,898</td>\n            \n              <td class=\"\">130,108</td>\n            \n              <td class=\"highlight-cell\">124,381</td>\n            \n              <td class=\"\">132,962</td>\n            \n              <td class=\"\">116,341</td>\n            \n              <td class=\"\">126,335</td>\n            \n              <td class=\"highlight-cell\">121,150</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Expenses', 'quarters', this)\">\n                  Expenses&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"highlight-cell\">110,950</td>\n            \n              <td class=\"\">110,542</td>\n            \n              <td class=\"\">105,134</td>\n            \n              <td class=\"\">118,189</td>\n            \n              <td class=\"highlight-cell\">110,137</td>\n            \n              <td class=\"\">126,809</td>\n            \n              <td class=\"\">115,583</td>\n            \n              <td class=\"\">116,683</td>\n            \n              <td class=\"highlight-cell\">109,168</td>\n            \n              <td class=\"\">117,846</td>\n            \n              <td class=\"\">103,171</td>\n            \n              <td class=\"\">111,946</td>\n            \n              <td class=\"highlight-cell\">106,260</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe strong\">\n            <td class=\"text\">\n              \n                Operating Profit\n              \n            </td>\n            \n              <td class=\"highlight-cell\">14,899</td>\n            \n              <td class=\"\">19,132</td>\n            \n              <td class=\"\">17,493</td>\n            \n              <td class=\"\">19,191</td>\n            \n              <td class=\"highlight-cell\">17,558</td>\n            \n              <td class=\"\">20,023</td>\n            \n              <td class=\"\">14,315</td>\n            \n              <td class=\"\">13,425</td>\n            \n              <td class=\"highlight-cell\">15,213</td>\n            \n              <td class=\"\">15,116</td>\n            \n              <td class=\"\">13,170</td>\n            \n              <td class=\"\">14,389</td>\n            \n              <td class=\"highlight-cell\">14,890</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                OPM %\n              \n            </td>\n            \n              <td class=\"highlight-cell\">12%</td>\n            \n              <td class=\"\">15%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"highlight-cell\">14%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"highlight-cell\">12%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"highlight-cell\">12%</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Other Income', 'quarters', this)\">\n                  Other Income&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"highlight-cell\">2,689</td>\n            \n              <td class=\"\">2,750</td>\n            \n              <td class=\"\">2,728</td>\n            \n              <td class=\"\">2,934</td>\n            \n              <td class=\"highlight-cell\">2,969</td>\n            \n              <td class=\"\">3,497</td>\n            \n              <td class=\"\">3,502</td>\n            \n              <td class=\"\">3,801</td>\n            \n              <td class=\"highlight-cell\">3,214</td>\n            \n              <td class=\"\">5,577</td>\n            \n              <td class=\"\">13,460</td>\n            \n              <td class=\"\">3,445</td>\n            \n              <td class=\"highlight-cell\">3,412</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Interest\n              \n            </td>\n            \n              <td class=\"highlight-cell\">3,349</td>\n            \n              <td class=\"\">3,752</td>\n            \n              <td class=\"\">3,596</td>\n            \n              <td class=\"\">3,239</td>\n            \n              <td class=\"highlight-cell\">2,982</td>\n            \n              <td class=\"\">3,613</td>\n            \n              <td class=\"\">2,963</td>\n            \n              <td class=\"\">2,662</td>\n            \n              <td class=\"highlight-cell\">2,371</td>\n            \n              <td class=\"\">2,058</td>\n            \n              <td class=\"\">2,194</td>\n            \n              <td class=\"\">1,770</td>\n            \n              <td class=\"highlight-cell\">1,473</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Depreciation\n              \n            </td>\n            \n              <td class=\"highlight-cell\">2,529</td>\n            \n              <td class=\"\">3,779</td>\n            \n              <td class=\"\">3,883</td>\n            \n              <td class=\"\">4,384</td>\n            \n              <td class=\"highlight-cell\">4,567</td>\n            \n              <td class=\"\">4,856</td>\n            \n              <td class=\"\">4,708</td>\n            \n              <td class=\"\">4,350</td>\n            \n              <td class=\"highlight-cell\">4,459</td>\n            \n              <td class=\"\">4,464</td>\n            \n              <td class=\"\">4,130</td>\n            \n              <td class=\"\">4,472</td>\n            \n              <td class=\"highlight-cell\">4,434</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                Profit before tax\n              \n            </td>\n            \n              <td class=\"highlight-cell\">11,710</td>\n            \n              <td class=\"\">14,351</td>\n            \n              <td class=\"\">12,742</td>\n            \n              <td class=\"\">14,502</td>\n            \n              <td class=\"highlight-cell\">12,978</td>\n            \n              <td class=\"\">15,051</td>\n            \n              <td class=\"\">10,146</td>\n            \n              <td class=\"\">10,214</td>\n            \n              <td class=\"highlight-cell\">11,597</td>\n            \n              <td class=\"\">14,171</td>\n            \n              <td class=\"\">20,306</td>\n            \n              <td class=\"\">11,592</td>\n            \n              <td class=\"highlight-cell\">12,395</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Tax %\n              \n            </td>\n            \n              <td class=\"highlight-cell\">28%</td>\n            \n              <td class=\"\">4%</td>\n            \n              <td class=\"\">24%</td>\n            \n              <td class=\"\">23%</td>\n            \n              <td class=\"highlight-cell\">24%</td>\n            \n              <td class=\"\">25%</td>\n            \n              <td class=\"\">25%</td>\n            \n              <td class=\"\">24%</td>\n            \n              <td class=\"highlight-cell\">25%</td>\n            \n              <td class=\"\">21%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">21%</td>\n            \n              <td class=\"highlight-cell\">24%</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Net Profit', 'quarters', this)\">\n                  Net Profit&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"highlight-cell\">8,373</td>\n            \n              <td class=\"\">13,806</td>\n            \n              <td class=\"\">9,627</td>\n            \n              <td class=\"\">11,208</td>\n            \n              <td class=\"highlight-cell\">9,924</td>\n            \n              <td class=\"\">11,283</td>\n            \n              <td class=\"\">7,611</td>\n            \n              <td class=\"\">7,713</td>\n            \n              <td class=\"highlight-cell\">8,721</td>\n            \n              <td class=\"\">11,217</td>\n            \n              <td class=\"\">17,904</td>\n            \n              <td class=\"\">9,129</td>\n            \n              <td class=\"highlight-cell\">9,396</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                EPS in Rs\n              \n            </td>\n            \n              <td class=\"highlight-cell\">6.19</td>\n            \n              <td class=\"\">10.20</td>\n            \n              <td class=\"\">7.11</td>\n            \n              <td class=\"\">8.28</td>\n            \n              <td class=\"highlight-cell\">7.33</td>\n            \n              <td class=\"\">8.34</td>\n            \n              <td class=\"\">5.62</td>\n            \n              <td class=\"\">5.70</td>\n            \n              <td class=\"highlight-cell\">6.44</td>\n            \n              <td class=\"\">8.29</td>\n            \n              <td class=\"\">13.23</td>\n            \n              <td class=\"\">6.75</td>\n            \n              <td class=\"highlight-cell\">6.94</td>\n            \n          </tr>\n        \n      \n\n      \n        <tr class=\"font-size-14 ink-600\">\n          <td class=\"text ink-600\">Raw PDF</td>\n          \n            <td class=\"hover-link highlight-cell\">\n              <a href=\"/company/source/quarter/2726/12/2022/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/3/2023/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/6/2023/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/9/2023/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link highlight-cell\">\n              <a href=\"/company/source/quarter/2726/12/2023/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/3/2024/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/6/2024/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/9/2024/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link highlight-cell\">\n              <a href=\"/company/source/quarter/2726/12/2024/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/3/2025/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/6/2025/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link \">\n              <a href=\"/company/source/quarter/2726/9/2025/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n            <td class=\"hover-link highlight-cell\">\n              <a href=\"/company/source/quarter/2726/12/2025/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Raw PDF\" class=\"plausible-event-name=Quarterly+PDF plausible-event-user=unregistered\">\n                <i class=\"icon-file-pdf ink-600-link\"></i>\n              </a>\n            </td>\n          \n        </tr>\n      \n    </tbody>\n  </table>\n</div>\n\n\n      \n\n      \n    ",
+    "#profit-loss": "\n      <div class=\"flex-row flex-space-between flex-gap-16\">\n  <div>\n    <h2>Profit &amp; Loss</h2>\n\n    <p class=\"sub\" style=\"margin: 0;\">\n      \n        Standalone Figures in Rs. Crores\n        /\n        <a href=\"/company/RELIANCE/consolidated/#profit-loss\" class=\"strong\">View Consolidated</a>\n      \n    </p>\n  </div>\n\n  <div class=\"flex flex-gap-8\" style=\"justify-content: flex-end;\n              align-items: center\">\n    \n      <button data-url=\"/results/rpt/2726/\" data-title=\"Related Party Transactions\" onclick=\"Modal.openInModal(event)\" class=\"button-small button-secondary plausible-event-name=Related+party plausible-event-user=unregistered\">\n        <i class=\"small icon-users\"></i>\n        Related Party\n      </button>\n    \n\n    \n      <button data-segment-button-close=\"\" onclick=\"Segment.closeSegments('profit-loss')\" class=\"button-small hidden\">\n        <i class=\"icon-cancel\"></i>\n        Close Segments\n      </button>\n\n      \n        <button data-segment-button=\"1\" onclick=\"Segment.showSegment('profit-loss', '1')\" class=\"button-small button-secondary plausible-event-name=Segment+Results plausible-event-user=unregistered\">\n          <i class=\"icon-chart-pie\"></i>\n          Product Segments\n        </button>\n      \n    \n\n    \n  </div>\n</div>\n\n<div class=\"responsive-holder hidden\" data-segment-table=\"\"></div>\n\n\n\n\n<div class=\"responsive-holder fill-card-width\" data-result-table=\"\">\n  <table class=\"data-table responsive-text-nowrap\">\n    <thead>\n      <tr>\n        <th class=\"text\"></th>\n        \n          <th class=\"\">\n            Mar 2014\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2015\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2016\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2017\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2018\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2019\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2020\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2021\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2022\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2025\n            \n          </th>\n        \n          <th class=\"\">\n            TTM\n            \n          </th>\n        \n      </tr>\n    </thead>\n    <tbody>\n      \n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Sales', 'profit-loss', this)\">\n                  Sales&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">389,178</td>\n            \n              <td class=\"\">328,013</td>\n            \n              <td class=\"\">231,743</td>\n            \n              <td class=\"\">240,597</td>\n            \n              <td class=\"\">289,188</td>\n            \n              <td class=\"\">370,744</td>\n            \n              <td class=\"\">336,097</td>\n            \n              <td class=\"\">245,050</td>\n            \n              <td class=\"\">422,413</td>\n            \n              <td class=\"\">537,909</td>\n            \n              <td class=\"\">531,908</td>\n            \n              <td class=\"\">515,425</td>\n            \n              <td class=\"\">496,788</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Expenses', 'profit-loss', this)\">\n                  Expenses&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">358,244</td>\n            \n              <td class=\"\">296,377</td>\n            \n              <td class=\"\">192,359</td>\n            \n              <td class=\"\">197,272</td>\n            \n              <td class=\"\">237,430</td>\n            \n              <td class=\"\">311,853</td>\n            \n              <td class=\"\">283,073</td>\n            \n              <td class=\"\">211,542</td>\n            \n              <td class=\"\">370,007</td>\n            \n              <td class=\"\">471,050</td>\n            \n              <td class=\"\">457,488</td>\n            \n              <td class=\"\">457,292</td>\n            \n              <td class=\"\">439,223</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe strong\">\n            <td class=\"text\">\n              \n                Operating Profit\n              \n            </td>\n            \n              <td class=\"\">30,934</td>\n            \n              <td class=\"\">31,636</td>\n            \n              <td class=\"\">39,384</td>\n            \n              <td class=\"\">43,325</td>\n            \n              <td class=\"\">51,758</td>\n            \n              <td class=\"\">58,891</td>\n            \n              <td class=\"\">53,024</td>\n            \n              <td class=\"\">33,508</td>\n            \n              <td class=\"\">52,406</td>\n            \n              <td class=\"\">66,859</td>\n            \n              <td class=\"\">74,420</td>\n            \n              <td class=\"\">58,133</td>\n            \n              <td class=\"\">57,565</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                OPM %\n              \n            </td>\n            \n              <td class=\"\">8%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"\">17%</td>\n            \n              <td class=\"\">18%</td>\n            \n              <td class=\"\">18%</td>\n            \n              <td class=\"\">16%</td>\n            \n              <td class=\"\">16%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">12%</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Other Income', 'profit-loss', this)\">\n                  Other Income&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">8,879</td>\n            \n              <td class=\"\">8,687</td>\n            \n              <td class=\"\">7,784</td>\n            \n              <td class=\"\">8,640</td>\n            \n              <td class=\"\">8,203</td>\n            \n              <td class=\"\">8,785</td>\n            \n              <td class=\"\">9,125</td>\n            \n              <td class=\"\">19,114</td>\n            \n              <td class=\"\">13,779</td>\n            \n              <td class=\"\">12,247</td>\n            \n              <td class=\"\">11,973</td>\n            \n              <td class=\"\">16,030</td>\n            \n              <td class=\"\">25,894</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Interest\n              \n            </td>\n            \n              <td class=\"\">3,206</td>\n            \n              <td class=\"\">2,367</td>\n            \n              <td class=\"\">2,562</td>\n            \n              <td class=\"\">2,723</td>\n            \n              <td class=\"\">4,656</td>\n            \n              <td class=\"\">9,751</td>\n            \n              <td class=\"\">12,105</td>\n            \n              <td class=\"\">16,211</td>\n            \n              <td class=\"\">9,123</td>\n            \n              <td class=\"\">12,633</td>\n            \n              <td class=\"\">13,430</td>\n            \n              <td class=\"\">10,054</td>\n            \n              <td class=\"\">7,495</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Depreciation\n              \n            </td>\n            \n              <td class=\"\">8,789</td>\n            \n              <td class=\"\">8,488</td>\n            \n              <td class=\"\">8,590</td>\n            \n              <td class=\"\">8,465</td>\n            \n              <td class=\"\">9,580</td>\n            \n              <td class=\"\">10,558</td>\n            \n              <td class=\"\">9,728</td>\n            \n              <td class=\"\">9,199</td>\n            \n              <td class=\"\">10,276</td>\n            \n              <td class=\"\">11,167</td>\n            \n              <td class=\"\">17,690</td>\n            \n              <td class=\"\">17,981</td>\n            \n              <td class=\"\">17,500</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                Profit before tax\n              \n            </td>\n            \n              <td class=\"\">27,818</td>\n            \n              <td class=\"\">29,468</td>\n            \n              <td class=\"\">36,016</td>\n            \n              <td class=\"\">40,777</td>\n            \n              <td class=\"\">45,725</td>\n            \n              <td class=\"\">47,367</td>\n            \n              <td class=\"\">40,316</td>\n            \n              <td class=\"\">27,212</td>\n            \n              <td class=\"\">46,786</td>\n            \n              <td class=\"\">55,306</td>\n            \n              <td class=\"\">55,273</td>\n            \n              <td class=\"\">46,128</td>\n            \n              <td class=\"\">58,464</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Tax %\n              \n            </td>\n            \n              <td class=\"\">21%</td>\n            \n              <td class=\"\">23%</td>\n            \n              <td class=\"\">24%</td>\n            \n              <td class=\"\">23%</td>\n            \n              <td class=\"\">26%</td>\n            \n              <td class=\"\">26%</td>\n            \n              <td class=\"\">23%</td>\n            \n              <td class=\"\">-17%</td>\n            \n              <td class=\"\">16%</td>\n            \n              <td class=\"\">20%</td>\n            \n              <td class=\"\">24%</td>\n            \n              <td class=\"\">24%</td>\n            \n              <td class=\"\"></td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Net Profit', 'profit-loss', this)\">\n                  Net Profit&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">21,984</td>\n            \n              <td class=\"\">22,719</td>\n            \n              <td class=\"\">27,384</td>\n            \n              <td class=\"\">31,425</td>\n            \n              <td class=\"\">33,612</td>\n            \n              <td class=\"\">35,163</td>\n            \n              <td class=\"\">30,903</td>\n            \n              <td class=\"\">31,944</td>\n            \n              <td class=\"\">39,084</td>\n            \n              <td class=\"\">44,190</td>\n            \n              <td class=\"\">42,042</td>\n            \n              <td class=\"\">35,262</td>\n            \n              <td class=\"\">47,646</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                EPS in Rs\n              \n            </td>\n            \n              <td class=\"\">15.94</td>\n            \n              <td class=\"\">16.46</td>\n            \n              <td class=\"\">19.81</td>\n            \n              <td class=\"\">22.65</td>\n            \n              <td class=\"\">24.87</td>\n            \n              <td class=\"\">26.00</td>\n            \n              <td class=\"\">22.85</td>\n            \n              <td class=\"\">25.19</td>\n            \n              <td class=\"\">28.89</td>\n            \n              <td class=\"\">32.66</td>\n            \n              <td class=\"\">31.07</td>\n            \n              <td class=\"\">26.06</td>\n            \n              <td class=\"\">35.21</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Dividend Payout %\n              \n            </td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">13%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">14%</td>\n            \n              <td class=\"\">16%</td>\n            \n              <td class=\"\">21%</td>\n            \n              <td class=\"\"></td>\n            \n          </tr>\n        \n      \n\n      \n    </tbody>\n  </table>\n</div>\n\n\n\n      <div style=\"display: grid;\n                  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));\n                  gap: 2%\">\n        <table class=\"ranges-table\">\n          <tbody><tr>\n            <th colspan=\"2\">Compounded Sales Growth</th>\n          </tr>\n          <tr>\n            <td>10 Years:</td>\n            <td>5%</td>\n          </tr>\n          <tr>\n            <td>5 Years:</td>\n            <td>9%</td>\n          </tr>\n          <tr>\n            <td>3 Years:</td>\n            <td>7%</td>\n          </tr>\n          <tr>\n            <td>TTM:</td>\n            <td>-6%</td>\n          </tr>\n        </tbody></table>\n        <table class=\"ranges-table\">\n          <tbody><tr>\n            <th colspan=\"2\">Compounded Profit Growth</th>\n          </tr>\n          <tr>\n            <td>10 Years:</td>\n            <td>5%</td>\n          </tr>\n          <tr>\n            <td>5 Years:</td>\n            <td>0%</td>\n          </tr>\n          <tr>\n            <td>3 Years:</td>\n            <td>-4%</td>\n          </tr>\n          <tr>\n            <td>TTM:</td>\n            <td>13%</td>\n          </tr>\n        </tbody></table>\n        <table class=\"ranges-table\">\n          <tbody><tr>\n            <th colspan=\"2\">Stock Price CAGR</th>\n          </tr>\n          <tr>\n            <td>10 Years:</td>\n            <td>20%</td>\n          </tr>\n          <tr>\n            <td>5 Years:</td>\n            <td>8%</td>\n          </tr>\n          <tr>\n            <td>3 Years:</td>\n            <td>8%</td>\n          </tr>\n          <tr>\n            <td>1 Year:</td>\n            <td>9%</td>\n          </tr>\n        </tbody></table>\n        <table class=\"ranges-table\">\n          <tbody><tr>\n            <th colspan=\"2\">Return on Equity</th>\n          </tr>\n          <tr>\n            <td>10 Years:</td>\n            <td>9%</td>\n          </tr>\n          <tr>\n            <td>5 Years:</td>\n            <td>8%</td>\n          </tr>\n          <tr>\n            <td>3 Years:</td>\n            <td>8%</td>\n          </tr>\n          <tr>\n            <td>Last Year:</td>\n            <td>7%</td>\n          </tr>\n        </tbody></table>\n      </div>\n    ",
+    "#balance-sheet": "\n      <div class=\"flex-row flex-space-between flex-gap-16\">\n  <div>\n    <h2>Balance Sheet</h2>\n\n    <p class=\"sub\" style=\"margin: 0;\">\n      \n        Standalone Figures in Rs. Crores\n        /\n        <a href=\"/company/RELIANCE/consolidated/#balance-sheet\" class=\"strong\">View Consolidated</a>\n      \n    </p>\n  </div>\n\n  <div class=\"flex flex-gap-8\" style=\"justify-content: flex-end;\n              align-items: center\">\n    \n\n    \n\n    \n      <button type=\"button\" class=\"button-small button-secondary plausible-event-name=Corporate+Actions plausible-event-user=unregistered\" onclick=\"Modal.openInModal(event)\" data-title=\"Corporate actions\" data-url=\"/company/actions/2726/\">Corporate actions</button>\n    \n  </div>\n</div>\n\n\n\n\n\n\n<div class=\"responsive-holder fill-card-width\" data-result-table=\"\">\n  <table class=\"data-table responsive-text-nowrap\">\n    <thead>\n      <tr>\n        <th class=\"text\"></th>\n        \n          <th class=\"\">\n            Mar 2014\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2015\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2016\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2017\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2018\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2019\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2020\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2021\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2022\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2025\n            \n          </th>\n        \n          <th class=\"\">\n            Sep 2025\n            \n          </th>\n        \n      </tr>\n    </thead>\n    <tbody>\n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Equity Capital\n              \n            </td>\n            \n              <td class=\"\">3,232</td>\n            \n              <td class=\"\">3,236</td>\n            \n              <td class=\"\">3,240</td>\n            \n              <td class=\"\">3,251</td>\n            \n              <td class=\"\">6,335</td>\n            \n              <td class=\"\">6,339</td>\n            \n              <td class=\"\">6,339</td>\n            \n              <td class=\"\">6,445</td>\n            \n              <td class=\"\">6,765</td>\n            \n              <td class=\"\">6,766</td>\n            \n              <td class=\"\">6,766</td>\n            \n              <td class=\"\">13,532</td>\n            \n              <td class=\"\">13,532</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Reserves\n              \n            </td>\n            \n              <td class=\"\">193,859</td>\n            \n              <td class=\"\">212,940</td>\n            \n              <td class=\"\">250,758</td>\n            \n              <td class=\"\">285,062</td>\n            \n              <td class=\"\">308,312</td>\n            \n              <td class=\"\">398,983</td>\n            \n              <td class=\"\">384,876</td>\n            \n              <td class=\"\">468,038</td>\n            \n              <td class=\"\">464,762</td>\n            \n              <td class=\"\">472,312</td>\n            \n              <td class=\"\">508,330</td>\n            \n              <td class=\"\">529,555</td>\n            \n              <td class=\"\">544,964</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Borrowings', 'balance-sheet', this)\">\n                  Borrowings&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">89,968</td>\n            \n              <td class=\"\">97,620</td>\n            \n              <td class=\"\">107,104</td>\n            \n              <td class=\"\">107,446</td>\n            \n              <td class=\"\">116,881</td>\n            \n              <td class=\"\">161,720</td>\n            \n              <td class=\"\">298,599</td>\n            \n              <td class=\"\">224,683</td>\n            \n              <td class=\"\">197,439</td>\n            \n              <td class=\"\">218,706</td>\n            \n              <td class=\"\">214,575</td>\n            \n              <td class=\"\">201,505</td>\n            \n              <td class=\"\">207,388</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Other Liabilities', 'balance-sheet', this)\">\n                  Other Liabilities&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">80,524</td>\n            \n              <td class=\"\">83,989</td>\n            \n              <td class=\"\">120,572</td>\n            \n              <td class=\"\">150,987</td>\n            \n              <td class=\"\">185,997</td>\n            \n              <td class=\"\">208,703</td>\n            \n              <td class=\"\">281,885</td>\n            \n              <td class=\"\">174,507</td>\n            \n              <td class=\"\">209,708</td>\n            \n              <td class=\"\">224,876</td>\n            \n              <td class=\"\">229,972</td>\n            \n              <td class=\"\">277,809</td>\n            \n              <td class=\"\">302,764</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe strong\">\n            <td class=\"text\">\n              \n                Total Liabilities\n              \n            </td>\n            \n              <td class=\"\">367,583</td>\n            \n              <td class=\"\">397,785</td>\n            \n              <td class=\"\">481,674</td>\n            \n              <td class=\"\">546,746</td>\n            \n              <td class=\"\">617,525</td>\n            \n              <td class=\"\">775,745</td>\n            \n              <td class=\"\">971,699</td>\n            \n              <td class=\"\">873,673</td>\n            \n              <td class=\"\">878,674</td>\n            \n              <td class=\"\">922,660</td>\n            \n              <td class=\"\">959,643</td>\n            \n              <td class=\"\">1,022,401</td>\n            \n              <td class=\"\">1,068,648</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Fixed Assets', 'balance-sheet', this)\">\n                  Fixed Assets&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">109,406</td>\n            \n              <td class=\"\">114,563</td>\n            \n              <td class=\"\">147,543</td>\n            \n              <td class=\"\">154,578</td>\n            \n              <td class=\"\">200,964</td>\n            \n              <td class=\"\">203,188</td>\n            \n              <td class=\"\">306,478</td>\n            \n              <td class=\"\">306,833</td>\n            \n              <td class=\"\">239,626</td>\n            \n              <td class=\"\">282,301</td>\n            \n              <td class=\"\">299,630</td>\n            \n              <td class=\"\">311,047</td>\n            \n              <td class=\"\">314,432</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                CWIP\n              \n            </td>\n            \n              <td class=\"\">41,716</td>\n            \n              <td class=\"\">75,753</td>\n            \n              <td class=\"\">110,905</td>\n            \n              <td class=\"\">132,741</td>\n            \n              <td class=\"\">99,483</td>\n            \n              <td class=\"\">111,557</td>\n            \n              <td class=\"\">27,965</td>\n            \n              <td class=\"\">32,835</td>\n            \n              <td class=\"\">34,662</td>\n            \n              <td class=\"\">54,357</td>\n            \n              <td class=\"\">61,632</td>\n            \n              <td class=\"\">82,417</td>\n            \n              <td class=\"\">98,517</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Investments\n              \n            </td>\n            \n              <td class=\"\">86,062</td>\n            \n              <td class=\"\">112,573</td>\n            \n              <td class=\"\">157,250</td>\n            \n              <td class=\"\">192,450</td>\n            \n              <td class=\"\">225,222</td>\n            \n              <td class=\"\">331,683</td>\n            \n              <td class=\"\">491,823</td>\n            \n              <td class=\"\">347,285</td>\n            \n              <td class=\"\">408,797</td>\n            \n              <td class=\"\">351,141</td>\n            \n              <td class=\"\">370,063</td>\n            \n              <td class=\"\">390,360</td>\n            \n              <td class=\"\">412,681</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Other Assets', 'balance-sheet', this)\">\n                  Other Assets&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">130,399</td>\n            \n              <td class=\"\">94,896</td>\n            \n              <td class=\"\">65,976</td>\n            \n              <td class=\"\">66,977</td>\n            \n              <td class=\"\">91,856</td>\n            \n              <td class=\"\">129,317</td>\n            \n              <td class=\"\">145,433</td>\n            \n              <td class=\"\">186,720</td>\n            \n              <td class=\"\">195,589</td>\n            \n              <td class=\"\">234,861</td>\n            \n              <td class=\"\">228,318</td>\n            \n              <td class=\"\">238,577</td>\n            \n              <td class=\"\">243,018</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                Total Assets\n              \n            </td>\n            \n              <td class=\"\">367,583</td>\n            \n              <td class=\"\">397,785</td>\n            \n              <td class=\"\">481,674</td>\n            \n              <td class=\"\">546,746</td>\n            \n              <td class=\"\">617,525</td>\n            \n              <td class=\"\">775,745</td>\n            \n              <td class=\"\">971,699</td>\n            \n              <td class=\"\">873,673</td>\n            \n              <td class=\"\">878,674</td>\n            \n              <td class=\"\">922,660</td>\n            \n              <td class=\"\">959,643</td>\n            \n              <td class=\"\">1,022,401</td>\n            \n              <td class=\"\">1,068,648</td>\n            \n          </tr>\n        \n      \n\n      \n    </tbody>\n  </table>\n</div>\n\n\n    ",
+    "#cash-flow": "\n      <div class=\"flex-row flex-space-between flex-gap-16\">\n  <div>\n    <h2>Cash Flows</h2>\n\n    <p class=\"sub\" style=\"margin: 0;\">\n      \n        Standalone Figures in Rs. Crores\n        /\n        <a href=\"/company/RELIANCE/consolidated/#cash-flow\" class=\"strong\">View Consolidated</a>\n      \n    </p>\n  </div>\n\n  <div class=\"flex flex-gap-8\" style=\"justify-content: flex-end;\n              align-items: center\">\n    \n\n    \n\n    \n  </div>\n</div>\n\n\n\n\n\n\n<div class=\"responsive-holder fill-card-width\" data-result-table=\"\">\n  <table class=\"data-table responsive-text-nowrap\">\n    <thead>\n      <tr>\n        <th class=\"text\"></th>\n        \n          <th class=\"\">\n            Mar 2014\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2015\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2016\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2017\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2018\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2019\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2020\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2021\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2022\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2025\n            \n          </th>\n        \n      </tr>\n    </thead>\n    <tbody>\n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Cash from Operating Activity', 'cash-flow', this)\">\n                  Cash from Operating Activity&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">42,160</td>\n            \n              <td class=\"\">35,285</td>\n            \n              <td class=\"\">43,447</td>\n            \n              <td class=\"\">51,450</td>\n            \n              <td class=\"\">62,000</td>\n            \n              <td class=\"\">29,191</td>\n            \n              <td class=\"\">77,533</td>\n            \n              <td class=\"\">-512</td>\n            \n              <td class=\"\">67,491</td>\n            \n              <td class=\"\">55,340</td>\n            \n              <td class=\"\">73,998</td>\n            \n              <td class=\"\">79,392</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Cash from Investing Activity', 'cash-flow', this)\">\n                  Cash from Investing Activity&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">-64,013</td>\n            \n              <td class=\"\">-55,998</td>\n            \n              <td class=\"\">-41,223</td>\n            \n              <td class=\"\">-54,949</td>\n            \n              <td class=\"\">-59,109</td>\n            \n              <td class=\"\">-53,949</td>\n            \n              <td class=\"\">-143,583</td>\n            \n              <td class=\"\">74,257</td>\n            \n              <td class=\"\">-45,315</td>\n            \n              <td class=\"\">-8,678</td>\n            \n              <td class=\"\">-38,292</td>\n            \n              <td class=\"\">-28,106</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                <button class=\"button-plain\" onclick=\"Company.showSchedule('Cash from Financing Activity', 'cash-flow', this)\">\n                  Cash from Financing Activity&nbsp;<span class=\"blue-icon\">+</span>\n                </button>\n              \n            </td>\n            \n              <td class=\"\">5,530</td>\n            \n              <td class=\"\">-940</td>\n            \n              <td class=\"\">-6,903</td>\n            \n              <td class=\"\">-1,639</td>\n            \n              <td class=\"\">-1,914</td>\n            \n              <td class=\"\">25,795</td>\n            \n              <td class=\"\">70,767</td>\n            \n              <td class=\"\">-76,657</td>\n            \n              <td class=\"\">-6,035</td>\n            \n              <td class=\"\">-7,369</td>\n            \n              <td class=\"\">-27,465</td>\n            \n              <td class=\"\">-38,063</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                Net Cash Flow\n              \n            </td>\n            \n              <td class=\"\">-16,323</td>\n            \n              <td class=\"\">-21,653</td>\n            \n              <td class=\"\">-4,679</td>\n            \n              <td class=\"\">-5,138</td>\n            \n              <td class=\"\">977</td>\n            \n              <td class=\"\">1,037</td>\n            \n              <td class=\"\">4,717</td>\n            \n              <td class=\"\">-2,912</td>\n            \n              <td class=\"\">16,141</td>\n            \n              <td class=\"\">39,293</td>\n            \n              <td class=\"\">8,241</td>\n            \n              <td class=\"\">13,223</td>\n            \n          </tr>\n        \n      \n\n      \n    </tbody>\n  </table>\n</div>\n\n\n    ",
+    "#ratios": "\n      <div class=\"flex-row flex-space-between flex-gap-16\">\n  <div>\n    <h2>Ratios</h2>\n\n    <p class=\"sub\" style=\"margin: 0;\">\n      \n        Standalone Figures in Rs. Crores\n        /\n        <a href=\"/company/RELIANCE/consolidated/#ratios\" class=\"strong\">View Consolidated</a>\n      \n    </p>\n  </div>\n\n  <div class=\"flex flex-gap-8\" style=\"justify-content: flex-end;\n              align-items: center\">\n    \n\n    \n\n    \n  </div>\n</div>\n\n\n\n\n\n\n<div class=\"responsive-holder fill-card-width\" data-result-table=\"\">\n  <table class=\"data-table responsive-text-nowrap\">\n    <thead>\n      <tr>\n        <th class=\"text\"></th>\n        \n          <th class=\"\">\n            Mar 2014\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2015\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2016\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2017\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2018\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2019\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2020\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2021\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2022\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2023\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2024\n            \n          </th>\n        \n          <th class=\"\">\n            Mar 2025\n            \n          </th>\n        \n      </tr>\n    </thead>\n    <tbody>\n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Debtor Days\n              \n            </td>\n            \n              <td class=\"\">10</td>\n            \n              <td class=\"\">5</td>\n            \n              <td class=\"\">6</td>\n            \n              <td class=\"\">8</td>\n            \n              <td class=\"\">13</td>\n            \n              <td class=\"\">12</td>\n            \n              <td class=\"\">8</td>\n            \n              <td class=\"\">6</td>\n            \n              <td class=\"\">12</td>\n            \n              <td class=\"\">16</td>\n            \n              <td class=\"\">10</td>\n            \n              <td class=\"\">11</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"\">\n            <td class=\"text\">\n              \n                Inventory Days\n              \n            </td>\n            \n              <td class=\"\">47</td>\n            \n              <td class=\"\">50</td>\n            \n              <td class=\"\">63</td>\n            \n              <td class=\"\">75</td>\n            \n              <td class=\"\">71</td>\n            \n              <td class=\"\">60</td>\n            \n              <td class=\"\">58</td>\n            \n              <td class=\"\">78</td>\n            \n              <td class=\"\">52</td>\n            \n              <td class=\"\">77</td>\n            \n              <td class=\"\">79</td>\n            \n              <td class=\"\">84</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Days Payable\n              \n            </td>\n            \n              <td class=\"\">64</td>\n            \n              <td class=\"\">75</td>\n            \n              <td class=\"\">123</td>\n            \n              <td class=\"\">151</td>\n            \n              <td class=\"\">160</td>\n            \n              <td class=\"\">119</td>\n            \n              <td class=\"\">106</td>\n            \n              <td class=\"\">180</td>\n            \n              <td class=\"\">151</td>\n            \n              <td class=\"\">108</td>\n            \n              <td class=\"\">121</td>\n            \n              <td class=\"\">115</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                Cash Conversion Cycle\n              \n            </td>\n            \n              <td class=\"\">-6</td>\n            \n              <td class=\"\">-19</td>\n            \n              <td class=\"\">-54</td>\n            \n              <td class=\"\">-67</td>\n            \n              <td class=\"\">-76</td>\n            \n              <td class=\"\">-48</td>\n            \n              <td class=\"\">-40</td>\n            \n              <td class=\"\">-96</td>\n            \n              <td class=\"\">-87</td>\n            \n              <td class=\"\">-15</td>\n            \n              <td class=\"\">-32</td>\n            \n              <td class=\"\">-20</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              \n                Working Capital Days\n              \n            </td>\n            \n              <td class=\"\">-28</td>\n            \n              <td class=\"\">-41</td>\n            \n              <td class=\"\">-128</td>\n            \n              <td class=\"\">-152</td>\n            \n              <td class=\"\">-155</td>\n            \n              <td class=\"\">-111</td>\n            \n              <td class=\"\">-263</td>\n            \n              <td class=\"\">-136</td>\n            \n              <td class=\"\">-68</td>\n            \n              <td class=\"\">-77</td>\n            \n              <td class=\"\">-79</td>\n            \n              <td class=\"\">-91</td>\n            \n          </tr>\n        \n      \n        \n          <tr class=\" strong\">\n            <td class=\"text\">\n              \n                ROCE %\n              \n            </td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"\">12%</td>\n            \n              <td class=\"\">11%</td>\n            \n              <td class=\"\">9%</td>\n            \n              <td class=\"\">6%</td>\n            \n              <td class=\"\">8%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"\">10%</td>\n            \n              <td class=\"\">8%</td>\n            \n          </tr>\n        \n      \n\n      \n    </tbody>\n  </table>\n</div>\n\n\n    ",
+    "#shareholding": "\n      <div class=\"flex flex-space-between flex-wrap margin-bottom-8 flex-align-center\">\n  <div>\n    <h2 class=\"margin-0\">Shareholding Pattern</h2>\n    <p class=\"sub\">Numbers in percentages</p>\n  </div>\n  <div class=\"flex\">\n    <div class=\"options small margin-0\">\n      <button onclick=\"Utils.setActiveTab(event)\" class=\"active\" data-tab-id=\"quarterly-shp\" type=\"button\">Quarterly</button>\n      <button onclick=\"Utils.setActiveTab(event)\" data-tab-id=\"yearly-shp\" type=\"button\">Yearly</button>\n    </div>\n    \n      <div class=\"text-align-center margin-left-12\">\n        <button type=\"button\" class=\"button-secondary button-small\" onclick=\"Modal.openInModal(event)\" data-title=\"Reliance Industr trades\" data-url=\"/trades/company-2726/\">Trades</button>\n        \n          <div class=\"ink-700 font-size-12\" style=\"position: absolute;\n                      padding-left: 15px\">3 Recently</div>\n        \n      </div>\n    \n  </div>\n</div>\n\n<div id=\"quarterly-shp\">\n\n\n  <div class=\"responsive-holder fill-card-width\">\n    <table class=\"data-table\">\n      <thead>\n        <tr>\n          <th class=\"text\"></th>\n          <th>Dec 2022</th><th>Mar 2023</th><th>Jun 2023</th><th>Sep 2023</th><th>Dec 2023</th><th>Mar 2024</th><th>Jun 2024</th><th>Sep 2024</th><th>Dec 2024</th><th>Mar 2025</th><th>Jun 2025</th><th>Sep 2025</th>\n        </tr>\n      </thead>\n      <tbody>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=promoters plausible-event-period=quarterly\" onclick=\"Company.showShareholders('promoters', 'quarterly', this)\">\n                Promoters&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>50.49%</td>\n            \n              <td>50.41%</td>\n            \n              <td>50.39%</td>\n            \n              <td>50.27%</td>\n            \n              <td>50.30%</td>\n            \n              <td>50.31%</td>\n            \n              <td>50.33%</td>\n            \n              <td>50.24%</td>\n            \n              <td>50.13%</td>\n            \n              <td>50.10%</td>\n            \n              <td>50.07%</td>\n            \n              <td>50.01%</td>\n            \n          </tr>\n        \n          <tr class=\"\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=foreign_institutions plausible-event-period=quarterly\" onclick=\"Company.showShareholders('foreign_institutions', 'quarterly', this)\">\n                FIIs&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>23.48%</td>\n            \n              <td>22.49%</td>\n            \n              <td>22.55%</td>\n            \n              <td>22.60%</td>\n            \n              <td>22.13%</td>\n            \n              <td>22.06%</td>\n            \n              <td>21.75%</td>\n            \n              <td>21.30%</td>\n            \n              <td>19.16%</td>\n            \n              <td>19.07%</td>\n            \n              <td>19.21%</td>\n            \n              <td>18.65%</td>\n            \n          </tr>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=domestic_institutions plausible-event-period=quarterly\" onclick=\"Company.showShareholders('domestic_institutions', 'quarterly', this)\">\n                DIIs&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>15.26%</td>\n            \n              <td>16.06%</td>\n            \n              <td>16.13%</td>\n            \n              <td>15.99%</td>\n            \n              <td>16.59%</td>\n            \n              <td>16.98%</td>\n            \n              <td>17.30%</td>\n            \n              <td>17.61%</td>\n            \n              <td>19.02%</td>\n            \n              <td>19.36%</td>\n            \n              <td>19.72%</td>\n            \n              <td>20.25%</td>\n            \n          </tr>\n        \n          <tr class=\"\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=government plausible-event-period=quarterly\" onclick=\"Company.showShareholders('government', 'quarterly', this)\">\n                Government&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>0.16%</td>\n            \n              <td>0.16%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.18%</td>\n            \n              <td>0.19%</td>\n            \n              <td>0.19%</td>\n            \n              <td>0.19%</td>\n            \n              <td>0.18%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.17%</td>\n            \n          </tr>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=public plausible-event-period=quarterly\" onclick=\"Company.showShareholders('public', 'quarterly', this)\">\n                Public&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>10.59%</td>\n            \n              <td>10.89%</td>\n            \n              <td>10.76%</td>\n            \n              <td>10.98%</td>\n            \n              <td>10.80%</td>\n            \n              <td>10.46%</td>\n            \n              <td>10.43%</td>\n            \n              <td>10.67%</td>\n            \n              <td>11.52%</td>\n            \n              <td>11.29%</td>\n            \n              <td>10.84%</td>\n            \n              <td>10.92%</td>\n            \n          </tr>\n        \n        <tr class=\"sub\">\n          <td class=\"text\">No. of Shareholders</td>\n          <td>33,62,915</td><td>36,39,396</td><td>35,06,867</td><td>36,98,648</td><td>36,13,814</td><td>34,63,276</td><td>34,93,125</td><td>38,34,968</td><td>47,14,959</td><td>47,65,728</td><td>44,35,756</td><td>43,93,764</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n\n</div>\n\n<div id=\"yearly-shp\" class=\"hidden\">\n  \n\n\n  <div class=\"responsive-holder fill-card-width\">\n    <table class=\"data-table\">\n      <thead>\n        <tr>\n          <th class=\"text\"></th>\n          <th>Mar 2017</th><th>Mar 2018</th><th>Mar 2019</th><th>Mar 2020</th><th>Mar 2021</th><th>Mar 2022</th><th>Mar 2023</th><th>Mar 2024</th><th>Mar 2025</th><th>Sep 2025</th>\n        </tr>\n      </thead>\n      <tbody>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=promoters plausible-event-period=yearly\" onclick=\"Company.showShareholders('promoters', 'yearly', this)\">\n                Promoters&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>46.32%</td>\n            \n              <td>47.45%</td>\n            \n              <td>47.27%</td>\n            \n              <td>50.07%</td>\n            \n              <td>50.58%</td>\n            \n              <td>50.66%</td>\n            \n              <td>50.41%</td>\n            \n              <td>50.31%</td>\n            \n              <td>50.10%</td>\n            \n              <td>50.01%</td>\n            \n          </tr>\n        \n          <tr class=\"\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=foreign_institutions plausible-event-period=yearly\" onclick=\"Company.showShareholders('foreign_institutions', 'yearly', this)\">\n                FIIs&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>22.58%</td>\n            \n              <td>24.46%</td>\n            \n              <td>24.39%</td>\n            \n              <td>24.08%</td>\n            \n              <td>25.66%</td>\n            \n              <td>24.23%</td>\n            \n              <td>22.49%</td>\n            \n              <td>22.06%</td>\n            \n              <td>19.07%</td>\n            \n              <td>18.65%</td>\n            \n          </tr>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=domestic_institutions plausible-event-period=yearly\" onclick=\"Company.showShareholders('domestic_institutions', 'yearly', this)\">\n                DIIs&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>11.85%</td>\n            \n              <td>11.23%</td>\n            \n              <td>11.86%</td>\n            \n              <td>13.78%</td>\n            \n              <td>12.62%</td>\n            \n              <td>14.23%</td>\n            \n              <td>16.06%</td>\n            \n              <td>16.98%</td>\n            \n              <td>19.36%</td>\n            \n              <td>20.25%</td>\n            \n          </tr>\n        \n          <tr class=\"\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=government plausible-event-period=yearly\" onclick=\"Company.showShareholders('government', 'yearly', this)\">\n                Government&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>0.14%</td>\n            \n              <td>0.15%</td>\n            \n              <td>0.18%</td>\n            \n              <td>0.20%</td>\n            \n              <td>0.20%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.16%</td>\n            \n              <td>0.19%</td>\n            \n              <td>0.17%</td>\n            \n              <td>0.17%</td>\n            \n          </tr>\n        \n          <tr class=\"stripe\">\n            <td class=\"text\">\n              <button class=\"button-plain plausible-event-name=View+Shareholders plausible-event-user=unregistered plausible-event-classification=public plausible-event-period=yearly\" onclick=\"Company.showShareholders('public', 'yearly', this)\">\n                Public&nbsp;<span class=\"blue-icon\">+</span>\n              </button>\n            </td>\n            \n              <td>19.12%</td>\n            \n              <td>16.72%</td>\n            \n              <td>16.29%</td>\n            \n              <td>11.87%</td>\n            \n              <td>10.94%</td>\n            \n              <td>10.71%</td>\n            \n              <td>10.89%</td>\n            \n              <td>10.46%</td>\n            \n              <td>11.29%</td>\n            \n              <td>10.92%</td>\n            \n          </tr>\n        \n        <tr class=\"sub\">\n          <td class=\"text\">No. of Shareholders</td>\n          <td>25,01,302</td><td>22,66,000</td><td>22,11,231</td><td>26,32,168</td><td>30,31,272</td><td>33,27,847</td><td>36,39,396</td><td>34,63,276</td><td>47,65,728</td><td>43,93,764</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n\n\n</div>\n\n\n  <p class=\"sub small\">\n    * The classifications might have changed from Sep'2022 onwards.\n    <span class=\"has-tooltip\">\n      <i class=\"icon-info\"></i>\n      <span class=\"tooltip arrow-down\" style=\"width: 300px\">\n        The new XBRL format added more details from Sep'22 onwards.\n        <br>\n        <br>\n        Classifications such as banks and foreign portfolio investors were not available earlier. The sudden changes in FII or DII can be because of these changes.\n        <br>\n        <br>\n        Click on the line-items to see the names of individual entities.\n      </span>\n    </span>\n  </p>\n\n\n    ",
+    "#peers": "\n      <div class=\"flex flex-space-between\" style=\"align-items: center;\">\n        <div>\n          <h2>Peer comparison</h2>\n\n          \n            <p class=\"sub\">\n              <i class=\"icon-globe\"></i>\n              <a href=\"/market/IN03/\" target=\"_blank\" title=\"Broad Sector\">Energy</a>\n              <i class=\"icon-right\"></i>\n              <i class=\"icon-chart-pie\"></i>\n              <a href=\"/market/IN03/IN0301/\" target=\"_blank\" title=\"Sector\">Oil, Gas &amp; Consumable Fuels</a>\n              <i class=\"icon-right\"></i>\n              <i class=\"icon-industry\"></i>\n              <a href=\"/market/IN03/IN0301/IN030103/\" target=\"_blank\" title=\"Broad Industry\">Petroleum Products</a>\n              <i class=\"icon-right\"></i>\n              <i class=\"icon-tools-1\"></i>\n              <a href=\"/market/IN03/IN0301/IN030103/IN030103001/\" target=\"_blank\" title=\"Industry\">Refineries &amp; Marketing</a>\n            </p>\n          \n\n          \n            <p class=\"flex flex-wrap gap-8 flex-align-center line-height-1 sub\" id=\"benchmarks\">\n              Part of\n              \n                <a href=\"/company/1001/\" class=\"tag plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Sensex\" target=\"_blank\">BSE Sensex</a>\n              \n                <a href=\"/company/NIFTY/\" class=\"tag plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+50\" target=\"_blank\">Nifty 50</a>\n              \n                <a href=\"/company/1005/\" class=\"tag plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+500\" target=\"_blank\">BSE 500</a>\n              \n                <a href=\"/company/1002/\" class=\"tag plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+100\" target=\"_blank\">BSE 100</a>\n              \n                <a href=\"/company/1003/\" class=\"tag plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+200\" target=\"_blank\">BSE 200</a>\n              \n                <a href=\"/company/1004/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Dollex+200\" target=\"_blank\">BSE Dollex 200</a>\n              \n                <a href=\"/company/CNX500/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+500\" target=\"_blank\">Nifty 500</a>\n              \n                <a href=\"/company/1126/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Oil+&amp;+Gas\" target=\"_blank\">BSE Oil &amp; Gas</a>\n              \n                <a href=\"/company/CNXENERY/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Energy\" target=\"_blank\">Nifty Energy</a>\n              \n                <a href=\"/company/CNX100/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+100\" target=\"_blank\">Nifty 100</a>\n              \n                <a href=\"/company/CNXINFRAST/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Infrastructure\" target=\"_blank\">Nifty Infrastructure</a>\n              \n                <a href=\"/company/CNX200INDE/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+200\" target=\"_blank\">Nifty 200</a>\n              \n                <a href=\"/company/CNXCOMMODI/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Commodities\" target=\"_blank\">Nifty Commodities</a>\n              \n                <a href=\"/company/CNXLOWVOLA/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Low+Volatility+50\" target=\"_blank\">Nifty Low Volatility 50</a>\n              \n                <a href=\"/company/LIX15/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+100+Liquid+15\" target=\"_blank\">Nifty 100 Liquid 15</a>\n              \n                <a href=\"/company/NFT100EQWT/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+100+Equal+Weight\" target=\"_blank\">Nifty 100 Equal Weight</a>\n              \n                <a href=\"/company/1153/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Allcap\" target=\"_blank\">BSE Allcap</a>\n              \n                <a href=\"/company/1155/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+LargeCap\" target=\"_blank\">BSE LargeCap</a>\n              \n                <a href=\"/company/1161/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Energy\" target=\"_blank\">BSE Energy</a>\n              \n                <a href=\"/company/1166/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+India+Manufacturing+Index\" target=\"_blank\">BSE India Manufacturing Index</a>\n              \n                <a href=\"/company/1125/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+SENSEX+50\" target=\"_blank\">BSE SENSEX 50</a>\n              \n                <a href=\"/company/1017/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+100+ESG+Index+(INR)\" target=\"_blank\">BSE 100 ESG Index (INR)</a>\n              \n                <a href=\"/company/1181/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+250+LargeMidCap+Index\" target=\"_blank\">BSE 250 LargeMidCap Index</a>\n              \n                <a href=\"/company/1183/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Dividend+Stability+Index\" target=\"_blank\">BSE Dividend Stability Index</a>\n              \n                <a href=\"/company/1185/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+Low+Volatility+Index\" target=\"_blank\">BSE Low Volatility Index</a>\n              \n                <a href=\"/company/NFT50EQWT/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+50+Equal+Weight\" target=\"_blank\">Nifty 50 Equal Weight</a>\n              \n                <a href=\"/company/NFT100LV30/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+100+Low+Volatility+30\" target=\"_blank\">Nifty 100 Low Volatility 30</a>\n              \n                <a href=\"/company/1130/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=BSE+100+LargeCap+TMC+Index\" target=\"_blank\">BSE 100 LargeCap TMC Index</a>\n              \n                <a href=\"/company/NI100ESGSE/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty100+ESG+Sector+Leaders\" target=\"_blank\">Nifty100 ESG Sector Leaders</a>\n              \n                <a href=\"/company/LMIDCAP250/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+LargeMidcap+250\" target=\"_blank\">Nifty LargeMidcap 250</a>\n              \n                <a href=\"/company/NFT500MULT/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+500+Multicap+50:25:25\" target=\"_blank\">Nifty 500 Multicap 50:25:25</a>\n              \n                <a href=\"/company/NIFTOILGAS/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Oil+&amp;+Gas\" target=\"_blank\">Nifty Oil &amp; Gas</a>\n              \n                <a href=\"/company/NIFT100ESG/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty100+ESG\" target=\"_blank\">Nifty100 ESG</a>\n              \n                <a href=\"/company/NFINDIAMFG/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+India+Manufacturing\" target=\"_blank\">Nifty India Manufacturing</a>\n              \n                <a href=\"/company/NFTYTOTMKT/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Total+Market\" target=\"_blank\">Nifty Total Market</a>\n              \n                <a href=\"/company/ALPHALOWVO/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+Alpha+Low-Volatility+30\" target=\"_blank\">Nifty Alpha Low-Volatility 30</a>\n              \n                <a href=\"/company/NMIM503020/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty500+Multicap+India+Manufacturing+50:30:20\" target=\"_blank\">Nifty500 Multicap India Manufacturing 50:30:20</a>\n              \n                <a href=\"/company/NMIF503020/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty500+Multicap+Infrastructure+50:30:20\" target=\"_blank\">Nifty500 Multicap Infrastructure 50:30:20</a>\n              \n                <a href=\"/company/ENHANCE250/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty100+Enhanced+ESG\" target=\"_blank\">Nifty100 Enhanced ESG</a>\n              \n                <a href=\"/company/NFTY500EQW/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty500+Equal+Weight\" target=\"_blank\">Nifty500 Equal Weight</a>\n              \n                <a href=\"/company/NIFTYEVNAA/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty+EV+&amp;+New+Age+Automotive\" target=\"_blank\">Nifty EV &amp; New Age Automotive</a>\n              \n                <a href=\"/company/NY500LMSEW/\" class=\"tag hidden plausible-event-name=Click+Benchmark plausible-event-benchmark=Nifty500+LargeMidSmall+Equal-Cap+Weighted\" target=\"_blank\">Nifty500 LargeMidSmall Equal-Cap Weighted</a>\n              \n              \n                <button type=\"button\" class=\"a small font-weight-500 plausible-event-name=Show+More+Benchmarks\" onclick=\"Utils.toggleClass('#benchmarks', 'show-hidden')\">show all</button>\n              \n            </p>\n          \n        </div>\n\n        <div class=\"flex-reverse\">\n          <a href=\"/user/columns/?next=/company/RELIANCE/#peers\" class=\"button button-small button-secondary\">\n            <i class=\"icon-cog\"></i>\n            <span class=\"hide-on-mobile\">Edit</span>\n            Columns\n          </a>\n        </div>\n      </div>\n\n      <div id=\"peers-table-placeholder\">\n\n\n\n\n<div data-messages=\"\"></div>\n\n<div class=\"flex-row flex-gap-8 flex-space-between flex-align-center\">\n  \n\n  <div class=\"flex flex-gap-8 flex-end\">\n    \n\n    \n\n    \n\n    \n  </div>\n</div>\n\n<div class=\"responsive-holder fill-card-width\" data-page-results=\"\">\n  <table class=\"data-table text-nowrap striped mark-visited no-scroll-right highlight-on-hover\">\n    <tbody>\n      \n        \n          <tr>\n            <th class=\"text\" scope=\"colgroup\">\n              \n                S.No.\n              \n            </th>\n\n            <th class=\"text\" scope=\"colgroup\">\n              \n                Name\n              \n            </th>\n\n            \n              <th data-tooltip=\"Current Price\" scope=\"colgroup\">\n                \n                  CMP\n                  <span style=\"color: hsl(0, 0%, 45%)\">Rs.</span>\n                \n              </th>\n            \n              <th data-tooltip=\"Price to Earning\" scope=\"colgroup\">\n                \n                  P/E\n                  <span style=\"color: hsl(0, 0%, 45%)\"></span>\n                \n              </th>\n            \n              <th data-tooltip=\"Market Capitalization\" scope=\"colgroup\">\n                \n                  Mar Cap\n                  <span style=\"color: hsl(0, 0%, 45%)\">Rs.Cr.</span>\n                \n              </th>\n            \n              <th data-tooltip=\"Dividend yield\" scope=\"colgroup\">\n                \n                  Div Yld\n                  <span style=\"color: hsl(0, 0%, 45%)\">%</span>\n                \n              </th>\n            \n              <th data-tooltip=\"Net Profit latest quarter\" scope=\"colgroup\">\n                \n                  NP Qtr\n                  <span style=\"color: hsl(0, 0%, 45%)\">Rs.Cr.</span>\n                \n              </th>\n            \n              <th data-tooltip=\"YOY Quarterly profit growth\" scope=\"colgroup\">\n                \n                  Qtr Profit Var\n                  <span style=\"color: hsl(0, 0%, 45%)\">%</span>\n                \n              </th>\n            \n              <th data-tooltip=\"Sales latest quarter\" scope=\"colgroup\">\n                \n                  Sales Qtr\n                  <span style=\"color: hsl(0, 0%, 45%)\">Rs.Cr.</span>\n                \n              </th>\n            \n              <th data-tooltip=\"YOY Quarterly sales growth\" scope=\"colgroup\">\n                \n                  Qtr Sales Var\n                  <span style=\"color: hsl(0, 0%, 45%)\">%</span>\n                \n              </th>\n            \n              <th data-tooltip=\"Return on capital employed\" scope=\"colgroup\">\n                \n                  ROCE\n                  <span style=\"color: hsl(0, 0%, 45%)\">%</span>\n                \n              </th>\n            \n          </tr>\n        \n\n        <tr data-row-company-id=\"2726\">\n          \n            <td class=\"text\">1.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/RELIANCE/\" target=\"_blank\">Reliance Industr</a>\n          </td>\n          <td>1413.60</td><td>48.10</td><td>1913343.52</td><td>0.39</td><td>9396.00</td><td>7.74</td><td>121150.00</td><td>-2.60</td><td>7.57</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"1448\">\n          \n            <td class=\"text\">2.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/IOC/consolidated/\" target=\"_blank\">I O C L</a>\n          </td>\n          <td>160.90</td><td>9.32</td><td>227238.90</td><td>3.11</td><td>8190.86</td><td>1388.14</td><td>178628.15</td><td>2.09</td><td>7.36</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"462\">\n          \n            <td class=\"text\">3.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/BPCL/consolidated/\" target=\"_blank\">B P C L</a>\n          </td>\n          <td>361.25</td><td>7.28</td><td>156750.09</td><td>2.77</td><td>6191.49</td><td>168.30</td><td>104946.27</td><td>2.10</td><td>16.22</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"1348\">\n          \n            <td class=\"text\">4.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/HINDPETRO/consolidated/\" target=\"_blank\">H P C L</a>\n          </td>\n          <td>453.20</td><td>6.92</td><td>96453.98</td><td>2.32</td><td>3859.30</td><td>2605.05</td><td>100855.60</td><td>0.90</td><td>10.52</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"1996\">\n          \n            <td class=\"text\">5.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/MRPL/consolidated/\" target=\"_blank\">M R P L</a>\n          </td>\n          <td>143.25</td><td>11.50</td><td>25057.94</td><td>0.00</td><td>1450.89</td><td>369.09</td><td>24711.65</td><td>12.99</td><td>4.38</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"636\">\n          \n            <td class=\"text\">6.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/CHENNPETRO/consolidated/\" target=\"_blank\">C P C L</a>\n          </td>\n          <td>847.70</td><td>10.80</td><td>12628.36</td><td>0.59</td><td>719.19</td><td>213.49</td><td>16327.34</td><td>35.09</td><td>4.30</td>\n        </tr>\n      \n        \n\n        <tr data-row-company-id=\"2635\">\n          \n            <td class=\"text\">7.</td>\n          \n\n          \n\n          <td class=\"text\">\n            <a href=\"/company/526873/\" target=\"_blank\">Rajasthan Securities</a>\n          </td>\n          <td>39.99</td><td>6.04</td><td>307.42</td><td>0.00</td><td>34.24</td><td></td><td>0.00</td><td></td><td>-0.49</td>\n        </tr>\n      \n    </tbody>\n    \n      <tfoot>\n        <tr>\n          <td></td>\n          <td class=\"text\">Median: 9 Co.</td>\n          <td>160.9</td><td>10.8</td><td>25057.94</td><td>0.39</td><td>1450.89</td><td>190.9</td><td>24711.65</td><td>2.09</td><td>7.56</td>\n        </tr>\n      </tfoot>\n    \n  </table>\n</div>\n\n\n</div>\n\n      <div class=\"flex-row flex-baseline\">\n        <label for=\"search-peer-comparison\" style=\"padding-right: 1rem\">Detailed Comparison with:</label>\n        <div class=\"dropdown-typeahead\">\n          <input type=\"text\" id=\"search-peer-comparison\" placeholder=\"eg. Infosys\" class=\"small\" style=\"margin-bottom: 0px;\">\n        <ul class=\"dropdown-content\"></ul></div>\n      </div>\n    ",
+    "#documents": "\n      <div class=\"flex flex-space-between margin-bottom-16\">\n        <h2 class=\"margin-0\">Documents</h2>\n      </div>\n\n      <div class=\"flex-row flex-gap-small\">\n        \n          <div class=\"documents flex-column\" style=\"flex: 2 1 250px;\">\n            <h3 class=\"margin-bottom-8\">Announcements</h3>\n\n            <div class=\"show-more-box\" style=\"flex-basis: 300px\">\n              <div id=\"company-announcements-tab\">\n                <div class=\"flex\">\n  <div class=\"options small\" style=\"margin-bottom: 0\">\n    <button type=\"button\" class=\"active\" onclick=\"Utils.ajaxLoad(event, '/announcements/recent/2726/')\" data-swap=\"#company-announcements-tab\">\n      Recent\n    </button>\n    <button type=\"button\" onclick=\"Utils.ajaxLoad(event, '/announcements/important/2726/')\" data-swap=\"#company-announcements-tab\">\n      Important\n    </button>\n    <button type=\"button\" onclick=\"Utils.ajaxLoad(event, '/announcements/search/2726/')\" data-swap=\"#company-announcements-tab\">\n      Search\n    </button>\n    <a class=\"button\" href=\"https://www.bseindia.com/stock-share-price/reliance-industries-ltd/RELIANCE/500325/corp-announcements/\" target=\"_blank\" rel=\"noopener noreferrer\">\n      All\n      <i class=\"icon-link-ext smaller\"></i>\n    </a>\n  </div>\n</div>\n\n\n  \n  <ul class=\"list-links\">\n    \n      <li class=\"overflow-wrap-anywhere\">\n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/26290395-526a-441f-a347-c8ac12e4adf3.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Announcement under Regulation 30 (LODR)-Earnings Call Transcript\n\n          \n            <div class=\"ink-600 smaller\">19h - Transcript of the discussion on the Unaudited Financial Results (Consolidated and Standalone) of the Company for the quarter and nine months ended December 31, 2025, …</div>\n          \n        </a>\n      </li>\n    \n      <li class=\"overflow-wrap-anywhere\">\n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/1eb1611f-3be0-4a9e-975b-6ce43eeb5081.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Announcement under Regulation 30 (LODR)-Analyst / Investor Meet - Outcome\n\n          \n            <div class=\"ink-600 smaller\">2d - Audio recording of Jan 16, 2026 analyst meet on Q3/9M Dec 31, 2025 results available online.</div>\n          \n        </a>\n      </li>\n    \n      <li class=\"overflow-wrap-anywhere\">\n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/3e753ce1-d29e-4ad1-8be9-e431a99f49ca.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Compliances-Reg. 54 - Asset Cover details\n\n          \n            <div class=\"ink-600 smaller\">2d - Security cover as of Dec 31, 2025: secured NCDs ₹20,000cr (+₹222cr interest); unsecured NCDs ₹7,389cr; total ₹27,389cr.</div>\n          \n        </a>\n      </li>\n    \n      <li class=\"overflow-wrap-anywhere\">\n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/d0e06e07-5a3e-4bc0-a6a6-76635bc53238.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Announcement under Regulation 30 (LODR)-Investor Presentation\n\n          \n            <div class=\"ink-600 smaller\">2d - Presentation on the Unaudited Financial Results (Consolidated and Standalone) for the quarter and nine months ended December 31, 2025</div>\n          \n        </a>\n      </li>\n    \n      <li class=\"overflow-wrap-anywhere\">\n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/a7693fc4-3f63-40de-93dd-d0700f254d84.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Announcement under Regulation 30 (LODR)-Press Release / Media Release\n\n          \n            <div class=\"ink-600 smaller\">2d - Q3 FY26 consolidated EBITDA ₹50,932 Cr; 9M EBITDA ₹159,323 Cr; PAT ₹22,290 Cr (Q3), ₹75,165 Cr (9M)</div>\n          \n        </a>\n      </li>\n    \n  </ul>\n\n\n\n\n              </div>\n            <button class=\"a show-more-button\" aria-label=\"show more\"><i class=\"icon-down ink-600\"></i></button></div>\n          </div>\n        \n\n        <div class=\"documents annual-reports flex-column\" style=\"flex: 1 1 180px;\n                    max-width: 200px\">\n          <h3>Annual reports</h3>\n          <div class=\"show-more-box\">\n            \n<ul class=\"list-links\">\n\n  <li>\n    <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/468b09a3-a212-4066-bbaa-4b0ba524d2ce.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2025\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/d473280d-1c2b-4037-8ff9-dfbb82aa2c7e.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2024\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/b55b5dfc-a3bf-4f24-9d7f-ca09774a1dd9.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2023\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/74185500325.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2022\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/68509500325.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2021\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250320.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2020\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250319.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2019\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250318.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2018\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250317.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2017\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250316.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2016\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250315.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2015\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250314.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2014\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://archives.nseindia.com/annual_reports/AR_19_RELIANCE_2012_2013_08052013171218.zip\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2013\n      <div class=\"ink-600 smaller\">\n        from nse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250313.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2013\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.bseindia.com/bseplus/AnnualReport/500325/5003250312.pdf\" class=\"plausible-event-name=Annual+Report plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Financial Year 2012\n      <div class=\"ink-600 smaller\">\n        from bse\n      </div>\n    </a>\n  </li>\n\n</ul>\n\n\n          <button class=\"a show-more-button\" aria-label=\"show more\"><i class=\"icon-down ink-600\"></i></button></div>\n          \n        </div>\n\n        \n          <div class=\"documents credit-ratings flex-column\" style=\"flex: 1 1 160px;\n                      max-width: fit-content\">\n            <h3>Credit ratings</h3>\n            <div class=\"show-more-box\">\n              \n<ul class=\"list-links\">\n\n  <li>\n    <a href=\"https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/RelianceIndustriesLimited_October 30_ 2025_RR_379987.html\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        30 Oct 2025 from crisil\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/FirstBusinessReceivablesTrust_July 30_ 2025_RR_374300.html\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        30 Jul 2025 from crisil\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.careratings.com/upload/CompanyFiles/PR/202507130705_Reliance_Industries_Limited.pdf\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        4 Jul 2025 from care\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/RelianceIndustriesLimited_June 30_ 2025_RR_372910.html\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        30 Jun 2025 from crisil\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.icra.in/Rationale/ShowRationaleReport/?Id=132755\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        30 Jan 2025 from icra\n      </div>\n    </a>\n  </li>\n\n  <li>\n    <a href=\"https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/FirstBusinessReceivablesTrust_January 23_ 2025_RR_360185.html\" class=\"plausible-event-name=Credit+Rating plausible-event-user=unregistered\" target=\"_blank\" rel=\"noopener noreferrer\">\n      Rating update\n      <div class=\"ink-600 smaller\">\n        23 Jan 2025 from crisil\n      </div>\n    </a>\n  </li>\n\n</ul>\n\n\n            <button class=\"a show-more-button\" aria-label=\"show more\"><i class=\"icon-down ink-600\"></i></button></div>\n          </div>\n        \n\n        \n          <div class=\"documents concalls flex-column\" style=\"flex: 2 1 260px;\n                      max-width: fit-content\">\n            <div class=\"flex flex-space-between flex-align-center margin-bottom-8\">\n              <h3 class=\"margin-0\">Concalls</h3>\n              <button class=\"a font-size-12 font-weight-500 sub\" onclick=\"Modal.openInModal(event)\" data-url=\"/concalls/add-2726/\" data-title=\"Reliance Industr - Add Link\">\n                <i class=\"icon-flag\"></i>\n                <span class=\"underline-link\">Add Missing</span>\n              </button>\n            </div>\n            <div class=\"show-more-box\"><ul class=\"list-links\">\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2026</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachLive/d0e06e07-5a3e-4bc0-a6a6-76635bc53238.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/f2454c0f-aad9-4d23-add0-dfe3d49aa8d6.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/23041167/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Oct 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/b74bb5fb-c15b-42f1-b853-34231e587f46.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n        <a href=\"https://youtu.be/mU39C6sNUNM\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">REC</a>\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2025</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/7a050d55-ad53-4d57-8735-cbcf20bb412b.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Aug 2025</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <div class=\"concall-link\">PPT</div>\n      \n\n      \n        <a href=\"https://www.youtube.com/live/4Y1cd2SLoo8?si=b4cZ3ALJKDyHxM2b\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">REC</a>\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/38a33049-ed9e-4544-ace5-a92e5f984f23.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/23018504/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jul 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/49a01d99-854c-4c3a-b62c-e1fb3619029f.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/b6203612-be21-4d28-ace9-6496cd3fb8b2.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22993912/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Apr 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <div class=\"concall-link\">PPT</div>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/3e36b485-0a6c-4f84-bf74-7d60b0e26d9d.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22993911/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Apr 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/ac3d5e8f-9a84-4510-99e8-71eabcf49a01.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n        <a href=\"https://www.youtube.com/watch?v=Tj8c9UfTdXw\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">REC</a>\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/aa0547ba-09ef-404d-b57d-c216d1513f17.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22972026/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jan 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <div class=\"concall-link\">PPT</div>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2025</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/89c33a3e-5683-4a1d-b8f9-1952ff4df63f.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22972025/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jan 2025\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/cb5da39b-b46a-45f7-b2b6-932a4f2ecf91.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2024</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/0e6309fa-450f-4db6-88b2-d76d9a3ff756.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22949407/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Oct 2024\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/fd1fe004-0eb0-4a2b-9859-7b62a89e451c.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Aug 2024</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/9364b18a-7921-4029-bcfa-78921cd7807e.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2024</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/191e6ab9-4751-4017-ba5f-bb63daf2d871.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22929497/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jul 2024\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/24faf885-ece1-4852-b0fe-91fc8643dc1c.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2024</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/06b05d06-8c38-4aee-aa5b-5e7108ae3871.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/22010117/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Apr 2024\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/0501df4e-7d64-455d-bbb0-4b2118067e51.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n        <a href=\"https://www.ril.com/investors/events-presentations#webcast-sec\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">REC</a>\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2024</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/de3e8ff3-efca-4266-9bc8-7509f48574a4.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/18520636/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jan 2024\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/1cb66ca2-dfd5-4f46-986f-03b0661bd486.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2023</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/ef9baa21-923a-48ad-9fb7-2157af59ae16.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/15579504/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Oct 2023\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/f9c9eba2-4b08-430f-a3a0-0dd5419b7f8f.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Aug 2023</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/7cf2df9a-51bb-45d4-9004-3cad20b5920b.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2023</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/f2fa506f-675b-46db-9f7b-26303a05d6b9.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/12406467/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jul 2023\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/dc6d4a06-e2bc-4df4-8b8a-5db0f50b1918.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2023</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/9c8c3f07-883a-476b-8fb2-8fe74078e9f5.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/9464587/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Apr 2023\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/7c228ccc-99ad-4bd9-be72-0a746c30ebee.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2023</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/dfb275bd-fd47-4a38-964e-21a67e26b3c2.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/6910417/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Jan 2023\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/1ef9c86c-8f99-4791-a677-ea8a65e4ef28.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2022</div>\n\n      \n        <a class=\"concall-link\" href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/aa7a60c6-791d-4e59-94e6-9f94c3a506fc.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Raw Transcript\">Transcript</a>\n        <button class=\"concall-link plausible-event-name=Concall+Notes plausible-event-user=unregistered\" type=\"button\" data-url=\"/concalls/summary/4539079/\" onclick=\"Modal.openInModal(event)\" data-title=\"Concall Summary - Oct 2022\" data-is-bottom-modal=\"true\">AI Summary</button>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/d6182ad1-6f8e-4112-b865-984ea1035107.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2022</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/9e81c058-6b85-4f18-ba5a-bbdd72156edf.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">May 2022</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/bf7646f7-940a-429b-b3eb-0625715f6aeb.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Feb 2022</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/7d172a7c-9056-4588-ad0c-d5c114ff902a.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2022</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/6047c516-bdab-4a88-9103-81d6ddad23d5.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/1008c763-0d31-4432-a031-6dd4afda0c72.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/33e997e6-025e-478e-b71f-fb59dca2a4ef.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/b9139079-b211-4486-a604-ef5b85a7985e.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Feb 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/4c079f28-425e-4fb4-a830-ae9f4fde355d.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Feb 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/caff4f40-fd8f-49ae-929c-f5dae4c98ec3.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/c44095c1-55cb-4048-a235-6f776dd054e9.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2021</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/ee845952-2c47-4abc-b15a-ab759c068efe.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2020</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/ef91573e-ebb9-4257-8209-b684d9380a3e.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jul 2020</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/c9c7754a-ab5a-4463-a5cb-3baafbef135d.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">May 2020</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/8841c2b4-6659-4ea6-aefd-9874fee15705.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2020</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/a738dab1-1698-4a4f-b863-148b5c5023e0.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2019</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/5f6d2f75-5b1f-4c8b-87eb-34e3c8246fb1.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2019</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/bcf1b986-0d58-4126-b3fa-cf67e7b44e14.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2019</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/AttachHis/05c527f3-c7ff-4e83-a2b3-d7d92b20969d.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2019</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/CorpAttachment/2019/1/040c976b-6d40-4903-905e-27820f21eb05.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2018</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/CorpAttachment/2018/10/d71a237f-6917-4594-969d-cfd62d1849d9.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Apr 2018</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/CorpAttachment/2018/4/e0357498-61d2-405d-98c9-02a1e83b556b.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jan 2018</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/CorpAttachment/2018/1/1a49913c-4798-4f48-ab39-e187ea89caf2.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Oct 2017</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/xml-data/corpfiling/CorpAttachment/2017/10/421cf002-f53b-4c1c-a8be-de2fdda6fd05.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n    <li class=\"flex flex-gap-8 flex-wrap-420\">\n      <div class=\"ink-600 font-size-15 font-weight-500 nowrap\" style=\"width: 74px\">Jun 2016</div>\n\n      \n        <div class=\"concall-link\">Transcript</div>\n        <div class=\"concall-link\">AI Summary</div>\n      \n\n      \n        <a href=\"https://www.bseindia.com/stockinfo/AnnPdfOpen.aspx?Pname=6669EE6F_088E_4C15_9839_E2DBB861749D_110427.pdf\" class=\"concall-link\" target=\"_blank\" rel=\"noopener noreferrer\">PPT</a>\n      \n\n      \n    </li>\n  \n</ul>\n<button class=\"a show-more-button\" aria-label=\"show more\"><i class=\"icon-down ink-600\"></i></button></div>\n          </div>\n        \n      </div>\n    ",
+    "pros": "\n          <p class=\"title\">Pros</p>\n          <ul>\n            \n          </ul>\n        ",
+    "cons": "\n          <p class=\"title\">Cons</p>\n          <ul>\n            <li>Stock is trading at 3.43 times its book value</li><li>The company has delivered a poor sales growth of 8.93% over past five years.</li><li>Company has a low return on equity of 8.13% over last 3 years.</li><li>Earnings include an other income of Rs.25,894 Cr.</li>\n          </ul>\n        ",
+    "chart": "<section id=\"chart\" class=\"card card-large\" style=\"margin-bottom: 2.5rem\">\n      <div id=\"chart-menu\" class=\"flex flex-space-between flex-wrap\" style=\"margin-bottom: 16px\">\n  <div class=\"options\" id=\"company-chart-days\">\n    <button name=\"days\" value=\"30\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">1M</button>\n    <button name=\"days\" value=\"180\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">6M</button>\n    <button name=\"days\" value=\"365\" onclick=\"CompanyChart.setActive(event)\" type=\"button\" class=\"active\">1Yr</button>\n    <button name=\"days\" value=\"1095\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">3Yr</button>\n    <button name=\"days\" value=\"1825\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">5Yr</button>\n    <button name=\"days\" value=\"3652\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">10Yr</button>\n    <button name=\"days\" value=\"10000\" onclick=\"CompanyChart.setActive(event)\" type=\"button\">Max</button>\n  </div>\n\n  <div class=\"flex margin-bottom-24\">\n    <div class=\"options margin-right-8\" id=\"company-chart-metrics\" style=\"margin-bottom: 0\">\n      \n\n        \n          <button class=\"plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=Price active\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"Price-DMA50-DMA200-Volume\" type=\"button\">Price</button>\n        \n\n      \n\n        \n          <button class=\"plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=PE\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"Price to Earning-Median PE-EPS\" type=\"button\">PE Ratio</button>\n        \n\n      \n\n        \n\n      \n\n        \n\n      \n\n        \n\n      \n\n        \n\n      \n      <button class=\"hidden\" id=\"company-chart-metrics-more-active\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"\" type=\"button\">Hidden</button>\n      <div class=\"dropdown-menu\" id=\"metrics-dropdown\">\n        <button type=\"button\" class=\"button-plain\" onclick=\"Utils.toggleDropdown(event)\">\n          More <i class=\"icon-down\"></i>\n        </button>\n        <ul class=\"dropdown-content\" style=\"max-width: 160px; right: 0\">\n          \n\n            \n\n          \n\n            \n\n          \n\n            \n              <li>\n                <button class=\"a u-full-width plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=Sales\" style=\"padding: 4px 12px\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"GPM-OPM-NPM-Quarter Sales\" type=\"button\">Sales &amp; Margin</button>\n              </li>\n            \n\n          \n\n            \n              <li>\n                <button class=\"a u-full-width plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=EV-EBITDA\" style=\"padding: 4px 12px\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"EV Multiple-Median EV Multiple-EBITDA\" type=\"button\">EV / EBITDA</button>\n              </li>\n            \n\n          \n\n            \n              <li>\n                <button class=\"a u-full-width plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=PBV\" style=\"padding: 4px 12px\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"Price to book value-Median PBV-Book value\" type=\"button\">Price to Book</button>\n              </li>\n            \n\n          \n\n            \n              <li>\n                <button class=\"a u-full-width plausible-event-name=Chart+Metric plausible-event-user=free plausible-event-metric=Market+Cap+to+Sales\" style=\"padding: 4px 12px\" onclick=\"CompanyChart.setActive(event)\" name=\"metrics\" value=\"Market Cap to Sales-Median Market Cap to Sales-Sales\" type=\"button\">Market Cap / Sales</button>\n              </li>\n            \n\n          \n        </ul>\n      </div>\n    </div>\n    \n      <button type=\"button\" class=\"button-small button-secondary flex flex-align-center plausible-event-name=Stock+Alert\" style=\"border-color: var(--button-border);\n                     border-radius: 3px\" data-title=\"Alerts for Reliance Industries Ltd\" onclick=\"Modal.openInModal(event)\" data-url=\"/alerts/stock-811/\" aria-label=\"Add alerts for company\">\n        <i class=\"icon-bell\"></i>\n        \n        <span class=\"margin-left-4 normal-case letter-spacing-0\">Alerts</span>\n      </button>\n    \n  </div>\n</div>\n\n<div class=\"flex no-select\">\n  <div class=\"hide-on-mobile chart-label\">\n    <div id=\"chart-label-left\">Volume</div>\n  </div>\n\n  <div id=\"chart-area\" style=\"flex-grow: 1\">\n    <div id=\"chart-info\" class=\"invisible\">\n      <div id=\"chart-crosshair\" style=\"top: 10.2px; height: 336.4px;\"></div>\n      <div id=\"chart-tooltip\" class=\"font-size-14\">\n        <div id=\"chart-tooltip-meta\" class=\"ink-700 font-size-12\"></div>\n        <div class=\"font-weight-500 font-size-15\" id=\"chart-tooltip-title\"></div>\n        <div id=\"chart-tooltip-info\"></div>\n      </div>\n    </div>\n    <div id=\"canvas-chart-holder\" style=\"height: 375px\"><canvas width=\"1652\" height=\"375\" style=\"display: block; box-sizing: border-box; height: 375px; width: 1652px;\"></canvas></div>\n  </div>\n\n  <div class=\"hide-on-mobile chart-label\">\n    <div id=\"chart-label-right\">Price on NSE</div>\n  </div>\n</div>\n<div class=\"flex flex-wrap\" id=\"chart-legend\" style=\"justify-content: center; margin-top: 2rem;\"><label style=\"box-sizing: border-box; padding: 6px 8px; font-size: 14px; font-weight: 500; cursor: pointer;\"><input class=\"chart-checkbox\" type=\"checkbox\" style=\"background: rgb(100, 93, 249);\"><span>Price on NSE</span></label><label style=\"box-sizing: border-box; padding: 6px 8px; font-size: 14px; font-weight: 500; cursor: pointer;\"><input class=\"chart-checkbox\" type=\"checkbox\" style=\"background: rgb(242, 186, 90);\"><span>50 DMA</span></label><label style=\"box-sizing: border-box; padding: 6px 8px; font-size: 14px; font-weight: 500; cursor: pointer;\"><input class=\"chart-checkbox\" type=\"checkbox\" style=\"background: rgb(112, 129, 143);\"><span>200 DMA</span></label><label style=\"box-sizing: border-box; padding: 6px 8px; font-size: 14px; font-weight: 500; cursor: pointer;\"><input class=\"chart-checkbox\" type=\"checkbox\" style=\"background: rgb(190, 211, 253);\"><span>Volume</span></label></div>\n\n    </section>"
+  },
+  "cssClasses": [
+    "a",
+    "a2hs",
+    "about",
+    "account",
+    "active",
+    "addon",
+    "always-show-more-box",
+    "annual-reports",
+    "arrow-down",
+    "bg-ai",
+    "bg-base",
+    "bg-stripes",
+    "blue-icon",
+    "bottom-menu-bar",
+    "breadcrumb",
+    "button",
+    "button-plain",
+    "button-primary",
+    "button-secondary",
+    "button-small",
+    "card",
+    "card-large",
+    "chart-checkbox",
+    "chart-label",
+    "commentary",
+    "company-info",
+    "company-links",
+    "company-nav",
+    "company-profile",
+    "company-ratios",
+    "concall-link",
+    "concalls",
+    "cons",
+    "container",
+    "credit-ratings",
+    "data-table",
+    "desktop-links",
+    "documents",
+    "down",
+    "dropdown-content",
+    "dropdown-filter",
+    "dropdown-menu",
+    "dropdown-typeahead",
+    "fill-card-width",
+    "flex",
+    "flex-align-center",
+    "flex-baseline",
+    "flex-column",
+    "flex-column-mobile",
+    "flex-column-tablet",
+    "flex-end",
+    "flex-gap-16",
+    "flex-gap-32",
+    "flex-gap-8",
+    "flex-gap-small",
+    "flex-grow",
+    "flex-reverse",
+    "flex-row",
+    "flex-space-between",
+    "flex-wrap",
+    "flex-wrap-420",
+    "font-size-11",
+    "font-size-12",
+    "font-size-13",
+    "font-size-14",
+    "font-size-15",
+    "font-size-18",
+    "font-size-19",
+    "font-weight-500",
+    "gap-8",
+    "h2",
+    "has-addon",
+    "has-tooltip",
+    "hidden",
+    "hidden-if-empty",
+    "hide-from-tablet",
+    "hide-from-tablet-landscape",
+    "hide-on-mobile",
+    "highlight-cell",
+    "highlight-on-hover",
+    "hover-link",
+    "icon-bell",
+    "icon-book-open",
+    "icon-cancel",
+    "icon-chart-pie",
+    "icon-chat-ai",
+    "icon-circle-down",
+    "icon-cog",
+    "icon-crown",
+    "icon-dot",
+    "icon-down",
+    "icon-download",
+    "icon-file-pdf",
+    "icon-flag",
+    "icon-flash",
+    "icon-globe",
+    "icon-heart",
+    "icon-industry",
+    "icon-info",
+    "icon-link",
+    "icon-link-ext",
+    "icon-monitor",
+    "icon-moon",
+    "icon-news",
+    "icon-off",
+    "icon-pencil",
+    "icon-plus",
+    "icon-right",
+    "icon-screens",
+    "icon-search",
+    "icon-settings",
+    "icon-sun",
+    "icon-tools",
+    "icon-tools-1",
+    "icon-user",
+    "icon-user-line",
+    "icon-users",
+    "ink-600",
+    "ink-600-link",
+    "ink-700",
+    "invisible",
+    "items",
+    "layer",
+    "layer-holder",
+    "left-addon",
+    "letter-spacing",
+    "letter-spacing-0",
+    "light",
+    "line-height-1",
+    "line-height-14",
+    "list-links",
+    "logo",
+    "logo-holder",
+    "margin-0",
+    "margin-bottom-0",
+    "margin-bottom-16",
+    "margin-bottom-24",
+    "margin-bottom-8",
+    "margin-left-12",
+    "margin-left-4",
+    "margin-right-8",
+    "margin-top-16",
+    "margin-top-20",
+    "mark-visited",
+    "name",
+    "no-hover",
+    "no-print",
+    "no-scroll-right",
+    "no-select",
+    "normal-case",
+    "nowrap",
+    "number",
+    "options",
+    "overflow-wrap-anywhere",
+    "padding-4-8",
+    "plausible-event-benchmark=BSE+100",
+    "plausible-event-benchmark=BSE+100+ESG+Index+(INR)",
+    "plausible-event-benchmark=BSE+100+LargeCap+TMC+Index",
+    "plausible-event-benchmark=BSE+200",
+    "plausible-event-benchmark=BSE+250+LargeMidCap+Index",
+    "plausible-event-benchmark=BSE+500",
+    "plausible-event-benchmark=BSE+Allcap",
+    "plausible-event-benchmark=BSE+Dividend+Stability+Index",
+    "plausible-event-benchmark=BSE+Dollex+200",
+    "plausible-event-benchmark=BSE+Energy",
+    "plausible-event-benchmark=BSE+India+Manufacturing+Index",
+    "plausible-event-benchmark=BSE+LargeCap",
+    "plausible-event-benchmark=BSE+Low+Volatility+Index",
+    "plausible-event-benchmark=BSE+Oil+&+Gas",
+    "plausible-event-benchmark=BSE+SENSEX+50",
+    "plausible-event-benchmark=BSE+Sensex",
+    "plausible-event-benchmark=Nifty+100",
+    "plausible-event-benchmark=Nifty+100+Equal+Weight",
+    "plausible-event-benchmark=Nifty+100+Liquid+15",
+    "plausible-event-benchmark=Nifty+100+Low+Volatility+30",
+    "plausible-event-benchmark=Nifty+200",
+    "plausible-event-benchmark=Nifty+50",
+    "plausible-event-benchmark=Nifty+50+Equal+Weight",
+    "plausible-event-benchmark=Nifty+500",
+    "plausible-event-benchmark=Nifty+500+Multicap+50:25:25",
+    "plausible-event-benchmark=Nifty+Alpha+Low-Volatility+30",
+    "plausible-event-benchmark=Nifty+Commodities",
+    "plausible-event-benchmark=Nifty+EV+&+New+Age+Automotive",
+    "plausible-event-benchmark=Nifty+Energy",
+    "plausible-event-benchmark=Nifty+India+Manufacturing",
+    "plausible-event-benchmark=Nifty+Infrastructure",
+    "plausible-event-benchmark=Nifty+LargeMidcap+250",
+    "plausible-event-benchmark=Nifty+Low+Volatility+50",
+    "plausible-event-benchmark=Nifty+Oil+&+Gas",
+    "plausible-event-benchmark=Nifty+Total+Market",
+    "plausible-event-benchmark=Nifty100+ESG",
+    "plausible-event-benchmark=Nifty100+ESG+Sector+Leaders",
+    "plausible-event-benchmark=Nifty100+Enhanced+ESG",
+    "plausible-event-benchmark=Nifty500+Equal+Weight",
+    "plausible-event-benchmark=Nifty500+LargeMidSmall+Equal-Cap+Weighted",
+    "plausible-event-benchmark=Nifty500+Multicap+India+Manufacturing+50:30:20",
+    "plausible-event-benchmark=Nifty500+Multicap+Infrastructure+50:30:20",
+    "plausible-event-classification=domestic_institutions",
+    "plausible-event-classification=foreign_institutions",
+    "plausible-event-classification=government",
+    "plausible-event-classification=promoters",
+    "plausible-event-classification=public",
+    "plausible-event-metric=EV-EBITDA",
+    "plausible-event-metric=Market+Cap+to+Sales",
+    "plausible-event-metric=PBV",
+    "plausible-event-metric=PE",
+    "plausible-event-metric=Price",
+    "plausible-event-metric=Sales",
+    "plausible-event-name=Annual+Report",
+    "plausible-event-name=Chart+Metric",
+    "plausible-event-name=Click+Benchmark",
+    "plausible-event-name=Concall+Notes",
+    "plausible-event-name=Corporate+Actions",
+    "plausible-event-name=Credit+Rating",
+    "plausible-event-name=Excel+Company",
+    "plausible-event-name=Key+Insight",
+    "plausible-event-name=Notebook",
+    "plausible-event-name=Quarterly+PDF",
+    "plausible-event-name=Related+party",
+    "plausible-event-name=Segment+Results",
+    "plausible-event-name=Show+More+Benchmarks",
+    "plausible-event-name=Stock+Alert",
+    "plausible-event-name=Stock+Chat",
+    "plausible-event-name=View+Shareholders",
+    "plausible-event-period=quarterly",
+    "plausible-event-period=yearly",
+    "plausible-event-user=free",
+    "plausible-event-user=premium",
+    "plausible-event-user=unregistered",
+    "premium-indicator",
+    "pros",
+    "ranges-table",
+    "red",
+    "responsive-holder",
+    "responsive-text-nowrap",
+    "rounded-40",
+    "search",
+    "search-button",
+    "show-from-tablet",
+    "show-from-tablet-landscape",
+    "show-more-box",
+    "show-more-button",
+    "shrink-text",
+    "small",
+    "smaller",
+    "square-56",
+    "sticky",
+    "stripe",
+    "striped",
+    "strong",
+    "sub",
+    "sub-nav",
+    "sub-nav-actions",
+    "sub-nav-holder",
+    "sub-nav-tabs",
+    "tag",
+    "text",
+    "text-align-center",
+    "text-nowrap",
+    "title",
+    "tools-menu",
+    "tooltip",
+    "top-nav-holder",
+    "top-navigation",
+    "u-full-width",
+    "underline-link",
+    "upper",
+    "value"
+  ],
+  "elementIds": [
+    "account-dropdown",
+    "analysis",
+    "balance-sheet",
+    "benchmarks",
+    "canvas-chart-holder",
+    "cash-flow",
+    "chart",
+    "chart-area",
+    "chart-crosshair",
+    "chart-info",
+    "chart-label-left",
+    "chart-label-right",
+    "chart-legend",
+    "chart-menu",
+    "chart-tooltip",
+    "chart-tooltip-info",
+    "chart-tooltip-meta",
+    "chart-tooltip-title",
+    "company-announcements-tab",
+    "company-chart-days",
+    "company-chart-metrics",
+    "company-chart-metrics-more-active",
+    "company-info",
+    "desktop-search",
+    "documents",
+    "large-footer",
+    "metrics-dropdown",
+    "mobile-search",
+    "nav-tools-menu",
+    "nav-user-menu",
+    "peers",
+    "peers-table-placeholder",
+    "profit-loss",
+    "quarterly-shp",
+    "quarters",
+    "quick-ratio-search",
+    "ratios",
+    "search-peer-comparison",
+    "shareholding",
+    "top",
+    "top-ratios",
+    "yearly-shp"
+  ]
+}

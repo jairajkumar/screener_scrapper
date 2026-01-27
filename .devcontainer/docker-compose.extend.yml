@@ -1,0 +1,23 @@
+# Docker Compose extension for GitHub Codespaces
+# Uses the pre-built image from ghcr.io
+services:
+  stock-analysis:
+    # Use pre-built image (no build required)
+    image: ghcr.io/jairajkumar/stock-analysis:1.0.0-beta
+    
+    # Load environment from .env file
+    env_file:
+      - ../nodejs-app/.env
+    
+    # Development environment
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    
+    # Mount screenshots directory
+    volumes:
+      - ../nodejs-app/screenshots:/usr/src/app/screenshots
+    
+    # Keep container running for Codespaces
+    stdin_open: true
+    tty: true

@@ -1,63 +1,95 @@
 const { CRITERIA } = require('../../config');
+const calculatePiotroskiScore = require('./piotroskiScore');
+const calculateBuffettScore = require('./buffettScore');
+const calculateGrahamScore = require('./grahamScore');
+const calculateLynchScore = require('./lynchScore');
+const calculateValuation = require('./valuationEngine');
 
 /**
- * Analyze stock data against investment criteria
- * @param {Object} data - Stock data to analyze
- * @returns {Object} Analysis result with verdict, score, and breakdown
+ * Analyze stock data using all 4 scoring systems
+ * @param {Object} data - Comprehensive stock data from scraper
+ * @returns {Object} Complete analysis with all 4 scores and final decision
  */
 function analyzeStock(data) {
-    let score = 0;
-    let total = 8;
-    const analysis = {};
+    // Calculate all 4 scores
+    const piotroski = calculatePiotroskiScore(data);
+    const buffett = calculateBuffettScore(data);
+    const graham = calculateGrahamScore(data);
+    const lynch = calculateLynchScore(data);
 
-    // 1. ROE > 15
-    if (data.roe != null) {
-        if (data.roe > CRITERIA.roe_min) { score++; analysis.roe = 'PASS'; } else { analysis.roe = 'FAIL'; }
-    } else { analysis.roe = 'NA'; total--; }
+    // Count how many scores are >= 7 (or equivalent for different totals)
+    const scores = [
+        { name: 'Piotroski', score: piotroski.score, total: piotroski.total, threshold: 7 },
+        { name: 'Buffett', score: buffett.score, total: buffett.total, threshold: 7 },
+        { name: 'Graham', score: graham.score, total: graham.total, threshold: 7 },
+        { name: 'Lynch', score: lynch.score, total: lynch.total, threshold: 7 }
+    ];
 
-    // 2. P/E < 20
-    if (data.pe_ratio != null) {
-        if (data.pe_ratio < CRITERIA.pe_max) { score++; analysis.pe_ratio = 'PASS'; } else { analysis.pe_ratio = 'FAIL'; }
-    } else { analysis.pe_ratio = 'NA'; total--; }
+    const scoresAbove7 = scores.filter(s => s.score >= s.threshold).length;
 
-    // 3. Debt-to-Equity < 0.5
-    if (data.debt_to_equity != null) {
-        if (data.debt_to_equity < CRITERIA.debt_to_equity_max) { score++; analysis.debt_to_equity = 'PASS'; } else { analysis.debt_to_equity = 'FAIL'; }
-    } else { analysis.debt_to_equity = 'NA'; total--; }
-
-    // 4. ROCE > 15
-    if (data.roce != null) {
-        if (data.roce > CRITERIA.roce_min) { score++; analysis.roce = 'PASS'; } else { analysis.roce = 'FAIL'; }
-    } else { analysis.roce = 'NA'; total--; }
-
-    // 5. Cash Flow Positive
-    if (data.cash_flow != null) {
-        if (data.cash_flow > 0) { score++; analysis.cash_flow = 'PASS'; } else { analysis.cash_flow = 'FAIL'; }
-    } else { analysis.cash_flow = 'NA'; total--; }
-
-    // 6. EPS Growth 10-15
-    if (data.eps_growth != null) {
-        if (data.eps_growth >= CRITERIA.eps_growth_min && data.eps_growth <= CRITERIA.eps_growth_max) { score++; analysis.eps_growth = 'PASS'; } else { analysis.eps_growth = 'FAIL'; }
-    } else { analysis.eps_growth = 'NA'; total--; }
-
-    // 7. PEG < 1
-    if (data.peg != null) {
-        if (data.peg < CRITERIA.peg_max) { score++; analysis.peg = 'PASS'; } else { analysis.peg = 'FAIL'; }
-    } else { analysis.peg = 'NA'; total--; }
-
-    // 8. Intrinsic Value
-    if (data.eps != null && data.book_value != null) {
-        analysis.intrinsic_value = CRITERIA.intrinsic_value_multiplier * data.eps * data.book_value;
+    // Final Decision Logic from PDF
+    let finalDecision;
+    if (scoresAbove7 >= 3) {
+        finalDecision = 'BUY';
+    } else if (scoresAbove7 === 2) {
+        finalDecision = 'HOLD';
     } else {
-        analysis.intrinsic_value = 'NA'; total--;
+        finalDecision = 'AVOID';
     }
 
-    let verdict = 'NA';
-    let percent = (score / total) * 100;
-    if (percent >= 70) verdict = 'BUY';
-    else if (percent >= 50) verdict = 'HOLD';
+    // Calculate overall score (average percentage)
+    const overallPercent = Math.round(
+        (piotroski.percent + buffett.percent + graham.percent + lynch.percent) / 4
+    );
 
-    return { verdict, score, total, percent, analysis };
+    // Legacy compatibility - basic analysis
+    const legacyAnalysis = {
+        roe: data.roe > CRITERIA.roe_min ? 'PASS' : (data.roe !== null ? 'FAIL' : 'NA'),
+        pe_ratio: data.stockPE < CRITERIA.pe_max ? 'PASS' : (data.stockPE !== null ? 'FAIL' : 'NA'),
+        debt_to_equity: data.debtToEquity < CRITERIA.debt_to_equity_max ? 'PASS' : (data.debtToEquity !== null ? 'FAIL' : 'NA'),
+        roce: data.roce > CRITERIA.roce_min ? 'PASS' : (data.roce !== null ? 'FAIL' : 'NA'),
+        cash_flow: data.fcf > 0 ? 'PASS' : (data.fcf !== null ? 'FAIL' : 'NA'),
+        intrinsic_value: data.grahamNumber
+    };
+
+    // Calculate valuation using the 4-score results
+    const valuation = calculateValuation(data, {
+        piotroski: piotroski.score,
+        buffett: buffett.score,
+        graham: graham.score,
+        lynch: lynch.score
+    });
+
+    return {
+        // Final Decision
+        finalDecision,
+        scoresAbove7,
+        overallPercent,
+
+        // All 4 Scores
+        piotroski,
+        buffett,
+        graham,
+        lynch,
+
+        // Summary for quick view
+        summary: {
+            piotroski: `${piotroski.score}/${piotroski.total}`,
+            buffett: `${buffett.score}/${buffett.total}`,
+            graham: `${graham.score}/${graham.total}`,
+            lynch: `${lynch.score}/${lynch.total}`
+        },
+
+        // Valuation Engine Results
+        valuation,
+
+        // Legacy format for backward compatibility
+        verdict: finalDecision,
+        score: scoresAbove7,
+        total: 4,
+        percent: overallPercent,
+        analysis: legacyAnalysis
+    };
 }
 
 module.exports = analyzeStock;

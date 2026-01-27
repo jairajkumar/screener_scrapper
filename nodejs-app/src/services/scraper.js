@@ -33,7 +33,16 @@ function validateCredentials() {
 async function checkIfLoggedIn(page) {
     try {
         const isLoggedIn = await page.evaluate(() => {
-            return !!document.querySelector('a[href*="logout"], .user-menu, .profile-menu, [data-testid="user-menu"]');
+            // Check for logout link
+            if (document.querySelector('a[href*="logout"]')) return true;
+            // Check for user menu/profile elements
+            if (document.querySelector('.user-menu, .profile-menu, .user-info, [data-testid="user-menu"]')) return true;
+            // Check for "My Screens" or account-specific elements
+            if (document.querySelector('a[href*="screens"], a[href*="watchlist"]')) return true;
+            // Check if we're not on login page (means we navigated away successfully)
+            const isOnLoginPage = window.location.href.includes('/login/');
+            if (!isOnLoginPage && document.querySelector('.company-name, #top-ratios')) return true;
+            return false;
         });
         return isLoggedIn;
     } catch (error) {
@@ -326,56 +335,393 @@ async function fetchStockData(stockName, directUrl = null) {
         return null;
     }
 
-    // Extract financial data
-    const data = await page.evaluate((isLoggedIn) => {
-        function getSummaryValue(label) {
-            const summaryCards = Array.from(document.querySelectorAll('.company-ratios li, .company-ratios__item, .flex.flex-column.gap-8 li'));
-            for (const card of summaryCards) {
-                const name = card.querySelector('.name, .company-ratios__label, span')?.textContent?.trim();
-                if (name && name.toLowerCase().includes(label.toLowerCase())) {
-                    const value = card.querySelector('.value, .company-ratios__value, span:last-child')?.textContent?.replace(/[^0-9.\-]/g, '');
-                    if (value) return value;
+    // Extract comprehensive financial data for all scoring systems
+    const data = await page.evaluate(() => {
+        // ===== HELPER FUNCTIONS =====
+
+        // Clean numeric value from text (removes currency symbols, commas, whitespace)
+        function cleanNumber(text) {
+            if (!text) return null;
+            const cleaned = text.replace(/[₹,%\s]/g, '').replace(/,/g, '').trim();
+            const num = parseFloat(cleaned);
+            return isNaN(num) ? null : num;
+        }
+
+        // Get value from Top Card ratios (#top-ratios)
+        function getTopCardValue(label) {
+            const items = document.querySelectorAll('#top-ratios li');
+            for (const item of items) {
+                const nameEl = item.querySelector('.name');
+                const valueEl = item.querySelector('.value, .number');
+                if (nameEl && nameEl.textContent.trim().toLowerCase() === label.toLowerCase()) {
+                    return cleanNumber(valueEl?.textContent);
                 }
             }
             return null;
         }
 
-        function getTableValue(label) {
-            const el = Array.from(document.querySelectorAll('td')).find(td => td.textContent.includes(label));
-            return el ? el.nextElementSibling.textContent.replace(/[^0-9.\-]/g, '') : null;
+        // Get row data from financial tables by EXACT label match
+        // Returns array of yearly values (numbers only)
+        function getTableRowData(sectionId, rowLabel) {
+            const section = document.querySelector(sectionId);
+            if (!section) return [];
+
+            const rows = section.querySelectorAll('table tbody tr');
+            for (const row of rows) {
+                const labelCell = row.querySelector('td.text, td:first-child');
+                if (!labelCell) continue;
+
+                const labelText = labelCell.textContent.trim().toLowerCase();
+                const searchLabel = rowLabel.toLowerCase();
+
+                // Match if label starts with our search term (handles "Sales +" matching "sales")
+                if (labelText.startsWith(searchLabel) || labelText === searchLabel) {
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    const values = [];
+
+                    // Skip first cell (label), get numeric values from remaining cells
+                    for (let i = 1; i < cells.length; i++) {
+                        const num = cleanNumber(cells[i].textContent);
+                        if (num !== null) values.push(num);
+                    }
+                    return values;
+                }
+            }
+            return [];
         }
 
-        function getAuthenticatedValue(label) {
-            if (!isLoggedIn) return null;
+        // Get Compounded Growth Rate from ranges-table
+        // Structure: table.ranges-table > tbody > tr with th header, then td pairs
+        function getGrowthRate(type, period) {
+            const tables = document.querySelectorAll('table.ranges-table');
+            for (const table of tables) {
+                const header = table.querySelector('th');
+                if (!header) continue;
 
-            const premiumSections = Array.from(document.querySelectorAll('.premium-data, .authenticated-data, [data-premium="true"]'));
-            for (const section of premiumSections) {
-                const items = section.querySelectorAll('li, .data-item, .metric-item');
-                for (const item of items) {
-                    const name = item.querySelector('.name, .label, .metric-name')?.textContent?.trim();
-                    if (name && name.toLowerCase().includes(label.toLowerCase())) {
-                        const value = item.querySelector('.value, .metric-value')?.textContent?.replace(/[^0-9.\-]/g, '');
-                        if (value) return value;
+                const headerText = header.textContent.toLowerCase();
+                if (!headerText.includes(type.toLowerCase())) continue;
+
+                // Found the right growth table, now find the period
+                const rows = table.querySelectorAll('tbody tr');
+                for (const row of rows) {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 2) {
+                        const periodText = cells[0].textContent.toLowerCase();
+                        if (periodText.includes(period.toLowerCase())) {
+                            return cleanNumber(cells[1].textContent);
+                        }
                     }
                 }
             }
             return null;
         }
 
-        return {
-            roe: parseFloat(getAuthenticatedValue('ROE') || getSummaryValue('ROE') || getTableValue('ROE')),
-            pe_ratio: parseFloat(getAuthenticatedValue('P/E') || getSummaryValue('P/E') || getTableValue('P/E')),
-            debt_to_equity: parseFloat(getAuthenticatedValue('Debt to equity') || getSummaryValue('Debt to equity') || getTableValue('Debt to equity')),
-            roce: parseFloat(getAuthenticatedValue('ROCE') || getSummaryValue('ROCE') || getTableValue('ROCE')),
-            eps_growth: parseFloat(getAuthenticatedValue('EPS Growth') || getSummaryValue('EPS Growth') || getTableValue('EPS Growth')),
-            peg: parseFloat(getAuthenticatedValue('PEG Ratio') || getSummaryValue('PEG') || getTableValue('PEG')),
-            eps: parseFloat(getAuthenticatedValue('EPS') || getSummaryValue('EPS') || getTableValue('EPS')),
-            book_value: parseFloat(getAuthenticatedValue('Book Value') || getSummaryValue('Book Value') || getTableValue('Book Value')),
-            cash_flow: parseFloat(getAuthenticatedValue('Cash Flow') || getSummaryValue('Cash Flow') || getTableValue('Cash Flow'))
-        };
-    }, isLoggedIn);
+        // Get Industry P/E from Peers section
+        function getIndustryPE() {
+            const peersSection = document.querySelector('#peers');
+            if (!peersSection) return null;
 
-    console.log(`📊 Extracted data:`, data);
+            // Look for sub-heading with Median P/E
+            const subHeading = peersSection.querySelector('.sub-heading');
+            if (subHeading) {
+                const text = subHeading.textContent;
+                const match = text.match(/Median.*?(\d+\.?\d*)/i);
+                if (match) return parseFloat(match[1]);
+            }
+
+            // Fallback: search all text
+            const text = peersSection.textContent;
+            const match = text.match(/Median.*?:?\s*(\d+\.?\d*)/i);
+            if (match) return parseFloat(match[1]);
+
+            return null;
+        }
+
+        // Get Current Ratio from Ratios section
+        function getCurrentRatio() {
+            const ratios = document.querySelector('#ratios');
+            if (!ratios) return null;
+
+            const rows = ratios.querySelectorAll('table tbody tr');
+            for (const row of rows) {
+                const label = row.querySelector('td:first-child');
+                if (label && label.textContent.toLowerCase().includes('current ratio')) {
+                    // Get latest value (last numeric cell)
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    for (let i = cells.length - 1; i >= 1; i--) {
+                        const num = cleanNumber(cells[i].textContent);
+                        if (num !== null) return num;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // ===== EXTRACT ALL DATA =====
+
+        // Top Card Ratios
+        const stockPE = getTopCardValue('Stock P/E');
+        const roe = getTopCardValue('ROE');
+        const roce = getTopCardValue('ROCE');
+        const bookValue = getTopCardValue('Book Value');
+        const dividendYield = getTopCardValue('Dividend Yield');
+        const faceValue = getTopCardValue('Face Value');
+        const marketCap = getTopCardValue('Market Cap');
+        const currentPrice = getTopCardValue('Current Price');
+
+        // Top Card - for fallback values (logged-in users get these)
+        // Field names must match EXACTLY what Screener shows
+        const topCardROA = getTopCardValue('Return on assets');
+        const topCardROAPrevYear = getTopCardValue('ROA Prev Yr');
+        const topCardAssetTurnover = getTopCardValue('Asset Turnover');
+        const topCardDebtToEquity = getTopCardValue('Debt to equity');
+        const topCardCurrentRatio = getTopCardValue('Current ratio');
+        const topCardPEGRatio = getTopCardValue('PEG Ratio');
+
+        // Top Card - shareholder data (logged-in feature)
+        const numShareholders = getTopCardValue('No. of Share Holders');
+        const numShareholdersPrevYear = getTopCardValue('No. of Share Holders 1Yr');
+
+        // Screener's Piotroski (for verification - we use our own calculation)
+        const screenerPiotroski = getTopCardValue('Piotroski score');
+
+        // ===== CUSTOM SCREENER RATIOS (logged-in users only) =====
+        // These provide more accurate values than our calculations
+        // Non-logged-in users will get calculated fallbacks
+
+        // Interest Coverage (hard to calculate - needs EBIT)
+        const topCardInterestCoverage = getTopCardValue('Interest Coverage');
+
+        // Free Cash Flow data
+        const topCardFCF = getTopCardValue('Free Cash Flow');
+        const topCardFCFPrevYear = getTopCardValue('FCF Prev Ann');
+        const topCardPriceToFCF = getTopCardValue('CMP / FCF');
+
+        // ROIC - Return on Invested Capital (better than ROE)
+        const topCardROIC = getTopCardValue('ROIC');
+
+        // Graham Number (for Graham score verification)
+        const topCardGrahamNumber = getTopCardValue('Graham Number');
+
+        // P&L Data (historical years)
+        const sales = getTableRowData('#profit-loss', 'sales');
+        const netProfit = getTableRowData('#profit-loss', 'net profit');
+        const opmPercent = getTableRowData('#profit-loss', 'opm');
+        const eps = getTableRowData('#profit-loss', 'eps in rs');
+        const dividendPayout = getTableRowData('#profit-loss', 'dividend payout');
+
+        // Balance Sheet Data
+        const borrowings = getTableRowData('#balance-sheet', 'borrowings');
+        const equityCapital = getTableRowData('#balance-sheet', 'equity capital');
+        const reserves = getTableRowData('#balance-sheet', 'reserves');
+        const totalAssets = getTableRowData('#balance-sheet', 'total assets');
+        const totalLiabilities = getTableRowData('#balance-sheet', 'total liabilities');
+        const otherAssets = getTableRowData('#balance-sheet', 'other assets');
+        const otherLiabilities = getTableRowData('#balance-sheet', 'other liabilities');
+
+        // Cash Flow Data
+        const cfo = getTableRowData('#cash-flow', 'cash from operating activity');
+        const cfi = getTableRowData('#cash-flow', 'cash from investing activity');
+        const cff = getTableRowData('#cash-flow', 'cash from financing activity');
+
+        // Growth Rates from ranges-table
+        const profitGrowth10Y = getGrowthRate('profit', '10 years');
+        const profitGrowth5Y = getGrowthRate('profit', '5 years');
+        const profitGrowth3Y = getGrowthRate('profit', '3 years');
+        const salesGrowth10Y = getGrowthRate('sales', '10 years');
+        const salesGrowth5Y = getGrowthRate('sales', '5 years');
+        const salesGrowth3Y = getGrowthRate('sales', '3 years');
+
+        // Industry P/E
+        const industryPE = getIndustryPE();
+
+        // Current Ratio from Ratios section
+        const currentRatioFromRatios = getCurrentRatio();
+
+        // ===== CALCULATE DERIVED METRICS =====
+        // Strategy: Calculate first, fallback to top-ratios if calculation fails
+
+        // Use totalAssets or totalLiabilities (they should be equal)
+        const assets = totalAssets.length > 0 ? totalAssets : totalLiabilities;
+
+        const latestBorrowings = borrowings[borrowings.length - 1] || 0;
+        const latestEquityCapital = equityCapital[equityCapital.length - 1] || 0;
+        const latestReserves = reserves[reserves.length - 1] || 0;
+        const latestEquity = latestEquityCapital + latestReserves;
+
+        // Debt to Equity: Screener first, calculate as fallback
+        const calculatedDebtToEquity = latestEquity > 0 ? latestBorrowings / latestEquity : null;
+        const debtToEquity = topCardDebtToEquity !== null ? topCardDebtToEquity : calculatedDebtToEquity;
+
+        const latestAssets = assets[assets.length - 1] || 0;
+        const latestProfit = netProfit[netProfit.length - 1] || 0;
+        const prevProfit = netProfit[netProfit.length - 2] || 0;
+        const prevAssets = assets[assets.length - 2] || 0;
+
+        // ROA: Screener first, calculate as fallback
+        const calculatedROA = latestAssets > 0 ? (latestProfit / latestAssets) * 100 : null;
+        const roa = topCardROA !== null ? topCardROA : calculatedROA;
+
+        // ROA Previous Year: Screener first, calculate as fallback
+        const calculatedROAPrevYear = prevAssets > 0 ? (prevProfit / prevAssets) * 100 : null;
+        const roaPrevYear = topCardROAPrevYear !== null ? topCardROAPrevYear : calculatedROAPrevYear;
+
+        const latestSales = sales[sales.length - 1] || 0;
+
+        // Asset Turnover: Screener first, calculate as fallback
+        const calculatedAssetTurnover = latestAssets > 0 ? latestSales / latestAssets : null;
+        const assetTurnover = topCardAssetTurnover !== null ? topCardAssetTurnover : calculatedAssetTurnover;
+
+        const latestCFO = cfo[cfo.length - 1] || 0;
+        const latestCFI = cfi[cfi.length - 1] || 0;
+
+        // ===== FCF and related (Screener first, calculate as fallback) =====
+        // FCF = CFO - CapEx (CapEx is usually part of CFI, which is negative)
+        const calculatedFCF = latestCFO + latestCFI; // Our calculation
+        const fcf = topCardFCF !== null ? topCardFCF : calculatedFCF;
+        const fcfPrevYear = topCardFCFPrevYear; // Only available from Screener
+
+        // Price to FCF: Screener first, calculate as fallback
+        const calculatedPriceToFCF = (marketCap && fcf && fcf > 0) ? marketCap / fcf : null;
+        const priceToFCF = topCardPriceToFCF !== null ? topCardPriceToFCF : calculatedPriceToFCF;
+
+        const latestEPS = eps[eps.length - 1] || 0;
+
+        // PEG Ratio: Screener first, calculate as fallback
+        // Use 5Y profit growth as proxy for EPS growth
+        const calculatedPegRatio = (stockPE && profitGrowth5Y && profitGrowth5Y > 0)
+            ? stockPE / profitGrowth5Y : null;
+        const pegRatio = topCardPEGRatio !== null ? topCardPEGRatio : calculatedPegRatio;
+
+        const priceToBook = (currentPrice && bookValue && bookValue > 0)
+            ? currentPrice / bookValue : null;
+
+        // Graham Number: Screener first, calculate as fallback
+        // Formula: sqrt(22.5 * EPS * Book Value)
+        const calculatedGrahamNumber = (latestEPS > 0 && bookValue > 0)
+            ? Math.sqrt(22.5 * latestEPS * bookValue) : null;
+        const grahamNumber = topCardGrahamNumber !== null ? topCardGrahamNumber : calculatedGrahamNumber;
+
+        // ROIC: Screener only (hard to calculate accurately without invested capital)
+        // Fallback: Use ROCE as proxy
+        const roic = topCardROIC !== null ? topCardROIC : roce;
+
+        // Interest Coverage: Screener only (needs EBIT which we don't have directly)
+        // Fallback: Approximate using Operating Profit / Interest
+        const latestInterest = getTableRowData('#profit-loss', 'interest');
+        const latestOPM = opmPercent[opmPercent.length - 1] || 0;
+        const operatingProfit = latestSales * (latestOPM / 100);
+        const latestInterestValue = latestInterest[latestInterest.length - 1] || 0;
+        const calculatedInterestCoverage = latestInterestValue > 0 ? operatingProfit / latestInterestValue : null;
+        const interestCoverage = topCardInterestCoverage !== null ? topCardInterestCoverage : calculatedInterestCoverage;
+
+        // Current Ratio: Screener/Ratios first, calculate as fallback
+        const latestOtherAssets = otherAssets[otherAssets.length - 1] || 0;
+        const latestOtherLiabilities = otherLiabilities[otherLiabilities.length - 1] || 0;
+        const calculatedCurrentRatio = latestOtherLiabilities > 0
+            ? latestOtherAssets / latestOtherLiabilities : null;
+        const currentRatio = topCardCurrentRatio !== null ? topCardCurrentRatio : (currentRatioFromRatios || calculatedCurrentRatio);
+
+        return {
+            // Basic Info from Top Card
+            stockPE,
+            roe,
+            roce,
+            bookValue,
+            dividendYield,
+            marketCap,
+            currentPrice,
+            industryPE,
+
+            // Calculated Ratios (Screener first, calculation fallback)
+            debtToEquity,
+            roa,
+            roaPrevYear,  // For Piotroski YoY comparison
+            assetTurnover,
+            currentRatio,
+            pegRatio,
+            priceToBook,
+
+            // Custom Screener Ratios (logged-in: Screener values, else: calculated)
+            fcf,                 // Free Cash Flow
+            fcfPrevYear,         // FCF previous year (Screener only)
+            priceToFCF,          // Price to Free Cash Flow
+            grahamNumber,        // Graham Number
+            roic,                // Return on Invested Capital
+            interestCoverage,    // Interest Coverage Ratio
+
+            // Growth Rates (from ranges-table)
+            profitGrowth10Y,
+            profitGrowth5Y,
+            profitGrowth3Y,
+            salesGrowth10Y,
+            salesGrowth5Y,
+            salesGrowth3Y,
+            epsGrowth: profitGrowth5Y, // Use profit growth as proxy
+
+            // Shareholder data (logged-in feature)
+            numShareholders,
+            numShareholdersPrevYear,
+
+            // Screener's Piotroski (for verification - we use our own calculation)
+            screenerPiotroski,
+
+            // Historical Data (arrays - oldest to newest)
+            historical: {
+                sales,
+                netProfit,
+                opmPercent,
+                eps,
+                dividendPayout,
+                borrowings,
+                equityCapital,
+                reserves,
+                totalAssets: assets,
+                cfo,
+                cfi,
+                cff,
+                otherAssets,
+                otherLiabilities
+            },
+
+            // Latest values for quick access
+            latestEPS,
+            latestNetProfit: latestProfit,
+            latestCFO,
+            latestBorrowings,
+            latestEquity,
+
+            // Debug info
+            _debug: {
+                rowsFound: {
+                    sales: sales.length,
+                    netProfit: netProfit.length,
+                    borrowings: borrowings.length,
+                    cfo: cfo.length
+                },
+                // Top-card values for verification (compare with calculated)
+                topCardValues: {
+                    roa: topCardROA,
+                    roaPrevYear: topCardROAPrevYear,
+                    assetTurnover: topCardAssetTurnover,
+                    debtToEquity: topCardDebtToEquity,
+                    currentRatio: topCardCurrentRatio,
+                    pegRatio: topCardPEGRatio
+                },
+                // Our calculated values (for comparison)
+                calculatedValues: {
+                    roa: calculatedROA,
+                    roaPrevYear: calculatedROAPrevYear,
+                    assetTurnover: calculatedAssetTurnover,
+                    debtToEquity: calculatedDebtToEquity,
+                    currentRatio: calculatedCurrentRatio,
+                    pegRatio: calculatedPegRatio
+                }
+            }
+        };
+    });
+
+    console.log(`📊 Extracted comprehensive data:`, JSON.stringify(data, null, 2));
 
     // Take screenshot
     let screenshotPath = "";

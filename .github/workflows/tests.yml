@@ -1,0 +1,186 @@
+name: Stock Analysis Tests
+
+# CONFIGURABLE WORKFLOWS
+# All workflows are disabled by default (no automatic triggers)
+# Enable by: Going to Actions tab → Select workflow → "Run workflow"
+
+on:
+  # Manual trigger only - preserves free tier minutes
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Which tests to run?'
+        required: true
+        default: 'unit'
+        type: choice
+        options:
+          - unit
+          - integration
+          - e2e
+          - html-check
+          - all
+      
+      create_issue_on_failure:
+        description: 'Create GitHub issue if HTML structure fails?'
+        required: false
+        default: false
+        type: boolean
+
+# Uncomment these triggers when you want automatic runs:
+#  push:
+#    branches: [master, feature/*]
+#  pull_request:
+#    branches: [master]
+#  schedule:
+#    - cron: '0 0 * * *'  # Daily at midnight UTC
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_type == 'unit' || github.event.inputs.test_type == 'all' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: nodejs-app/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: nodejs-app
+      
+      - name: Run unit tests
+        run: npm run test:unit
+        working-directory: nodejs-app
+      
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: coverage-report
+          path: nodejs-app/coverage/
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_type == 'integration' || github.event.inputs.test_type == 'all' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: nodejs-app/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: nodejs-app
+      
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+      
+      - name: Run integration tests
+        run: npm run test:integration
+        working-directory: nodejs-app
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
+
+  html-structure-check:
+    name: Screener.in HTML Monitor
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_type == 'html-check' || github.event.inputs.test_type == 'all' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: nodejs-app/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: nodejs-app
+      
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+      
+      - name: Run HTML structure tests
+        run: npm run test:html
+        working-directory: nodejs-app
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
+      
+      - name: Create issue on failure
+        if: ${{ failure() && github.event.inputs.create_issue_on_failure == 'true' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🚨 Screener.in HTML Structure Changed';
+            const body = `## Alert: HTML Structure Tests Failed
+            
+            The HTML structure monitoring tests have failed. Screener.in may have changed their HTML structure.
+            
+            ### Action Required
+            1. Check the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details
+            2. Update selectors in \`src/services/scraper.js\`
+            3. Update expected labels in \`tests/mocks/sampleData.js\`
+            
+            **Run ID:** ${context.runId}
+            **Triggered at:** ${new Date().toISOString()}`;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['html-structure-alert', 'bug']
+            });
+
+  e2e-scraper-tests:
+    name: E2E Scraper Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_type == 'e2e' || github.event.inputs.test_type == 'all' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: nodejs-app/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: nodejs-app
+      
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+      
+      - name: Run scraper E2E tests
+        run: npm run test:scraper
+        working-directory: nodejs-app
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser

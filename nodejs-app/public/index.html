@@ -1,241 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Analysis Tool</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .metric-card {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        .metric-card.pass {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        .metric-card.fail {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        }
-        .metric-card.na {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-    </style>
+    <title>Stock Analysis Tool - Investment Scoring</title>
+    <meta name="description" content="Analyze stocks using Piotroski, Buffett, Graham, and Lynch scoring systems">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100 min-h-screen">
+
+<body>
     <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-chart-line text-2xl"></i>
-                    <h1 class="text-2xl font-bold">Stock Analysis Tool</h1>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <div class="text-sm opacity-75">
-                    Powered by Screener.in & AI
+                <div class="brand-text">
+                    <h1>Stock Analyzer</h1>
+                    <span class="tagline">Multi-Factor Investment Analysis</span>
                 </div>
             </div>
+            <nav class="header-nav">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-search"></i>
+                    <span>Analyze</span>
+                </a>
+                <a href="https://www.screener.in" target="_blank" class="nav-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Screener.in</span>
+                </a>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
+    <main class="container">
         <!-- Search Section -->
-        <div class="max-w-4xl mx-auto mb-8">
-            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
-                <h2 class="text-xl font-semibold mb-4 text-gray-800">
-                    <i class="fas fa-search mr-2"></i>Search & Analyze Stocks
-                </h2>
-                
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-1">
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            placeholder="Enter company name (e.g., TCS, Reliance, Infosys)"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        >
-                        <div id="suggestions" class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden"></div>
-                    </div>
-                    <button 
-                        id="analyzeBtn"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center"
-                    >
-                        <i class="fas fa-chart-bar mr-2"></i>
-                        Analyze
-                    </button>
+        <div class="search-card">
+            <h2>
+                <i class="fas fa-search"></i>
+                Search & Analyze Stocks
+            </h2>
+            <div class="search-form">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Enter company name (e.g., TCS, Reliance, PETRONET)" autocomplete="off">
+                    <div id="suggestions" class="suggestions hidden"></div>
                 </div>
+                <button id="analyzeBtn" class="search-btn">
+                    <i class="fas fa-chart-bar"></i>
+                    Analyze
+                </button>
+            </div>
 
-                <!-- Loading State -->
-                <div id="loadingState" class="hidden mt-4 text-center">
-                    <div class="loading-spinner mx-auto mb-2"></div>
-                    <p class="text-gray-600">Analyzing stock data...</p>
-                </div>
+            <!-- Loading State -->
+            <div id="loadingState" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Running multi-factor analysis & valuation...</p>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div id="resultsSection" class="hidden max-w-6xl mx-auto">
-            <!-- Company Info -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-semibold text-gray-800" id="companyName"></h3>
-                    <a id="companyUrl" href="#" target="_blank" class="text-blue-600 hover:text-blue-800">
-                        <i class="fas fa-external-link-alt mr-1"></i>View on Screener.in
-                    </a>
-                </div>
-                
-                <!-- Verdict Badge -->
-                <div class="mb-4">
-                    <span id="verdictBadge" class="px-4 py-2 rounded-full text-white font-semibold text-sm"></span>
-                </div>
-
-                <!-- Score -->
-                <div class="flex items-center space-x-4">
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-blue-600" id="scoreDisplay"></div>
-                        <div class="text-sm text-gray-600">Score</div>
+        <div id="resultsSection" class="results hidden">
+            <!-- Company Header with Final Decision -->
+            <div class="company-header">
+                <div class="company-info">
+                    <div>
+                        <h2 class="company-name" id="companyName">Company Name</h2>
+                        <a id="companyUrl" href="#" target="_blank" class="company-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View on Screener.in
+                        </a>
                     </div>
-                    <div class="flex-1 bg-gray-200 rounded-full h-2">
-                        <div id="scoreBar" class="bg-blue-600 h-2 rounded-full transition-all duration-500"></div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-gray-600" id="percentageDisplay"></div>
-                        <div class="text-sm text-gray-600">%</div>
+                    <!-- Final Combined Decision (from Matrix) -->
+                    <div class="header-decision">
+                        <span id="headerFinalBadge" class="header-final-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="headerFinalText">BUY</span>
+                        </span>
+                        <p class="header-decision-subtitle">
+                            <span id="headerValuationStatus" class="header-status-badge">Undervalued</span>
+                            <span class="header-confidence" id="headerConfidence">
+                                <span class="confidence-dot high"></span>
+                                High Confidence
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Metrics Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <div class="metric-card pass rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">ROE</h4>
-                            <p class="text-2xl font-bold" id="roeValue">-</p>
+            <!-- Valuation Meter Section -->
+            <div id="valuationSection" class="valuation-section hidden">
+                <h3>
+                    <i class="fas fa-tachometer-alt"></i>
+                    Valuation Analysis
+                </h3>
+
+                <div class="price-meter-container">
+                    <!-- Meter Gauge -->
+                    <div class="meter-gauge-wrapper">
+                        <div class="price-bands-visual">
+                            <div class="price-zone strong-buy">Strong Buy</div>
+                            <div class="price-zone buy">Buy</div>
+                            <div class="price-zone hold">Hold</div>
+                            <div class="price-zone sell">Sell</div>
+                            <div class="price-zone strong-sell">Strong Sell</div>
                         </div>
-                        <div class="text-right">
-                            <span id="roeStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
+
+                        <!-- Zone Border Price Labels (on the color bands) -->
+                        <div class="zone-border-prices">
+                            <div class="border-price" id="borderPrice1" style="left: 50%;">
+                                <span class="border-price-value" id="borderPriceValue1">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice2" style="left: 56.67%;">
+                                <span class="border-price-value" id="borderPriceValue2">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice3" style="left: 73.33%;">
+                                <span class="border-price-value" id="borderPriceValue3">₹0</span>
+                            </div>
+                            <div class="border-price" id="borderPrice4" style="left: 83.33%;">
+                                <span class="border-price-value" id="borderPriceValue4">₹0</span>
+                            </div>
                         </div>
+
+                        <!-- Price Marker (positioned by JS) -->
+                        <div id="priceMarker" class="price-marker" style="left: 50%;">
+                            <div class="price-marker-arrow"></div>
+                            <div class="price-marker-line"></div>
+                            <div class="price-marker-value" id="priceMarkerValue">₹0</div>
+                        </div>
+                    </div>
+
+                    <!-- Price Band Labels -->
+                    <div class="price-band-labels">
+                        <div class="price-label">
+                            Strong Buy
+                            <span class="value" id="strongBuyPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Buy Below
+                            <span class="value" id="buyPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            <strong>Fair Value</strong>
+                            <span class="value" id="fairValuePrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Hold Above
+                            <span class="value" id="holdPrice">₹0</span>
+                        </div>
+                        <div class="price-label">
+                            Sell Above
+                            <span class="value" id="sellPrice">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Valuation Stats Grid -->
+                    <div class="valuation-details">
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Current Price</div>
+                            <div class="valuation-stat-value" id="currentPriceValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Fair Value</div>
+                            <div class="valuation-stat-value" id="fairValueValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Graham Number</div>
+                            <div class="valuation-stat-value" id="grahamNumberValue">₹0</div>
+                        </div>
+                        <div class="valuation-stat">
+                            <div class="valuation-stat-label">Lynch Fair Value</div>
+                            <div class="valuation-stat-value" id="lynchFairValue">₹0</div>
+                        </div>
+                    </div>
+
+                    <!-- How We Decided - Premium Breakdown -->
+                    <div class="decision-breakdown">
+                        <h4 class="breakdown-title">
+                            <i class="fas fa-balance-scale"></i>
+                            How We Calculated This Decision
+                        </h4>
+
+                        <div class="breakdown-cards">
+                            <!-- Score Analysis Card -->
+                            <div class="breakdown-card">
+                                <div class="breakdown-card-header">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Quality Score</span>
+                                </div>
+                                <div class="breakdown-card-badge" id="scoreDecisionBadge">BUY</div>
+                                <div class="breakdown-card-detail" id="scoreDecisionDetail">3 of 4 scores ≥70%</div>
+                            </div>
+
+                            <!-- Plus Operator -->
+                            <div class="breakdown-operator">+</div>
+
+                            <!-- Price Zone Card -->
+                            <div class="breakdown-card">
+                                <div class="breakdown-card-header">
+                                    <i class="fas fa-tags"></i>
+                                    <span>Price Zone</span>
+                                </div>
+                                <div class="breakdown-card-badge zone" id="priceZoneBadge">HOLD</div>
+                                <div class="breakdown-card-detail" id="priceZoneDetail">105% of fair value</div>
+                            </div>
+
+                            <!-- Equals Operator -->
+                            <div class="breakdown-operator">=</div>
+
+                            <!-- Final Decision Card -->
+                            <div class="breakdown-card final">
+                                <div class="breakdown-card-header">
+                                    <i class="fas fa-gavel"></i>
+                                    <span>Final Verdict</span>
+                                </div>
+                                <div class="breakdown-card-badge final" id="finalDecisionBadge">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span id="finalDecisionText">BUY</span>
+                                </div>
+                                <div class="breakdown-card-detail">Combined recommendation</div>
+                            </div>
+                        </div>
+
+                        <!-- Data Source Footer -->
+                        <div class="breakdown-footer">
+                            <span class="valuation-status">
+                                <span class="status-label">Valuation:</span>
+                                <span id="valuationStatusBadge"
+                                    class="valuation-status-badge undervalued">Undervalued</span>
+                            </span>
+                            <span class="confidence-indicator" id="confidenceIndicator">
+                                <span class="confidence-dot high"></span>
+                                <span>High Confidence</span>
+                            </span>
+                            <span class="data-source" id="dataSourceInfo">Using Screener data</span>
+                        </div>
+                    </div>
+
+                    <!-- Risk Flags -->
+                    <div class="risk-flags" id="riskFlags"></div>
+                </div>
+            </div>
+
+            <!-- Score Cards Grid -->
+            <div class="scores-grid">
+                <!-- Piotroski Card -->
+                <div class="score-card piotroski" id="piotroskiCard">
+                    <div class="score-card-header">
+                        <span class="score-card-title">Piotroski F-Score</span>
+                        <div class="score-card-icon"><i class="fas fa-chart-pie"></i></div>
+                    </div>
+                    <div class="score-card-value">
+                        <span id="piotroskiScore">0</span><span class="score-card-total">/9</span>
+                    </div>
+                    <div class="score-card-bar">
+                        <div class="score-card-bar-fill" id="piotroskiBar" style="width: 0%"></div>
+                    </div>
+                    <div class="score-card-interpretation" id="piotroskiInterpretation">Financial Health</div>
+                    <div class="score-card-status" id="piotroskiStatus">
+                        <i class="fas fa-circle"></i> Pending
                     </div>
                 </div>
 
-                <div class="metric-card fail rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">P/E Ratio</h4>
-                            <p class="text-2xl font-bold" id="peValue">-</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="peStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
-                        </div>
+                <!-- Buffett Card -->
+                <div class="score-card buffett" id="buffettCard">
+                    <div class="score-card-header">
+                        <span class="score-card-title">Warren Buffett Score</span>
+                        <div class="score-card-icon"><i class="fas fa-crown"></i></div>
+                    </div>
+                    <div class="score-card-value">
+                        <span id="buffettScore">0</span><span class="score-card-total">/10</span>
+                    </div>
+                    <div class="score-card-bar">
+                        <div class="score-card-bar-fill" id="buffettBar" style="width: 0%"></div>
+                    </div>
+                    <div class="score-card-interpretation" id="buffettInterpretation">Business Quality</div>
+                    <div class="score-card-status" id="buffettStatus">
+                        <i class="fas fa-circle"></i> Pending
                     </div>
                 </div>
 
-                <div class="metric-card pass rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">Debt/Equity</h4>
-                            <p class="text-2xl font-bold" id="debtValue">-</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="debtStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
-                        </div>
+                <!-- Graham Card -->
+                <div class="score-card graham" id="grahamCard">
+                    <div class="score-card-header">
+                        <span class="score-card-title">Benjamin Graham Score</span>
+                        <div class="score-card-icon"><i class="fas fa-shield-alt"></i></div>
+                    </div>
+                    <div class="score-card-value">
+                        <span id="grahamScore">0</span><span class="score-card-total">/10</span>
+                    </div>
+                    <div class="score-card-bar">
+                        <div class="score-card-bar-fill" id="grahamBar" style="width: 0%"></div>
+                    </div>
+                    <div class="score-card-interpretation" id="grahamInterpretation">Value Investing</div>
+                    <div class="score-card-status" id="grahamStatus">
+                        <i class="fas fa-circle"></i> Pending
                     </div>
                 </div>
 
-                <div class="metric-card pass rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">ROCE</h4>
-                            <p class="text-2xl font-bold" id="roceValue">-</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="roceStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
-                        </div>
+                <!-- Lynch Card -->
+                <div class="score-card lynch" id="lynchCard">
+                    <div class="score-card-header">
+                        <span class="score-card-title">Peter Lynch Score</span>
+                        <div class="score-card-icon"><i class="fas fa-rocket"></i></div>
+                    </div>
+                    <div class="score-card-value">
+                        <span id="lynchScore">0</span><span class="score-card-total">/10</span>
+                    </div>
+                    <div class="score-card-bar">
+                        <div class="score-card-bar-fill" id="lynchBar" style="width: 0%"></div>
+                    </div>
+                    <div class="score-card-interpretation" id="lynchInterpretation">Growth at Reasonable Price</div>
+                    <div class="score-card-status" id="lynchStatus">
+                        <i class="fas fa-circle"></i> Pending
                     </div>
                 </div>
+            </div>
 
-                <div class="metric-card fail rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">Cash Flow</h4>
-                            <p class="text-2xl font-bold" id="cashFlowValue">-</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="cashFlowStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
-                        </div>
-                    </div>
+            <!-- Factor Details -->
+            <div class="factors-section">
+                <h3>
+                    <i class="fas fa-list-check"></i>
+                    Detailed Factor Analysis
+                </h3>
+                <div class="factors-tabs">
+                    <button class="factor-tab active" data-tab="piotroski">Piotroski</button>
+                    <button class="factor-tab" data-tab="buffett">Buffett</button>
+                    <button class="factor-tab" data-tab="graham">Graham</button>
+                    <button class="factor-tab" data-tab="lynch">Lynch</button>
                 </div>
-
-                <div class="metric-card na rounded-lg p-4 text-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold">PEG Ratio</h4>
-                            <p class="text-2xl font-bold" id="pegValue">-</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="pegStatus" class="px-2 py-1 rounded text-xs font-semibold">-</span>
-                        </div>
-                    </div>
+                <div id="factorsList" class="factors-list">
+                    <!-- Factors will be populated by JavaScript -->
                 </div>
             </div>
 
             <!-- AI Insights -->
-            <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
-                <h3 class="text-xl font-semibold mb-4 text-gray-800">
-                    <i class="fas fa-robot mr-2"></i>AI Insights
+            <div class="ai-insights">
+                <h3>
+                    <i class="fas fa-robot"></i>
+                    AI Investment Insights
                 </h3>
-                <div id="aiInsights" class="prose max-w-none">
-                    <p class="text-gray-600">AI insights will appear here after analysis...</p>
+                <div id="aiInsights" class="ai-content">
+                    <p>AI insights will appear here after analysis...</p>
+                </div>
+
+                <!-- AI Action Buttons -->
+                <div class="ai-actions">
+                    <button id="copyAnalysisBtn" class="ai-action-btn copy-btn" disabled>
+                        <i class="fas fa-copy"></i>
+                        Copy Analysis
+                    </button>
+                    <button id="continueAIBtn" class="ai-action-btn continue-btn" disabled>
+                        <i class="fas fa-comments"></i>
+                        Continue in AI Chat
+                    </button>
+                </div>
+
+                <!-- AI Chat Selection Modal -->
+                <div id="aiChatModal" class="ai-modal hidden">
+                    <div class="ai-modal-content">
+                        <h4><i class="fas fa-robot"></i> Continue in AI Chat</h4>
+                        <p class="modal-subtitle">Screenshot in clipboard! Choose your AI.</p>
+                        <div class="modal-steps">
+                            <small>1️⃣ Paste screenshot (Ctrl+V) • 2️⃣ Copy Prompt below • 3️⃣ Paste prompt</small>
+                        </div>
+                        <div class="ai-chat-options">
+                            <button class="ai-option" data-url="https://gemini.google.com/app">
+                                <i class="fab fa-google"></i>
+                                Google Gemini
+                            </button>
+                            <button class="ai-option" data-url="https://chat.openai.com">
+                                <i class="fas fa-brain"></i>
+                                ChatGPT
+                            </button>
+                            <button class="ai-option" data-url="https://claude.ai">
+                                <i class="fas fa-comment-dots"></i>
+                                Claude
+                            </button>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="copyPromptBtn" class="copy-prompt-btn">
+                                <i class="fas fa-clipboard"></i>
+                                Copy Prompt Text
+                            </button>
+                        </div>
+                        <button id="closeModalBtn" class="modal-close">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Error Section -->
-        <div id="errorSection" class="hidden max-w-4xl mx-auto">
-            <div class="bg-red-50 border border-red-200 rounded-lg p-6">
-                <div class="flex items-center">
-                    <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
-                    <div>
-                        <h3 class="text-lg font-semibold text-red-800">Analysis Failed</h3>
-                        <p id="errorMessage" class="text-red-600 mt-1"></p>
-                    </div>
+        <div id="errorSection" class="hidden">
+            <div class="error-card">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="error-content">
+                    <h3>Analysis Failed</h3>
+                    <p id="errorMessage">An error occurred while analyzing the stock.</p>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-gray-400">
-                Stock Analysis Tool - Powered by Screener.in data and AI insights
-            </p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stock Analyzer</span>
+                </div>
+                <div class="footer-methodologies">
+                    <span class="method-badge">
+                        <i class="fas fa-clipboard-check"></i>
+                        Piotroski F-Score
+                    </span>
+                    <span class="method-badge">
+                        <i class="fas fa-gem"></i>
+                        Buffett Criteria
+                    </span>
+                    <span class="method-badge">
+                        <i class="fas fa-balance-scale"></i>
+                        Graham Number
+                    </span>
+                    <span class="method-badge">
+                        <i class="fas fa-chart-pie"></i>
+                        Lynch PEG
+                    </span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-disclaimer">
+                    <i class="fas fa-info-circle"></i>
+                    For educational purposes only. Not financial advice. Always do your own research.
+                </p>
+                <div class="footer-credits">
+                    <span>Data from
+                        <a href="https://www.screener.in" target="_blank">Screener.in</a>
+                    </span>
+                    <span class="footer-divider">•</span>
+                    <span>Built with ❤️ for investors</span>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html> 
+
+</html>

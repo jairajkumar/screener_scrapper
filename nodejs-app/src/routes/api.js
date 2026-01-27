@@ -1,10 +1,15 @@
 const express = require('express');
 const fetch = require('node-fetch');
+const path = require('path');
+const fs = require('fs');
 const router = express.Router();
 
 const fetchStockData = require('../services/scraper');
 const analyzeStock = require('../services/analyzer');
 const generateAIInsights = require('../services/aiService');
+
+// Screenshots directory
+const SCREENSHOTS_DIR = path.join(__dirname, '..', '..', 'screenshots');
 
 // Health check endpoint
 router.get('/health', (req, res) => {
@@ -73,6 +78,9 @@ router.post('/analyze', async (req, res) => {
         const analysis = analyzeStock(stockData.data);
         const aiInsights = await generateAIInsights(stockData.data, analysis, stockData.screenshotPath);
 
+        // Extract screenshot filename from path
+        const screenshotFilename = stockData.screenshotPath ? path.basename(stockData.screenshotPath) : null;
+
         const result = {
             success: true,
             company: {
@@ -83,6 +91,7 @@ router.post('/analyze', async (req, res) => {
             data: stockData.data,
             analysis: analysis,
             aiInsights: aiInsights,
+            screenshotUrl: screenshotFilename ? `/api/screenshot/${screenshotFilename}` : null,
             timestamp: new Date().toISOString()
         };
         console.log("result", result);
@@ -117,6 +126,9 @@ router.get('/analyze/:companyName', async (req, res) => {
         const analysis = analyzeStock(stockData.data);
         const aiInsights = await generateAIInsights(stockData.data, analysis, stockData.screenshotPath);
 
+        // Extract screenshot filename from path
+        const screenshotFilename = stockData.screenshotPath ? path.basename(stockData.screenshotPath) : null;
+
         const result = {
             success: true,
             company: {
@@ -126,6 +138,7 @@ router.get('/analyze/:companyName', async (req, res) => {
             data: stockData.data,
             analysis: analysis,
             aiInsights: aiInsights,
+            screenshotUrl: screenshotFilename ? `/api/screenshot/${screenshotFilename}` : null,
             timestamp: new Date().toISOString()
         };
 
@@ -137,6 +150,28 @@ router.get('/analyze/:companyName', async (req, res) => {
             error: 'Analysis failed',
             message: error.message
         });
+    }
+});
+
+// Serve screenshot by filename
+router.get('/screenshot/:filename', (req, res) => {
+    try {
+        const { filename } = req.params;
+
+        // Sanitize filename to prevent path traversal
+        const sanitizedFilename = path.basename(filename);
+        const screenshotPath = path.join(SCREENSHOTS_DIR, sanitizedFilename);
+
+        // Check if file exists
+        if (!fs.existsSync(screenshotPath)) {
+            return res.status(404).json({ error: 'Screenshot not found' });
+        }
+
+        // Send the image
+        res.sendFile(screenshotPath);
+    } catch (error) {
+        console.error('Screenshot serve error:', error);
+        res.status(500).json({ error: 'Failed to serve screenshot' });
     }
 });
 

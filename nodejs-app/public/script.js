@@ -1,10 +1,12 @@
-// Global variables
-let currentAnalysis = null;
-let suggestions = [];
-let verdictCache = {};
-let isAnalyzing = false; // Add flag to prevent duplicate calls
+// Stock Analysis Tool - Modern Frontend Script
+// Handles 4-Score Investment Analysis Display
 
-// DOM elements
+// ===== Global State =====
+let currentAnalysis = null;
+let currentFactorsTab = 'piotroski';
+let isAnalyzing = false;
+
+// ===== DOM Elements =====
 const searchInput = document.getElementById('searchInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const loadingState = document.getElementById('loadingState');
@@ -12,297 +14,418 @@ const resultsSection = document.getElementById('resultsSection');
 const errorSection = document.getElementById('errorSection');
 const suggestionsDiv = document.getElementById('suggestions');
 
-// Add enter key support
-searchInput.addEventListener('keypress', function(e) {
+// ===== Event Listeners =====
+searchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         hideSuggestions();
-        // Only analyze if not already analyzing
-        if (!isAnalyzing) {
-            analyzeStock();
-        }
+        if (!isAnalyzing) analyzeStock();
     }
 });
 
-// Hide suggestions when clicking outside
-document.addEventListener('click', function(e) {
+analyzeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!isAnalyzing) analyzeStock();
+});
+
+document.addEventListener('click', (e) => {
     if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
         hideSuggestions();
     }
 });
 
-// Hide suggestions when input loses focus
-searchInput.addEventListener('blur', function() {
-    // Small delay to allow clicking on suggestions
-    setTimeout(() => {
-        hideSuggestions();
-    }, 200);
+// Factor tabs
+document.querySelectorAll('.factor-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.factor-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFactorsTab = tab.dataset.tab;
+        if (currentAnalysis) {
+            renderFactors(currentFactorsTab);
+        }
+    });
 });
 
-// Hide suggestions function
-function hideSuggestions() {
-    suggestionsDiv.classList.add('hidden');
-    suggestionsDiv.innerHTML = '';
-}
-
-// Add analyze button click handler
-analyzeBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    if (!isAnalyzing) {
-        analyzeStock();
-    }
-});
-
-// Main analysis function
+// ===== Main Analysis Function =====
 async function analyzeStock(companyNameOrSlug) {
-    // Prevent duplicate calls
-    if (isAnalyzing) {
-        console.log('Analysis already in progress, skipping...');
-        return;
-    }
-    
+    if (isAnalyzing) return;
+
     const companyName = companyNameOrSlug || searchInput.value.trim();
-    
     if (!companyName) {
         showError('Please enter a company name');
         return;
     }
 
-    // Set analyzing flag
     isAnalyzing = true;
-
-    // Show loading state
     showLoading(true);
     hideResults();
     hideError();
 
     try {
-        // Call the API
-        const response = await fetch(`/api/analyze/${encodeURIComponent(companyName)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+        const response = await fetch(`/api/analyze/${encodeURIComponent(companyName)}`);
         const data = await response.json();
 
         if (!response.ok) {
             throw new Error(data.message || 'Analysis failed');
         }
 
-        // Store the analysis data
         currentAnalysis = data;
-        
-        // Display results
         displayResults(data);
-        
+
     } catch (error) {
         console.error('Analysis error:', error);
         showError(error.message || 'Failed to analyze stock');
     } finally {
         showLoading(false);
-        isAnalyzing = false; // Reset flag
+        isAnalyzing = false;
     }
 }
 
-// Display analysis results
+// ===== Display Results =====
 function displayResults(data) {
     // Company info
     document.getElementById('companyName').textContent = data.company.name;
     document.getElementById('companyUrl').href = data.company.url;
-    
-    // Verdict and score
-    const verdict = data.analysis.verdict;
-    const score = data.analysis.score;
-    const total = data.analysis.total;
-    const percentage = data.analysis.percent;
-    
-    // Update verdict badge
-    const verdictBadge = document.getElementById('verdictBadge');
-    verdictBadge.textContent = verdict;
-    verdictBadge.className = `px-4 py-2 rounded-full text-white font-semibold text-sm ${getVerdictClass(verdict)}`;
-    
-    // Update score display
-    document.getElementById('scoreDisplay').textContent = `${score}/${total}`;
-    document.getElementById('percentageDisplay').textContent = `${Math.round(percentage)}%`;
-    
-    // Update score bar
-    const scoreBar = document.getElementById('scoreBar');
-    scoreBar.style.width = `${percentage}%`;
-    scoreBar.className = `h-2 rounded-full transition-all duration-500 ${getScoreBarClass(percentage)}`;
-    
-    // Update metrics
-    updateMetric('roe', data.data.roe, data.analysis.analysis.roe);
-    updateMetric('pe', data.data.pe_ratio, data.analysis.analysis.pe_ratio);
-    updateMetric('debt', data.data.debt_to_equity, data.analysis.analysis.debt_to_equity);
-    updateMetric('roce', data.data.roce, data.analysis.analysis.roce);
-    updateMetric('cashFlow', data.data.cash_flow, data.analysis.analysis.cash_flow);
-    updateMetric('peg', data.data.peg, data.analysis.analysis.peg);
-    
-    // Update AI insights
-    const aiInsightsDiv = document.getElementById('aiInsights');
-    if (data.aiInsights) {
-        aiInsightsDiv.innerHTML = `
-            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-lightbulb text-blue-400"></i>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-blue-700">
-                            ${data.aiInsights}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        `;
-    } else {
-        aiInsightsDiv.innerHTML = '<p class="text-gray-600">AI insights not available</p>';
+
+    const analysis = data.analysis;
+
+    // Store analysis for access in other functions (including displayValuation)
+    window.lastAnalysis = analysis;
+
+    // Display Valuation Analysis
+    if (analysis.valuation) {
+        displayValuation(analysis.valuation);
     }
-    
+
+    // Update each score card
+    updateScoreCard('piotroski', analysis.piotroski);
+    updateScoreCard('buffett', analysis.buffett);
+    updateScoreCard('graham', analysis.graham);
+    updateScoreCard('lynch', analysis.lynch);
+
+    // Render factors for current tab
+    renderFactors(currentFactorsTab);
+
+    // AI Insights
+    const aiInsightsDiv = document.getElementById('aiInsights');
+    if (data.aiInsights && !data.aiInsights.includes('Error')) {
+        aiInsightsDiv.innerHTML = formatAIInsights(data.aiInsights);
+    } else {
+        aiInsightsDiv.innerHTML = '<p>AI insights are currently unavailable. Please check your Gemini API key.</p>';
+    }
+
     // Show results
     showResults();
+
+    // Enable AI action buttons
+    enableAIButtons();
 }
 
-// Update individual metric
-function updateMetric(metricName, value, status) {
-    const valueElement = document.getElementById(`${metricName}Value`);
-    const statusElement = document.getElementById(`${metricName}Status`);
-    const cardElement = document.querySelector(`#${metricName}Value`).closest('.metric-card');
-    
-    // Update value
-    if (value !== null && value !== undefined) {
-        valueElement.textContent = formatValue(metricName, value);
-    } else {
-        valueElement.textContent = 'N/A';
+// ===== Display Valuation =====
+function displayValuation(valuation) {
+    const section = document.getElementById('valuationSection');
+
+    // Check if valuation data is valid
+    if (!valuation || valuation.finalDecision === 'DATA_INSUFFICIENT') {
+        section.classList.add('hidden');
+        return;
     }
-    
-    // Update status
-    statusElement.textContent = status;
-    statusElement.className = `px-2 py-1 rounded text-xs font-semibold ${getStatusClass(status)}`;
-    
-    // Update card background
-    cardElement.className = `metric-card ${getStatusClass(status)} rounded-lg p-4 text-white`;
-}
 
-// Format values for display
-function formatValue(metricName, value) {
-    if (value === null || value === undefined) return 'N/A';
-    
-    switch (metricName) {
-        case 'roe':
-        case 'roce':
-            return `${value.toFixed(2)}%`;
-        case 'pe':
-        case 'peg':
-            return value.toFixed(1);
-        case 'debt':
-            return value.toFixed(2);
-        case 'cashFlow':
-            return value.toLocaleString();
-        default:
-            return value.toString();
-    }
-}
+    section.classList.remove('hidden');
 
-// Get CSS classes for verdict
-function getVerdictClass(verdict) {
-    switch (verdict) {
-        case 'BUY':
-            return 'bg-green-500';
-        case 'HOLD':
-            return 'bg-yellow-500';
-        case 'SELL':
-            return 'bg-red-500';
-        case 'NA':
-            return 'bg-gray-500';
-        default:
-            return 'bg-gray-500';
-    }
-}
-
-// Get CSS classes for score bar
-function getScoreBarClass(percentage) {
-    if (percentage >= 70) return 'bg-green-500';
-    if (percentage >= 50) return 'bg-yellow-500';
-    return 'bg-red-500';
-}
-
-// Get CSS classes for status
-function getStatusClass(status) {
-    switch (status) {
-        case 'PASS':
-            return 'pass bg-green-100 text-green-800';
-        case 'FAIL':
-            return 'fail bg-red-100 text-red-800';
-        case 'NA':
-            return 'na bg-gray-100 text-gray-800';
-        default:
-            return 'bg-gray-100 text-gray-800';
-    }
-}
-
-// Show/hide loading state
-function showLoading(show) {
-    if (show) {
-        loadingState.classList.remove('hidden');
-        analyzeBtn.disabled = true;
-        analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
-    } else {
-        loadingState.classList.add('hidden');
-        analyzeBtn.disabled = false;
-        analyzeBtn.innerHTML = '<i class="fas fa-chart-bar mr-2"></i>Analyze';
-    }
-}
-
-// Show/hide results
-function showResults() {
-    resultsSection.classList.remove('hidden');
-    resultsSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-function hideResults() {
-    resultsSection.classList.add('hidden');
-}
-
-// Show/hide error
-function showError(message) {
-    document.getElementById('errorMessage').textContent = message;
-    errorSection.classList.remove('hidden');
-    errorSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-function hideError() {
-    errorSection.classList.add('hidden');
-}
-
-// Export function for global access
-window.analyzeStock = analyzeStock;
-
-// Debounce helper
-function debounce(fn, delay) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => fn.apply(this, args), delay);
+    // Format currency
+    const formatCurrency = (value) => {
+        if (value === null || value === undefined) return '₹--';
+        return '₹' + value.toLocaleString('en-IN');
     };
+
+    // Update price band labels
+    document.getElementById('strongBuyPrice').textContent = formatCurrency(valuation.priceBands?.strongBuyBelow);
+    document.getElementById('buyPrice').textContent = formatCurrency(valuation.priceBands?.buyBelow);
+    document.getElementById('fairValuePrice').textContent = formatCurrency(valuation.fairValue);
+    document.getElementById('holdPrice').textContent = formatCurrency(valuation.priceBands?.holdAbove);
+    document.getElementById('sellPrice').textContent = formatCurrency(valuation.priceBands?.sellAbove);
+
+    // Update border price labels on the meter
+    document.getElementById('borderPriceValue1').textContent = formatCurrency(valuation.priceBands?.strongBuyBelow);
+    document.getElementById('borderPriceValue2').textContent = formatCurrency(valuation.priceBands?.buyBelow);
+    document.getElementById('borderPriceValue3').textContent = formatCurrency(valuation.priceBands?.holdAbove);
+    document.getElementById('borderPriceValue4').textContent = formatCurrency(valuation.priceBands?.sellAbove);
+
+    // Update valuation stats
+    const currentPriceEl = document.getElementById('currentPriceValue');
+    currentPriceEl.textContent = formatCurrency(valuation.currentPrice);
+
+    // Add color class based on valuation status
+    currentPriceEl.className = 'valuation-stat-value';
+    if (valuation.priceZone === 'STRONG_BUY' || valuation.priceZone === 'BUY') {
+        currentPriceEl.classList.add('positive');
+    } else if (valuation.priceZone === 'SELL' || valuation.priceZone === 'STRONG_SELL') {
+        currentPriceEl.classList.add('negative');
+    } else {
+        currentPriceEl.classList.add('neutral');
+    }
+
+    document.getElementById('fairValueValue').textContent = formatCurrency(valuation.fairValue);
+    document.getElementById('grahamNumberValue').textContent = formatCurrency(valuation.grahamNumber);
+    document.getElementById('lynchFairValue').textContent = formatCurrency(valuation.lynchFairValue);
+
+    // Update price marker position
+    updatePriceMarker(valuation);
+
+    // Update Header Final Decision (the main badge at top)
+    const headerFinalBadge = document.getElementById('headerFinalBadge');
+    const headerFinalText = document.getElementById('headerFinalText');
+    if (headerFinalBadge && headerFinalText) {
+        headerFinalText.textContent = valuation.finalDecision || 'N/A';
+        headerFinalBadge.className = 'header-final-badge ' + (valuation.finalDecision?.toLowerCase().replace('_', '-') || '');
+    }
+
+    // Update header valuation status
+    const headerValuationStatus = document.getElementById('headerValuationStatus');
+    if (headerValuationStatus && valuation.valuationStatus) {
+        headerValuationStatus.textContent = valuation.valuationStatus.replace(/_/g, ' ');
+        headerValuationStatus.className = 'header-status-badge ' + valuation.valuationStatus.toLowerCase().replace(/_/g, '-');
+    }
+
+    // Update header confidence
+    const headerConfidence = document.getElementById('headerConfidence');
+    if (headerConfidence) {
+        const confidence = valuation.confidence?.toLowerCase() || 'medium';
+        headerConfidence.innerHTML = `
+            <span class="confidence-dot ${confidence}"></span>
+            ${valuation.confidence || 'Medium'} Confidence
+        `;
+    }
+
+    // Update Score Decision badge (breakdown card)
+    const scoreDecisionBadge = document.getElementById('scoreDecisionBadge');
+    const scoreDecisionDetail = document.getElementById('scoreDecisionDetail');
+    if (scoreDecisionBadge) {
+        scoreDecisionBadge.textContent = valuation.scoreDecision || 'N/A';
+        scoreDecisionBadge.className = 'breakdown-card-badge ' + (valuation.scoreDecision?.toLowerCase() || '');
+    }
+    if (scoreDecisionDetail) {
+        const scoresAbove7 = window.lastAnalysis?.scoresAbove7 || 0;
+        scoreDecisionDetail.textContent = `${scoresAbove7} of 4 scores ≥70%`;
+    }
+
+    // Update Price Zone badge (breakdown card)
+    const priceZoneBadge = document.getElementById('priceZoneBadge');
+    const priceZoneDetail = document.getElementById('priceZoneDetail');
+    if (priceZoneBadge) {
+        const zoneText = valuation.priceZone?.replace('_', ' ') || 'N/A';
+        priceZoneBadge.textContent = zoneText;
+        priceZoneBadge.className = 'breakdown-card-badge zone ' + (valuation.priceZone?.toLowerCase().replace('_', '-') || '');
+    }
+    if (priceZoneDetail && valuation.priceBands) {
+        const price = valuation.currentPrice;
+        const fairValue = valuation.fairValue;
+        const ratio = price && fairValue ? ((price / fairValue) * 100).toFixed(0) : 0;
+        priceZoneDetail.textContent = `${ratio}% of fair value`;
+    }
+
+    // Update Final Decision badge (breakdown card)
+    const finalDecisionBadge = document.getElementById('finalDecisionBadge');
+    const finalDecisionText = document.getElementById('finalDecisionText');
+    if (finalDecisionBadge && finalDecisionText) {
+        finalDecisionText.textContent = valuation.finalDecision || 'N/A';
+        finalDecisionBadge.className = 'breakdown-card-badge final ' + (valuation.finalDecision?.toLowerCase().replace('_', '-') || '');
+    }
+
+    // Update valuation status badge (footer)
+    const statusBadge = document.getElementById('valuationStatusBadge');
+    if (valuation.valuationStatus) {
+        statusBadge.textContent = valuation.valuationStatus.replace(/_/g, ' ');
+        statusBadge.className = 'valuation-status-badge ' + valuation.valuationStatus.toLowerCase().replace(/_/g, '-');
+    }
+
+    // Update confidence indicator (footer)
+    const confidenceEl = document.getElementById('confidenceIndicator');
+    const confidence = valuation.confidence?.toLowerCase() || 'medium';
+    confidenceEl.innerHTML = `
+        <span class="confidence-dot ${confidence}"></span>
+        <span>${valuation.confidence || 'Medium'} Confidence</span>
+    `;
+
+    // Update data source info
+    const dataSourceInfo = document.getElementById('dataSourceInfo');
+    if (dataSourceInfo) {
+        const sourceText = valuation.dataSource?.grahamNumber === 'screener'
+            ? 'Using Screener data'
+            : 'Using calculated values';
+        dataSourceInfo.textContent = sourceText;
+    }
+
+    // Render risk flags
+    const riskFlagsEl = document.getElementById('riskFlags');
+    if (valuation.riskFlags && valuation.riskFlags.length > 0) {
+        riskFlagsEl.innerHTML = valuation.riskFlags.map(flag => `
+            <span class="risk-flag">
+                <i class="fas fa-exclamation-triangle"></i>
+                ${flag}
+            </span>
+        `).join('');
+    } else {
+        riskFlagsEl.innerHTML = '';
+    }
 }
 
-// Fetch suggestions from backend
-const fetchSuggestions = debounce(async function() {
+// ===== Update Price Marker Position =====
+function updatePriceMarker(valuation) {
+    const marker = document.getElementById('priceMarker');
+    const markerValue = document.getElementById('priceMarkerValue');
+
+    if (!valuation.currentPrice || !valuation.fairValue) {
+        marker.style.left = '50%';
+        markerValue.textContent = '₹--';
+        return;
+    }
+
+    // Calculate position based on price zones
+    // Zone widths: Strong Buy (0.75), Buy (0.10), Hold (0.25), Sell (0.15), Strong Sell (0.25) = 1.5 total
+    const { currentPrice, priceBands, fairValue } = valuation;
+
+    let position;
+
+    if (currentPrice <= priceBands.strongBuyBelow) {
+        // Strong Buy zone (0% - 50%)
+        const ratio = currentPrice / priceBands.strongBuyBelow;
+        position = ratio * 50;
+    } else if (currentPrice <= priceBands.buyBelow) {
+        // Buy zone (50% - 56.67%)
+        const ratio = (currentPrice - priceBands.strongBuyBelow) / (priceBands.buyBelow - priceBands.strongBuyBelow);
+        position = 50 + (ratio * 6.67);
+    } else if (currentPrice <= priceBands.holdAbove) {
+        // Hold zone (56.67% - 73.33%)
+        const ratio = (currentPrice - priceBands.buyBelow) / (priceBands.holdAbove - priceBands.buyBelow);
+        position = 56.67 + (ratio * 16.67);
+    } else if (currentPrice <= priceBands.sellAbove) {
+        // Sell zone (73.33% - 83.33%)
+        const ratio = (currentPrice - priceBands.holdAbove) / (priceBands.sellAbove - priceBands.holdAbove);
+        position = 73.33 + (ratio * 10);
+    } else {
+        // Strong Sell zone (83.33% - 100%)
+        const ratio = Math.min((currentPrice - priceBands.sellAbove) / (priceBands.sellAbove * 0.25), 1);
+        position = 83.33 + (ratio * 16.67);
+    }
+
+    // Clamp position between 2% and 98%
+    position = Math.max(2, Math.min(98, position));
+
+    // Update marker with animation
+    setTimeout(() => {
+        marker.style.left = `${position}%`;
+    }, 100);
+
+    markerValue.textContent = '₹' + currentPrice.toLocaleString('en-IN');
+}
+
+// ===== Update Score Card =====
+function updateScoreCard(type, scoreData) {
+    const cardEl = document.getElementById(`${type}Card`);
+    const scoreEl = document.getElementById(`${type}Score`);
+    const barEl = document.getElementById(`${type}Bar`);
+    const interpretationEl = document.getElementById(`${type}Interpretation`);
+    const statusEl = document.getElementById(`${type}Status`);
+
+    scoreEl.textContent = scoreData.score;
+    barEl.style.width = `${scoreData.percent}%`;
+    interpretationEl.textContent = scoreData.interpretation;
+
+    // Determine pass/fail
+    const isPass = scoreData.score >= 7;
+
+    // Add passing/failing class to card for visual effect
+    cardEl.classList.remove('passing', 'failing');
+    cardEl.classList.add(isPass ? 'passing' : 'failing');
+
+    // Status badge with clear text
+    statusEl.className = `score-card-status ${isPass ? 'pass' : 'fail'}`;
+    statusEl.innerHTML = isPass
+        ? `<i class="fas fa-check-circle"></i> PASSING (≥7)`
+        : `<i class="fas fa-times-circle"></i> NEEDS WORK`;
+}
+
+// ===== Render Factor Details =====
+function renderFactors(type) {
+    const factorsList = document.getElementById('factorsList');
+
+    if (!currentAnalysis || !currentAnalysis.analysis || !currentAnalysis.analysis[type]) {
+        factorsList.innerHTML = '<p>No factor data available</p>';
+        return;
+    }
+
+    const factors = currentAnalysis.analysis[type].factors;
+
+    factorsList.innerHTML = Object.entries(factors).map(([key, factor]) => {
+        const displayValue = formatFactorValue(factor.value);
+        return `
+            <div class="factor-item ${factor.pass ? 'pass' : 'fail'}">
+                <div class="factor-info">
+                    <div class="factor-name">${formatFactorName(key)}</div>
+                    <div class="factor-condition">${factor.condition}</div>
+                </div>
+                <div class="factor-value">${displayValue}</div>
+                <span class="factor-badge ${factor.pass ? 'pass' : 'fail'}">
+                    ${factor.marks} mark${factor.marks !== 1 ? 's' : ''}
+                </span>
+            </div>
+        `;
+    }).join('');
+}
+
+// ===== Format Helpers =====
+function formatFactorName(key) {
+    return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase())
+        .trim();
+}
+
+function formatFactorValue(value) {
+    if (value === null || value === undefined) return 'N/A';
+    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            return value.slice(-3).join(' → ');
+        }
+        return Object.entries(value)
+            .map(([k, v]) => `${k}: ${typeof v === 'number' ? v.toFixed?.(2) ?? v : v}`)
+            .join(', ');
+    }
+    if (typeof value === 'number') {
+        return value.toFixed(2);
+    }
+    return value.toString();
+}
+
+function formatAIInsights(text) {
+    // Convert markdown-like text to HTML
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>')
+        .replace(/• /g, '&bull; ');
+}
+
+// ===== Suggestions =====
+function hideSuggestions() {
+    suggestionsDiv.classList.add('hidden');
+    suggestionsDiv.innerHTML = '';
+}
+
+const fetchSuggestions = debounce(async function () {
     const query = searchInput.value.trim();
     if (!query || query.length < 2) {
         hideSuggestions();
         return;
     }
-    
+
     try {
         const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
         const data = await res.json();
         if (data.success && data.results && data.results.length > 0) {
-            suggestions = data.results;
-            renderSuggestions();
+            renderSuggestions(data.results);
         } else {
             hideSuggestions();
         }
@@ -313,56 +436,32 @@ const fetchSuggestions = debounce(async function() {
 
 searchInput.addEventListener('input', fetchSuggestions);
 
-// Render suggestions dropdown
-function renderSuggestions() {
-    suggestionsDiv.innerHTML = suggestions.map((s, idx) => {
-        const verdict = verdictCache[s.url] || '';
-        return `<div class="px-4 py-2 cursor-pointer hover:bg-blue-50 flex justify-between items-center" data-idx="${idx}" data-url="${s.url}">
-            <span>${s.name} <span class="text-xs text-gray-400 ml-2">(${s.id})</span></span>
-            <span class="ml-2 text-xs font-bold">${verdict ? verdictBadgeHtml(verdict) : ''}</span>
-        </div>`;
-    }).join('');
+function renderSuggestions(suggestions) {
+    suggestionsDiv.innerHTML = suggestions.map((s, idx) => `
+        <div class="suggestion-item" data-idx="${idx}" data-url="${s.url}" data-name="${s.name}">
+            <strong>${s.name}</strong>
+            <span style="color: #9ca3af; margin-left: 8px; font-size: 0.875rem">${s.id}</span>
+        </div>
+    `).join('');
     suggestionsDiv.classList.remove('hidden');
 
-    // Add click listeners
-    Array.from(suggestionsDiv.children).forEach(child => {
-        child.onclick = async function(e) {
+    suggestionsDiv.querySelectorAll('.suggestion-item').forEach(item => {
+        item.onclick = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            const idx = this.getAttribute('data-idx');
-            const companyUrl = this.getAttribute('data-url');
-            const company = suggestions[idx];
-            
-            // Update input and hide suggestions immediately
-            searchInput.value = company.name;
+            const name = item.dataset.name;
+            const url = item.dataset.url;
+            searchInput.value = name;
             hideSuggestions();
-            
-            // Prevent any other event handlers from firing
-            setTimeout(() => {
-                // Trigger analysis with companyUrl (this will also get the verdict)
-                analyzeStockWithUrl(companyUrl, company.name);
-            }, 10);
+            analyzeStockWithUrl(url, name);
         };
     });
 }
 
-// Analyze stock with companyUrl using POST endpoint
 async function analyzeStockWithUrl(companyUrl, companyName) {
-    // Prevent duplicate calls
-    if (isAnalyzing) {
-        console.log('Analysis already in progress, skipping...');
-        return;
-    }
-    
-    if (!companyUrl) {
-        showError('Please enter a company name');
-        return;
-    }
+    if (isAnalyzing) return;
 
-    // Set analyzing flag
     isAnalyzing = true;
-
     showLoading(true);
     hideResults();
     hideError();
@@ -370,38 +469,394 @@ async function analyzeStockWithUrl(companyUrl, companyName) {
     try {
         const response = await fetch('/api/analyze', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                companyUrl: companyUrl,
-                companyName: companyName 
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ companyUrl, companyName })
         });
 
         const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Analysis failed');
-        }
+        if (!response.ok) throw new Error(data.message || 'Analysis failed');
 
         currentAnalysis = data;
         displayResults(data);
-        
+
     } catch (error) {
         console.error('Analysis error:', error);
         showError(error.message || 'Failed to analyze stock');
     } finally {
         showLoading(false);
-        isAnalyzing = false; // Reset flag
+        isAnalyzing = false;
     }
 }
 
-// Verdict badge HTML
-function verdictBadgeHtml(verdict) {
-    let color = 'bg-gray-400';
-    if (verdict === 'BUY') color = 'bg-green-500';
-    else if (verdict === 'HOLD') color = 'bg-yellow-500';
-    else if (verdict === 'SELL') color = 'bg-red-500';
-    return `<span class="px-2 py-1 rounded text-white ${color}">${verdict}</span>`;
-} 
+// ===== UI State Functions =====
+function showLoading(show) {
+    if (show) {
+        loadingState.classList.remove('hidden');
+        analyzeBtn.disabled = true;
+        analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    } else {
+        loadingState.classList.add('hidden');
+        analyzeBtn.disabled = false;
+        analyzeBtn.innerHTML = '<i class="fas fa-chart-bar"></i> Analyze';
+    }
+}
+
+function showResults() {
+    resultsSection.classList.remove('hidden');
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideResults() {
+    resultsSection.classList.add('hidden');
+}
+
+function showError(message) {
+    document.getElementById('errorMessage').textContent = message;
+    errorSection.classList.remove('hidden');
+    errorSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideError() {
+    errorSection.classList.add('hidden');
+}
+
+// ===== Utilities =====
+function debounce(fn, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// ===== AI Chat Feature =====
+const copyAnalysisBtn = document.getElementById('copyAnalysisBtn');
+const continueAIBtn = document.getElementById('continueAIBtn');
+const aiChatModal = document.getElementById('aiChatModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+// Enable buttons when analysis is complete
+function enableAIButtons() {
+    if (copyAnalysisBtn) copyAnalysisBtn.disabled = false;
+    if (continueAIBtn) continueAIBtn.disabled = false;
+}
+
+// Generate analysis text for copying
+function generateAnalysisText() {
+    if (!currentAnalysis) return '';
+
+    const { company, data, analysis } = currentAnalysis;
+
+    return `You are a stock analysis assistant. I'm sharing a screenshot from Screener.in along with analyzed data for ${company.name}. Please help me understand this stock better.
+
+📊 COMPANY: ${company.name}
+🔗 Source: Screener.in
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📈 KEY FINANCIAL METRICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Stock P/E: ${data.stockPE} | Industry P/E: ${data.industryPE || 'N/A'}
+• ROE: ${data.roe}% | ROCE: ${data.roce}%
+• Debt/Equity: ${data.debtToEquity?.toFixed(2)}
+• Current Ratio: ${data.currentRatio?.toFixed(2)}
+• Book Value: ₹${data.bookValue}
+• Current Price: ₹${data.currentPrice}
+• Market Cap: ₹${data.marketCap} Cr
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 GROWTH RATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• 5Y Profit Growth: ${data.profitGrowth5Y}%
+• 5Y Sales Growth: ${data.salesGrowth5Y}%
+• EPS Growth: ${data.epsGrowth}%
+• PEG Ratio: ${data.pegRatio?.toFixed(2) || 'N/A'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 INVESTMENT SCORES (Analyzed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Piotroski F-Score: ${analysis.piotroski.score}/9 → ${analysis.piotroski.interpretation}
+• Warren Buffett Score: ${analysis.buffett.score}/10 → ${analysis.buffett.interpretation}
+• Benjamin Graham Score: ${analysis.graham.score}/10 → ${analysis.graham.interpretation}
+• Peter Lynch Score: ${analysis.lynch.score}/10 → ${analysis.lynch.interpretation}
+
+✅ FINAL DECISION: ${analysis.finalDecision}
+(${analysis.scoresAbove7} out of 4 scores ≥ 7)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💬 I've attached a screenshot from Screener.in for visual reference.
+Based on this data, please answer any questions I have about this stock.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+}
+
+// Generate URL with pre-filled prompt for different AI services
+function getAIUrlWithPrompt(service, promptText) {
+    const encodedPrompt = encodeURIComponent(promptText);
+
+    switch (service) {
+        case 'gemini':
+            // Gemini doesn't support direct prompt in URL, but we'll try
+            return `https://gemini.google.com/app`;
+        case 'chatgpt':
+            // ChatGPT doesn't support direct prompt in free tier
+            return `https://chat.openai.com`;
+        case 'claude':
+            return `https://claude.ai`;
+        default:
+            return service;
+    }
+}
+
+// Copy analysis text to clipboard
+if (copyAnalysisBtn) {
+    copyAnalysisBtn.addEventListener('click', async () => {
+        const text = generateAnalysisText();
+
+        try {
+            await navigator.clipboard.writeText(text);
+
+            // Visual feedback
+            const originalHTML = copyAnalysisBtn.innerHTML;
+            copyAnalysisBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyAnalysisBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyAnalysisBtn.innerHTML = originalHTML;
+                copyAnalysisBtn.classList.remove('copied');
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+            alert('Failed to copy to clipboard. Please try again.');
+        }
+    });
+}
+
+// Fetch Puppeteer screenshot and copy as HTML with embedded image + text
+async function captureAndCopyScreenshot() {
+    try {
+        // Check if we have a screenshot URL from the analysis
+        if (!currentAnalysis || !currentAnalysis.screenshotUrl) {
+            console.warn('No screenshot URL available');
+            return { success: false, method: 'none' };
+        }
+
+        // Fetch the Puppeteer screenshot from the API
+        const response = await fetch(currentAnalysis.screenshotUrl);
+        if (!response.ok) {
+            throw new Error('Failed to fetch screenshot');
+        }
+
+        const imageBlob = await response.blob();
+
+        // Convert image to base64 for HTML embedding
+        const base64Image = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(imageBlob);
+        });
+
+        // Generate the prompt text
+        const promptText = generateAnalysisText();
+
+        // Create HTML with embedded image + text
+        const htmlContent = `
+<div>
+<img src="${base64Image}" alt="Screener.in Screenshot" style="max-width: 100%; margin-bottom: 20px;">
+<pre style="white-space: pre-wrap; font-family: monospace; background: #f5f5f5; padding: 15px; border-radius: 8px;">
+${promptText}
+</pre>
+</div>`;
+
+        const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+        const textBlob = new Blob([promptText], { type: 'text/plain' });
+
+        // Copy with multiple formats: HTML (with image), plain text (fallback), and raw image
+        if (navigator.clipboard && navigator.clipboard.write) {
+            try {
+                // Try with all three formats
+                const clipboardItem = new ClipboardItem({
+                    'text/html': htmlBlob,
+                    'text/plain': textBlob,
+                    'image/png': imageBlob
+                });
+
+                await navigator.clipboard.write([clipboardItem]);
+                console.log('HTML with image + text + raw image copied to clipboard!');
+                return { success: true, method: 'clipboard' };
+            } catch (clipboardError) {
+                console.warn('Multi-type clipboard write failed:', clipboardError);
+
+                // Fallback: Try just image + text
+                try {
+                    const clipboardItem = new ClipboardItem({
+                        'image/png': imageBlob,
+                        'text/plain': textBlob
+                    });
+                    await navigator.clipboard.write([clipboardItem]);
+                    console.log('Image + text copied');
+                    return { success: true, method: 'image-text' };
+                } catch (e) {
+                    // Fallback: Try just the image
+                    try {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': imageBlob })
+                        ]);
+                        return { success: true, method: 'image-only' };
+                    } catch (e2) {
+                        console.warn('All clipboard methods failed:', e2);
+                    }
+                }
+            }
+        }
+
+        // Final fallback: download the image
+        const url = URL.createObjectURL(imageBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${currentAnalysis.company.name}_screener_screenshot.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+        return { success: true, method: 'download' };
+
+    } catch (err) {
+        console.error('Screenshot fetch/copy failed:', err);
+        return { success: false, method: 'error', error: err.message };
+    }
+}
+
+// Continue in AI button - capture screenshot and show modal
+if (continueAIBtn) {
+    continueAIBtn.addEventListener('click', async () => {
+        // Show loading state
+        continueAIBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting screenshot...';
+        continueAIBtn.disabled = true;
+
+        // Fetch and copy Puppeteer screenshot
+        const result = await captureAndCopyScreenshot();
+
+        // Reset button
+        continueAIBtn.innerHTML = '<i class="fas fa-comments"></i> Continue in AI Chat';
+        continueAIBtn.disabled = false;
+
+        // Show modal with appropriate message
+        if (aiChatModal) {
+            const modalSubtitle = aiChatModal.querySelector('.modal-subtitle');
+            if (modalSubtitle) {
+                if (result.method === 'clipboard') {
+                    modalSubtitle.textContent = '✓ Screenshot + Prompt copied! Just paste (Ctrl+V) in chat.';
+                    modalSubtitle.style.color = 'var(--success)';
+                } else if (result.method === 'image-only') {
+                    modalSubtitle.textContent = '✓ Screenshot copied! Paste it, then use Copy Analysis for text.';
+                    modalSubtitle.style.color = 'var(--success)';
+                } else if (result.method === 'download') {
+                    modalSubtitle.textContent = 'Screenshot downloaded. Upload it after opening.';
+                    modalSubtitle.style.color = 'var(--warning)';
+                } else {
+                    modalSubtitle.textContent = 'Screenshot not available. Use Copy Analysis button for text.';
+                    modalSubtitle.style.color = 'var(--danger)';
+                }
+            }
+            aiChatModal.classList.remove('hidden');
+        }
+    });
+}
+
+// Modal close button
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        aiChatModal.classList.add('hidden');
+    });
+}
+
+// Close modal on backdrop click
+if (aiChatModal) {
+    aiChatModal.addEventListener('click', (e) => {
+        if (e.target === aiChatModal) {
+            aiChatModal.classList.add('hidden');
+        }
+    });
+}
+
+// AI option buttons - just open the AI service (clipboard already has both image + text)
+document.querySelectorAll('.ai-option').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const url = btn.dataset.url;
+        if (url) {
+            // Open the AI service
+            window.open(url, '_blank');
+
+            // Hide modal
+            aiChatModal.classList.add('hidden');
+
+            // Show toast notification
+            showToast('🎉 Clipboard ready! Paste with Ctrl+V');
+        }
+    });
+});
+
+// Copy Prompt button in modal - for Gemini users who need text separately
+const copyPromptBtn = document.getElementById('copyPromptBtn');
+if (copyPromptBtn) {
+    copyPromptBtn.addEventListener('click', async () => {
+        const promptText = generateAnalysisText();
+
+        try {
+            await navigator.clipboard.writeText(promptText);
+
+            // Visual feedback
+            const originalHTML = copyPromptBtn.innerHTML;
+            copyPromptBtn.innerHTML = '<i class="fas fa-check"></i> Prompt Copied!';
+            copyPromptBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyPromptBtn.innerHTML = originalHTML;
+                copyPromptBtn.classList.remove('copied');
+            }, 2000);
+
+            showToast('📋 Prompt text copied! Now paste in your AI chat.');
+        } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            showToast('❌ Failed to copy. Please try again.');
+        }
+    });
+}
+
+// Toast notification for user feedback
+function showToast(message) {
+    // Create toast element if it doesn't exist
+    let toast = document.getElementById('toast-notification');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-size: 14px;
+        `;
+        document.body.appendChild(toast);
+    }
+
+    // Show toast
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+
+    // Hide after 4 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 4000);
+}
+
+// Export for global access
+window.analyzeStock = analyzeStock;

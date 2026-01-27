@@ -1,73 +1,152 @@
-# Node.js Stock Analysis Tool
+# Stock Analysis Tool
 
-A stock analysis tool that scrapes Screener.in using Puppeteer, analyzes stocks based on investment criteria, and uses Gemini AI for insights.
+A comprehensive investment analysis tool that scrapes financial data from Screener.in and evaluates stocks using **4 renowned investment scoring methodologies**.
 
-## Quick Start with Docker 🐳
+## 📊 Investment Scoring Systems
 
-### Option 1: Pull Pre-built Image (Recommended)
+| Score | Creator | Focus |
+|-------|---------|-------|
+| **Piotroski F-Score** | Joseph Piotroski | Financial Health (9 marks) |
+| **Buffett Score** | Warren Buffett | Business Quality (10 marks) |
+| **Graham Score** | Benjamin Graham | Value Investing (10 marks) |
+| **Lynch Score** | Peter Lynch | GARP Strategy (10 marks) |
+
+### Decision Logic
+- **3+ scores ≥ 7** → BUY
+- **2 scores ≥ 7** → HOLD
+- **< 2 scores ≥ 7** → AVOID
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Docker (Recommended)
 
 ```bash
-# Pull the image from GitHub Container Registry
+# Pull pre-built image
 docker pull ghcr.io/jairajkumar/stock-analysis:latest
 
-# Create your .env file
-cp .env.example .env  # Edit with your credentials
+# Create environment file
+cp .env.example .env
 
-# Run the container
+# Run
 docker run -p 3000:3000 --env-file .env ghcr.io/jairajkumar/stock-analysis:latest
 ```
 
-### Option 2: Build Locally
+### Option 2: Docker Compose
 
 ```bash
-cd nodejs-app
-cp .env.example .env    # Edit with your credentials
 docker compose up -d
 ```
 
-Access at: **http://localhost:3000**
+**Access at**: http://localhost:3000
 
-# View logs
-docker logs stock-analysis-app -f
+---
 
-# Stop the container
-docker compose down
-```
-
-## Local Development Setup
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Copy `.env.example` to `.env` and add your credentials.
-
-3. Run the server:
-   ```bash
-   npm start       # Production
-   npm run dev     # Development with auto-reload
-   ```
-
-## API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/health` | GET | Health check |
-| `/api/search?query=COMPANY` | GET | Search companies |
-| `/api/analyze/:companyName` | GET | Analyze stock |
-| `/api/analyze` | POST | Analyze stock with body |
-
-## Features
-
-- Scrapes Screener.in using Puppeteer
-- Analyzes stock based on investment criteria
-- Uses Gemini AI for insights
-- Web UI at http://localhost:3000
-
-## For Maintainers: Push New Versions
+## 💻 Local Development
 
 ```bash
-./build-and-push.sh           # Push with 'latest' tag
-./build-and-push.sh v1.0.0    # Push with version tag
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+
+# Start server
+npm start       # Production
+npm run dev     # Development with auto-reload
 ```
+
+---
+
+## 📁 Project Structure
+
+```
+nodejs-app/
+├── src/
+│   ├── server.js           # Express entry point
+│   ├── routes/api.js       # API endpoints
+│   └── services/
+│       ├── scraper.js      # Screener.in data extraction
+│       ├── analyzer.js     # Combines all 4 scores
+│       ├── piotroskiScore.js
+│       ├── buffettScore.js
+│       ├── grahamScore.js
+│       └── lynchScore.js
+├── public/
+│   ├── index.html          # Modern UI
+│   ├── styles.css          # Design system
+│   └── script.js           # Frontend logic
+└── documentation/
+    ├── BACKEND.md          # Backend services
+    ├── FRONTEND.md         # UI components
+    ├── API_BRIDGE.md       # API reference
+    ├── SCORING.md          # Scoring methodologies
+    └── DOCKER.md           # Docker setup
+```
+
+---
+
+## 🌐 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/analyze/:name` | Analyze stock by name |
+| POST | `/api/analyze` | Analyze by Screener URL |
+| GET | `/api/search?query=...` | Search companies |
+| GET | `/api/health` | Health check |
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "company": { "name": "TCS", "url": "..." },
+  "analysis": {
+    "finalDecision": "HOLD",
+    "scoresAbove7": 2,
+    "summary": {
+      "piotroski": "6/9",
+      "buffett": "8/10",
+      "graham": "7/10",
+      "lynch": "4/10"
+    }
+  }
+}
+```
+
+---
+
+## ⚙️ Environment Variables
+
+```bash
+# Optional - Screener.in authentication
+SCREENER_EMAIL=your-email
+SCREENER_PASSWORD=your-password
+
+# Optional - AI insights
+GEMINI_API_KEY=your-api-key
+
+# Optional
+PORT=3000
+```
+
+---
+
+## 📚 Documentation
+
+See the `/documentation` folder for detailed guides:
+- [Backend Services](documentation/BACKEND.md)
+- [Frontend Components](documentation/FRONTEND.md)
+- [API Reference](documentation/API_BRIDGE.md)
+- [Scoring Methodology](documentation/SCORING.md)
+- [**Valuation Engine**](documentation/VALUATION.md) - Fair value calculations & decision matrix
+- [Docker Setup](documentation/DOCKER.md)
+- [Testing Guide](documentation/TESTING.md)
+
+---
+
+## 🤝 Credits
+
+- Data source: [Screener.in](https://www.screener.in)
+- AI insights: Google Gemini API
