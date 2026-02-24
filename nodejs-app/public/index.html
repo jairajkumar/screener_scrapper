@@ -145,8 +145,32 @@
                                     <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.15)" />
                                 </filter>
                                 <filter id="needleShadow" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(99,102,241,0.4)" />
+                                    <feDropShadow dx="1" dy="1" stdDeviation="1.5" flood-color="rgba(0,0,0,0.4)" />
                                 </filter>
+                                <!-- Realistic needle gradients -->
+                                <linearGradient id="needleMetalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#1a1a2e" />
+                                    <stop offset="25%" stop-color="#c0392b" />
+                                    <stop offset="50%" stop-color="#e74c3c" />
+                                    <stop offset="75%" stop-color="#c0392b" />
+                                    <stop offset="100%" stop-color="#1a1a2e" />
+                                </linearGradient>
+                                <linearGradient id="needleShaftHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+                                    <stop offset="40%" stop-color="rgba(255,255,255,0.35)" />
+                                    <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                                </linearGradient>
+                                <radialGradient id="hubMetalGrad" cx="50%" cy="40%" r="55%">
+                                    <stop offset="0%" stop-color="#e8e8e8" />
+                                    <stop offset="30%" stop-color="#c0c0c0" />
+                                    <stop offset="60%" stop-color="#808080" />
+                                    <stop offset="100%" stop-color="#2d2d2d" />
+                                </radialGradient>
+                                <radialGradient id="hubCapGrad" cx="50%" cy="35%" r="55%">
+                                    <stop offset="0%" stop-color="#f5f5f5" />
+                                    <stop offset="50%" stop-color="#b0b0b0" />
+                                    <stop offset="100%" stop-color="#4a4a4a" />
+                                </radialGradient>
                             </defs>
 
                             <!-- Arc segments (drawn by JS) -->
@@ -162,18 +186,33 @@
                             <!-- Zone text labels (drawn by JS) -->
                             <g id="gaugeZoneLabels"></g>
 
-                            <!-- Needle -->
-                            <g id="gaugeNeedle" transform="rotate(0, 200, 200)">
-                                <!-- Needle body (tapered) -->
-                                <polygon points="197,200 203,200 201,90 199,90" fill="url(#needleGradient)"
+                            <!-- Realistic Speedometer Needle -->
+                            <g id="gaugeNeedle" transform="rotate(-90, 200, 200)">
+                                <!-- Needle drop shadow -->
+                                <polygon points="197.5,203 202.5,203 200.5,92 199.5,92" fill="rgba(0,0,0,0.2)"
                                     filter="url(#needleShadow)" />
-                                <!-- Needle tip -->
-                                <circle cx="200" cy="88" r="5" fill="#8b5cf6" />
-                                <!-- Center hub -->
-                                <circle cx="200" cy="200" r="12" fill="#6366f1" stroke="white" stroke-width="3" />
-                                <circle cx="200" cy="200" r="5" fill="white" />
+                                <!-- Needle body — sharp taper from hub to tip -->
+                                <polygon points="197,200 203,200 200.8,92 199.2,92" fill="url(#needleMetalGrad)" />
+                                <!-- Metallic highlight on needle shaft -->
+                                <polygon points="199.5,200 201.2,200 200.4,94 199.6,94"
+                                    fill="url(#needleShaftHighlight)" />
+                                <!-- Needle tip — ultra-sharp point -->
+                                <polygon points="199.5,94 200.5,94 200,82" fill="#e74c3c" />
+                                <!-- Counterweight below center -->
+                                <polygon points="197,200 203,200 204,214 196,214" fill="#2d2d2d" rx="2" />
+                                <polygon points="198,201 202,201 202.5,212 197.5,212" fill="#3d3d3d" />
+                                <!-- Center hub — chrome bezel (outer) -->
+                                <circle cx="200" cy="200" r="16" fill="url(#hubMetalGrad)" stroke="#1a1a1a"
+                                    stroke-width="1.5" />
+                                <!-- Center hub — raised cap -->
+                                <circle cx="200" cy="200" r="11" fill="url(#hubCapGrad)" stroke="rgba(255,255,255,0.2)"
+                                    stroke-width="0.5" />
+                                <!-- Center hub — screw detail -->
+                                <circle cx="200" cy="200" r="3.5" fill="#666" stroke="#444" stroke-width="0.5" />
+                                <circle cx="200" cy="199" r="1.5" fill="rgba(255,255,255,0.5)" />
                             </g>
                             <defs>
+                                <!-- kept for backward compat -->
                                 <linearGradient id="needleGradient" x1="0%" y1="100%" x2="0%" y2="0%">
                                     <stop offset="0%" stop-color="#6366f1" />
                                     <stop offset="100%" stop-color="#8b5cf6" />

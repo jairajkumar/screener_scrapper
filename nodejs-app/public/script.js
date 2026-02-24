@@ -482,12 +482,22 @@ function updatePriceMarker(valuation) {
     // Convert position to angle
     const needleAngle = startAngle + position * totalSweep;
 
-    // Animate needle rotation (rotate around center point 200,200)
-    setTimeout(() => {
-        needle.setAttribute('transform', `rotate(${needleAngle}, 200, 200)`);
-    }, 100);
+    // Set needle position directly (no animation)
+    needle.setAttribute('transform', `rotate(${needleAngle}, 200, 200)`);
 
     markerValue.textContent = '₹' + currentPrice.toLocaleString('en-IN');
+
+    // Dynamic badge color based on price zone
+    const zoneColors = {
+        'STRONG_BUY': 'linear-gradient(135deg, #027a48, #12b76a)',
+        'BUY': 'linear-gradient(135deg, #12b76a, #66d9a0)',
+        'HOLD': 'linear-gradient(135deg, #f79009, #fdb022)',
+        'SELL': 'linear-gradient(135deg, #f97316, #ef4444)',
+        'STRONG_SELL': 'linear-gradient(135deg, #ef4444, #dc2626)',
+    };
+    const zone = valuation.priceZone || '';
+    markerValue.style.background = zoneColors[zone] || 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+    markerValue.style.color = '#fff';
 }
 
 // ===== Update Score Card =====
@@ -672,7 +682,6 @@ function showLoading(show) {
 
 function showResults() {
     resultsSection.classList.remove('hidden');
-    resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 function hideResults() {
