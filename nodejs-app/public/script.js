@@ -271,51 +271,220 @@ function displayValuation(valuation) {
     }
 }
 
-// ===== Update Price Marker Position =====
+// ===== SVG Gauge Helpers =====
+let gaugeDrawn = false;
+
+function polarToCartesian(cx, cy, r, angleDeg) {
+    const rad = (angleDeg - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+
+function describeArc(cx, cy, r, startAngle, endAngle) {
+    const start = polarToCartesian(cx, cy, r, endAngle);
+    const end = polarToCartesian(cx, cy, r, startAngle);
+    const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+    return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}`;
+}
+
+function drawGauge(valuation) {
+    const cx = 200, cy = 200, r = 132;
+    const strokeWidth = 38;
+    const rOuter = r + strokeWidth / 2;
+    const rInner = r - strokeWidth / 2;
+    const startAngle = -90;
+    const endAngle = 90;
+    const totalSweep = endAngle - startAngle;
+
+    const zones = [
+        { name: 'STRONG BUY', flex: 0.50, colors: ['#027a48', '#12b76a'] },
+        { name: 'BUY', flex: 0.067, colors: ['#12b76a', '#66d9a0'] },
+        { name: 'HOLD', flex: 0.167, colors: ['#fdb022', '#f79009'] },
+        { name: 'SELL', flex: 0.10, colors: ['#f97316', '#ef4444'] },
+        { name: 'STRONG SELL', flex: 0.167, colors: ['#ef4444', '#dc2626'] },
+    ];
+
+    const totalFlex = zones.reduce((s, z) => s + z.flex, 0);
+
+    const arcsGroup = document.getElementById('gaugeArcs');
+    const ticksGroup = document.getElementById('gaugeTicks');
+    const labelsGroup = document.getElementById('gaugeZoneLabels');
+    arcsGroup.innerHTML = '';
+    ticksGroup.innerHTML = '';
+    labelsGroup.innerHTML = '';
+
+    let currentAngle = startAngle;
+    const zoneBoundaries = [currentAngle];
+
+    // Get or create a defs element for dynamic gradients
+    let defs = document.querySelector('.gauge-svg defs');
+
+    zones.forEach((zone, idx) => {
+        const sweep = (zone.flex / totalFlex) * totalSweep;
+        const zoneStart = currentAngle;
+        const zoneEnd = currentAngle + sweep;
+
+        // Create gradient for this sector
+        const gradId = `sectorGrad${idx}`;
+        const oldGrad = document.getElementById(gradId);
+        if (oldGrad) oldGrad.remove();
+        const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        grad.setAttribute('id', gradId);
+        const gStart = polarToCartesian(cx, cy, r, zoneStart);
+        const gEnd = polarToCartesian(cx, cy, r, zoneEnd);
+        grad.setAttribute('x1', gStart.x);
+        grad.setAttribute('y1', gStart.y);
+        grad.setAttribute('x2', gEnd.x);
+        grad.setAttribute('y2', gEnd.y);
+        grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+        const s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        s1.setAttribute('offset', '0%');
+        s1.setAttribute('stop-color', zone.colors[0]);
+        const s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        s2.setAttribute('offset', '100%');
+        s2.setAttribute('stop-color', zone.colors[1]);
+        grad.appendChild(s1);
+        grad.appendChild(s2);
+        defs.appendChild(grad);
+
+        // Build filled annular sector path (donut slice)
+        const oS = polarToCartesian(cx, cy, rOuter, zoneStart);
+        const oE = polarToCartesian(cx, cy, rOuter, zoneEnd);
+        const iS = polarToCartesian(cx, cy, rInner, zoneStart);
+        const iE = polarToCartesian(cx, cy, rInner, zoneEnd);
+        const large = sweep > 180 ? 1 : 0;
+
+        const d = [
+            `M ${oS.x} ${oS.y}`,
+            `A ${rOuter} ${rOuter} 0 ${large} 1 ${oE.x} ${oE.y}`,
+            `L ${iE.x} ${iE.y}`,
+            `A ${rInner} ${rInner} 0 ${large} 0 ${iS.x} ${iS.y}`,
+            'Z'
+        ].join(' ');
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('fill', `url(#${gradId})`);
+        arcsGroup.appendChild(path);
+
+        // Zone text label
+        const midAngle = (zoneStart + zoneEnd) / 2;
+        const labelPos = polarToCartesian(cx, cy, r, midAngle);
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', labelPos.x);
+        text.setAttribute('y', labelPos.y);
+        text.setAttribute('class', 'gauge-zone-label');
+        text.setAttribute('transform', `rotate(${midAngle}, ${labelPos.x}, ${labelPos.y})`);
+        text.textContent = zone.name;
+        labelsGroup.appendChild(text);
+
+        currentAngle = zoneEnd;
+        zoneBoundaries.push(currentAngle);
+    });
+
+    // Sheen overlay
+    const sheenPath = document.getElementById('gaugeSheenArc');
+    sheenPath.setAttribute('d', describeArc(cx, cy, r, startAngle, endAngle));
+
+    // Zone separator lines (thin radial borders between zones)
+    for (let i = 1; i < zoneBoundaries.length - 1; i++) {
+        const angle = zoneBoundaries[i];
+        const inner = polarToCartesian(cx, cy, rInner, angle);
+        const outer = polarToCartesian(cx, cy, rOuter, angle);
+        const sep = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        sep.setAttribute('x1', inner.x);
+        sep.setAttribute('y1', inner.y);
+        sep.setAttribute('x2', outer.x);
+        sep.setAttribute('y2', outer.y);
+        sep.setAttribute('stroke', 'rgba(255,255,255,0.25)');
+        sep.setAttribute('stroke-width', '1.5');
+        arcsGroup.appendChild(sep);
+    }
+
+    // Tick marks — outside the arc only
+    const formatCurrency = (v) => v != null ? '₹' + v.toLocaleString('en-IN') : '';
+    const boundaryPrices = [
+        valuation.priceBands?.strongBuyBelow,
+        valuation.priceBands?.buyBelow,
+        valuation.priceBands?.holdAbove,
+        valuation.priceBands?.sellAbove,
+    ];
+
+    for (let i = 1; i < zoneBoundaries.length - 1; i++) {
+        const angle = zoneBoundaries[i];
+        const outerEdge = polarToCartesian(cx, cy, rOuter + 1, angle);
+        const tickEnd = polarToCartesian(cx, cy, rOuter + 10, angle);
+        const labelPt = polarToCartesian(cx, cy, rOuter + 22, angle);
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', outerEdge.x);
+        line.setAttribute('y1', outerEdge.y);
+        line.setAttribute('x2', tickEnd.x);
+        line.setAttribute('y2', tickEnd.y);
+        line.setAttribute('stroke', '#9ca3af');
+        line.setAttribute('stroke-width', '1.5');
+        ticksGroup.appendChild(line);
+
+        if (boundaryPrices[i - 1] != null) {
+            const priceText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            priceText.setAttribute('x', labelPt.x);
+            priceText.setAttribute('y', labelPt.y);
+            priceText.setAttribute('class', 'gauge-tick-label');
+            priceText.textContent = formatCurrency(boundaryPrices[i - 1]);
+            ticksGroup.appendChild(priceText);
+        }
+    }
+
+    return { zoneBoundaries, totalFlex, zones, startAngle, endAngle, totalSweep };
+}
+
+// ===== Update Price Marker Position (Round Gauge) =====
 function updatePriceMarker(valuation) {
-    const marker = document.getElementById('priceMarker');
     const markerValue = document.getElementById('priceMarkerValue');
+    const needle = document.getElementById('gaugeNeedle');
 
     if (!valuation.currentPrice || !valuation.fairValue) {
-        marker.style.left = '50%';
         markerValue.textContent = '₹--';
         return;
     }
 
-    // Calculate position based on price zones
-    // Zone widths: Strong Buy (0.75), Buy (0.10), Hold (0.25), Sell (0.15), Strong Sell (0.25) = 1.5 total
-    const { currentPrice, priceBands, fairValue } = valuation;
+    // Draw the gauge arcs first
+    const gaugeInfo = drawGauge(valuation);
+    const { zoneBoundaries, totalFlex, zones, startAngle, endAngle, totalSweep } = gaugeInfo;
 
-    let position;
+    // Calculate needle angle based on price zones (same logic as before, mapped to angle)
+    const { currentPrice, priceBands } = valuation;
+    let position; // 0-1 fraction across the entire gauge
 
     if (currentPrice <= priceBands.strongBuyBelow) {
-        // Strong Buy zone (0% - 50%)
         const ratio = currentPrice / priceBands.strongBuyBelow;
-        position = ratio * 50;
+        position = ratio * (zones[0].flex / totalFlex);
     } else if (currentPrice <= priceBands.buyBelow) {
-        // Buy zone (50% - 56.67%)
         const ratio = (currentPrice - priceBands.strongBuyBelow) / (priceBands.buyBelow - priceBands.strongBuyBelow);
-        position = 50 + (ratio * 6.67);
+        const prevFlex = zones[0].flex / totalFlex;
+        position = prevFlex + ratio * (zones[1].flex / totalFlex);
     } else if (currentPrice <= priceBands.holdAbove) {
-        // Hold zone (56.67% - 73.33%)
         const ratio = (currentPrice - priceBands.buyBelow) / (priceBands.holdAbove - priceBands.buyBelow);
-        position = 56.67 + (ratio * 16.67);
+        const prevFlex = (zones[0].flex + zones[1].flex) / totalFlex;
+        position = prevFlex + ratio * (zones[2].flex / totalFlex);
     } else if (currentPrice <= priceBands.sellAbove) {
-        // Sell zone (73.33% - 83.33%)
         const ratio = (currentPrice - priceBands.holdAbove) / (priceBands.sellAbove - priceBands.holdAbove);
-        position = 73.33 + (ratio * 10);
+        const prevFlex = (zones[0].flex + zones[1].flex + zones[2].flex) / totalFlex;
+        position = prevFlex + ratio * (zones[3].flex / totalFlex);
     } else {
-        // Strong Sell zone (83.33% - 100%)
         const ratio = Math.min((currentPrice - priceBands.sellAbove) / (priceBands.sellAbove * 0.25), 1);
-        position = 83.33 + (ratio * 16.67);
+        const prevFlex = (zones[0].flex + zones[1].flex + zones[2].flex + zones[3].flex) / totalFlex;
+        position = prevFlex + ratio * (zones[4].flex / totalFlex);
     }
 
-    // Clamp position between 2% and 98%
-    position = Math.max(2, Math.min(98, position));
+    // Clamp between 2% and 98%
+    position = Math.max(0.02, Math.min(0.98, position));
 
-    // Update marker with animation
+    // Convert position to angle
+    const needleAngle = startAngle + position * totalSweep;
+
+    // Animate needle rotation (rotate around center point 200,200)
     setTimeout(() => {
-        marker.style.left = `${position}%`;
+        needle.setAttribute('transform', `rotate(${needleAngle}, 200, 200)`);
     }, 100);
 
     markerValue.textContent = '₹' + currentPrice.toLocaleString('en-IN');

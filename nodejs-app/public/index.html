@@ -109,38 +109,87 @@
                 </h3>
 
                 <div class="price-meter-container">
-                    <!-- Meter Gauge -->
+                    <!-- Round Gauge Meter -->
                     <div class="meter-gauge-wrapper">
-                        <div class="price-bands-visual">
-                            <div class="price-zone strong-buy">Strong Buy</div>
-                            <div class="price-zone buy">Buy</div>
-                            <div class="price-zone hold">Hold</div>
-                            <div class="price-zone sell">Sell</div>
-                            <div class="price-zone strong-sell">Strong Sell</div>
-                        </div>
+                        <svg class="gauge-svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- Zone gradients -->
+                                <linearGradient id="gradStrongBuy" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#027a48" />
+                                    <stop offset="100%" stop-color="#12b76a" />
+                                </linearGradient>
+                                <linearGradient id="gradBuy" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#12b76a" />
+                                    <stop offset="100%" stop-color="#66d9a0" />
+                                </linearGradient>
+                                <linearGradient id="gradHold" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#fdb022" />
+                                    <stop offset="100%" stop-color="#f79009" />
+                                </linearGradient>
+                                <linearGradient id="gradSell" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#f97316" />
+                                    <stop offset="100%" stop-color="#ef4444" />
+                                </linearGradient>
+                                <linearGradient id="gradStrongSell" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ef4444" />
+                                    <stop offset="100%" stop-color="#dc2626" />
+                                </linearGradient>
+                                <!-- Sheen overlay -->
+                                <linearGradient id="sheenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="white" stop-opacity="0.25" />
+                                    <stop offset="50%" stop-color="white" stop-opacity="0.05" />
+                                    <stop offset="100%" stop-color="black" stop-opacity="0.08" />
+                                </linearGradient>
+                                <!-- Shadow filter -->
+                                <filter id="arcShadow" x="-10%" y="-10%" width="120%" height="130%">
+                                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.15)" />
+                                </filter>
+                                <filter id="needleShadow" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(99,102,241,0.4)" />
+                                </filter>
+                            </defs>
 
-                        <!-- Zone Border Price Labels (on the color bands) -->
-                        <div class="zone-border-prices">
-                            <div class="border-price" id="borderPrice1" style="left: 50%;">
-                                <span class="border-price-value" id="borderPriceValue1">₹0</span>
-                            </div>
-                            <div class="border-price" id="borderPrice2" style="left: 56.67%;">
-                                <span class="border-price-value" id="borderPriceValue2">₹0</span>
-                            </div>
-                            <div class="border-price" id="borderPrice3" style="left: 73.33%;">
-                                <span class="border-price-value" id="borderPriceValue3">₹0</span>
-                            </div>
-                            <div class="border-price" id="borderPrice4" style="left: 83.33%;">
-                                <span class="border-price-value" id="borderPriceValue4">₹0</span>
-                            </div>
-                        </div>
+                            <!-- Arc segments (drawn by JS) -->
+                            <g id="gaugeArcs" filter="url(#arcShadow)"></g>
 
-                        <!-- Price Marker (positioned by JS) -->
-                        <div id="priceMarker" class="price-marker" style="left: 50%;">
-                            <div class="price-marker-arrow"></div>
-                            <div class="price-marker-line"></div>
-                            <div class="price-marker-value" id="priceMarkerValue">₹0</div>
-                        </div>
+                            <!-- Sheen overlay arc -->
+                            <path id="gaugeSheenArc" fill="none" stroke="url(#sheenGrad)" stroke-width="36"
+                                stroke-linecap="butt" />
+
+                            <!-- Tick marks and zone boundary labels (drawn by JS) -->
+                            <g id="gaugeTicks"></g>
+
+                            <!-- Zone text labels (drawn by JS) -->
+                            <g id="gaugeZoneLabels"></g>
+
+                            <!-- Needle -->
+                            <g id="gaugeNeedle" transform="rotate(0, 200, 200)">
+                                <!-- Needle body (tapered) -->
+                                <polygon points="197,200 203,200 201,90 199,90" fill="url(#needleGradient)"
+                                    filter="url(#needleShadow)" />
+                                <!-- Needle tip -->
+                                <circle cx="200" cy="88" r="5" fill="#8b5cf6" />
+                                <!-- Center hub -->
+                                <circle cx="200" cy="200" r="12" fill="#6366f1" stroke="white" stroke-width="3" />
+                                <circle cx="200" cy="200" r="5" fill="white" />
+                            </g>
+                            <defs>
+                                <linearGradient id="needleGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#6366f1" />
+                                    <stop offset="100%" stop-color="#8b5cf6" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <!-- Current price badge (centered below gauge) -->
+                        <div class="gauge-price-badge" id="priceMarkerValue">₹0</div>
+
+                        <!-- Hidden elements for backward compatibility -->
+                        <div id="priceMarker" style="display:none;"></div>
+                        <div id="borderPriceValue1" style="display:none;">₹0</div>
+                        <div id="borderPriceValue2" style="display:none;">₹0</div>
+                        <div id="borderPriceValue3" style="display:none;">₹0</div>
+                        <div id="borderPriceValue4" style="display:none;">₹0</div>
                     </div>
 
                     <!-- Price Band Labels -->

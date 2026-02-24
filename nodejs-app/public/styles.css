@@ -997,194 +997,78 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* Meter Gauge Wrapper */
+/* ===== Round Gauge Meter ===== */
 .meter-gauge-wrapper {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 50px 0 80px 0;
+    padding: 10px 0 0 0;
 }
 
-/* Price Bands Visual - The main meter */
-.price-bands-visual {
-    position: relative;
-    height: 50px;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
+.gauge-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
 }
 
-.price-zone {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
+/* SVG Gauge zone label text */
+.gauge-zone-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.price-zone:hover {
-    filter: brightness(1.1);
-}
-
-.price-zone.strong-buy {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-    flex: 0.75;
-}
-
-.price-zone.buy {
-    background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);
-    flex: 0.10;
-}
-
-.price-zone.hold {
-    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-    flex: 0.25;
-}
-
-.price-zone.sell {
-    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
-    flex: 0.15;
-}
-
-.price-zone.strong-sell {
-    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-    flex: 0.25;
-}
-
-/* Zone Border Price Labels - Positioned relative to meter */
-.zone-border-prices {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    letter-spacing: 0.08em;
+    fill: white;
+    text-anchor: middle;
+    dominant-baseline: central;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     pointer-events: none;
-    z-index: 15;
 }
 
-.border-price {
-    position: absolute;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Two alternating levels - tight to the bar */
-#borderPrice1,
-#borderPrice3 {
-    top: -38px;
-}
-
-#borderPrice2,
-#borderPrice4 {
-    top: -20px;
-}
-
-/* Show on meter hover */
-.meter-gauge-wrapper:hover .border-price {
-    opacity: 1;
-}
-
-/* iOS Glassmorphism Price Label - smaller */
-.border-price-value {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--gray-700);
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.6rem;
-    font-weight: 600;
-    white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Vertical lines - connect directly to bar */
-.border-price::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    background: rgba(0, 0, 0, 0.25);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Line heights matching label positions */
-#borderPrice1::after,
-#borderPrice3::after {
-    height: 38px;
-}
-
-#borderPrice2::after,
-#borderPrice4::after {
-    height: 20px;
-}
-
-.meter-gauge-wrapper:hover .border-price::after {
-    opacity: 1;
-}
-
-/* Current Price Marker - Positioned BELOW the bar */
-.price-marker {
-    position: absolute;
-    bottom: -15px;
-    transform: translateX(-50%);
-    z-index: 10;
-    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.price-marker-arrow {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 12px solid var(--primary);
-    margin: 0 auto;
-    filter: drop-shadow(0 -2px 4px rgba(99, 102, 241, 0.3));
-}
-
-/* Purple line - always visible */
-.price-marker-line {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3px;
-    height: 50px;
-    background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%);
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
-}
-
-/* iOS Glassmorphism Current Price Label - Below the bar */
-.price-marker-value {
-    position: relative;
-    margin-top: 4px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    font-size: 0.9rem;
+/* SVG tick price labels */
+.gauge-tick-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
     font-weight: 700;
-    white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transform: translateX(-50%);
+    fill: #4b5563;
+    text-anchor: middle;
+}
+
+/* SVG minor tick label */
+.gauge-tick-minor {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    fill: #9ca3af;
+    text-anchor: middle;
+}
+
+/* Needle rotation is handled via SVG transform attribute directly */
+/* Premium Glassmorphism Current Price Badge */
+.gauge-price-badge {
+    position: relative;
+    display: inline-block;
+    margin: -30px auto 0;
     left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #7c3aed 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow:
+        0 4px 16px rgba(99, 102, 241, 0.45),
+        0 8px 32px rgba(99, 102, 241, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    letter-spacing: 0.02em;
+    z-index: 5;
 }
 
 /* Price Band Labels */
@@ -1797,43 +1681,22 @@ body {
     }
 
     .meter-gauge-wrapper {
-        padding: 40px 0 70px 0;
+        padding: 5px 0 0 0;
         max-width: 100%;
     }
 
-    .price-bands-visual {
-        height: 40px;
-        border-radius: 20px;
+    .gauge-price-badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+        margin-top: -20px;
     }
 
-    .price-zone {
-        font-size: 0.5rem;
-        padding: 0 0.15rem;
+    .gauge-zone-label {
+        font-size: 6px;
     }
 
-    /* Hide hover labels on mobile - too cluttered */
-    .zone-border-prices {
-        display: none;
-    }
-
-    /* Price marker smaller on mobile */
-    .price-marker-value {
-        font-size: 0.75rem;
-        padding: 0.35rem 0.7rem;
-    }
-
-    .price-marker-line {
-        height: 40px;
-    }
-
-    #priceMarker {
-        bottom: -10px;
-    }
-
-    .price-marker-arrow {
-        border-left-width: 8px;
-        border-right-width: 8px;
-        border-bottom-width: 10px;
+    .gauge-tick-label {
+        font-size: 7px;
     }
 
     /* Price band labels responsive */
