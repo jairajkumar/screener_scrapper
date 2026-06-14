@@ -524,6 +524,25 @@ async function fetchStockData(stockName, directUrl = null) {
         const cfi = getTableRowData('#cash-flow', 'cash from investing activity');
         const cff = getTableRowData('#cash-flow', 'cash from financing activity');
 
+        // ===== SHAREHOLDING DATA (for Growth Engine) =====
+        const promoterHolding = getTableRowData('#shareholding', 'promoters');
+        const fiiHolding = getTableRowData('#shareholding', 'fiis');
+        const diiHolding = getTableRowData('#shareholding', 'diis');
+
+        // ===== ROCE HISTORICAL (for Growth Engine - 5Y Average) =====
+        const roceHistorical = getTableRowData('#ratios', 'roce');
+
+        // ===== PROMOTER PLEDGE (from custom ratio on Screener) =====
+        const topCardPledge = getTopCardValue('Pledged percentage');
+
+        // DEBUG: Log Growth Engine scraper extractions
+        console.log('\n🌱 SCRAPER — Growth Engine Data Extraction:');
+        console.log(`   Promoter Holding: ${promoterHolding.length} values → [${promoterHolding.slice(-4).join(', ')}]`);
+        console.log(`   FII Holding: ${fiiHolding.length} values → [${fiiHolding.slice(-4).join(', ')}]`);
+        console.log(`   DII Holding: ${diiHolding.length} values → [${diiHolding.slice(-4).join(', ')}]`);
+        console.log(`   ROCE Historical: ${roceHistorical.length} values → [${roceHistorical.slice(-5).join(', ')}]`);
+        console.log(`   Pledged %: ${topCardPledge}`);
+
         // Growth Rates from ranges-table
         const profitGrowth10Y = getGrowthRate('profit', '10 years');
         const profitGrowth5Y = getGrowthRate('profit', '5 years');
@@ -681,7 +700,12 @@ async function fetchStockData(stockName, directUrl = null) {
                 cfi,
                 cff,
                 otherAssets,
-                otherLiabilities
+                otherLiabilities,
+                // Growth Engine data
+                promoterHolding,    // quarterly % values from #shareholding
+                fiiHolding,         // quarterly % values from #shareholding
+                diiHolding,         // quarterly % values from #shareholding
+                roceHistorical      // yearly ROCE % values from #ratios
             },
 
             // Latest values for quick access
@@ -690,6 +714,15 @@ async function fetchStockData(stockName, directUrl = null) {
             latestCFO,
             latestBorrowings,
             latestEquity,
+
+            // Growth Engine - Shareholding quick access
+            latestPromoterHolding: promoterHolding.length > 0 ? promoterHolding[promoterHolding.length - 1] : null,
+            prevPromoterHolding: promoterHolding.length > 1 ? promoterHolding[promoterHolding.length - 2] : null,
+            latestFIIHolding: fiiHolding.length > 0 ? fiiHolding[fiiHolding.length - 1] : null,
+            prevFIIHolding: fiiHolding.length > 1 ? fiiHolding[fiiHolding.length - 2] : null,
+            latestDIIHolding: diiHolding.length > 0 ? diiHolding[diiHolding.length - 1] : null,
+            prevDIIHolding: diiHolding.length > 1 ? diiHolding[diiHolding.length - 2] : null,
+            promoterPledge: topCardPledge,
 
             // Debug info
             _debug: {

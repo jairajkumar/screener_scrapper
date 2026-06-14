@@ -103,6 +103,11 @@ function displayResults(data) {
     updateScoreCard('graham', analysis.graham);
     updateScoreCard('lynch', analysis.lynch);
 
+    // Display Growth Investment Engine
+    if (analysis.growth && !analysis.growth.error) {
+        displayGrowthEngine(analysis);
+    }
+
     // Render factors for current tab
     renderFactors(currentFactorsTab);
 
@@ -1034,6 +1039,157 @@ function showToast(message) {
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(-50%) translateY(20px)';
     }, 4000);
+}
+
+// ===== GROWTH INVESTMENT ENGINE DISPLAY =====
+function displayGrowthEngine(analysis) {
+    const growth = analysis.growth;
+    const gv = analysis.growthValuation;
+    const section = document.getElementById('growthEngineSection');
+
+    if (!growth || growth.error) {
+        section.classList.add('hidden');
+        return;
+    }
+
+    section.classList.remove('hidden');
+
+    // Dual Perspective Banner
+    const valuePerspective = document.getElementById('valuePerspectiveDecision');
+    const growthPerspective = document.getElementById('growthPerspectiveDecision');
+    valuePerspective.textContent = analysis.finalDecision || '—';
+    valuePerspective.className = 'perspective-decision ' + (analysis.finalDecision?.toLowerCase().replace('_', '-') || '');
+    growthPerspective.textContent = gv?.finalDecision || growth.decision || '—';
+    growthPerspective.className = 'perspective-decision ' + (gv?.finalDecision || growth.decision)?.toLowerCase().replace('_', '-') || '';
+
+    // Growth Engine Header Badge
+    const badge = document.getElementById('growthEngineBadge');
+    const decision = gv?.finalDecision || growth.decision || '—';
+    document.getElementById('growthEngineDecision').textContent = decision;
+    badge.className = 'growth-engine-badge ' + decision.toLowerCase().replace('_', '-');
+
+    // Growth Score Ring
+    const scoreNum = document.getElementById('growthScoreNumber');
+    const scoreRing = document.getElementById('growthScoreRing');
+    scoreNum.textContent = growth.score;
+    const circumference = 326.73;
+    const offset = circumference - (growth.score / 100) * circumference;
+    scoreRing.style.strokeDashoffset = offset;
+
+    // Color the ring based on score
+    if (growth.score >= 80) scoreRing.style.stroke = '#12b76a';
+    else if (growth.score >= 65) scoreRing.style.stroke = '#f79009';
+    else scoreRing.style.stroke = '#ef4444';
+
+    document.getElementById('growthScoreInterpretation').textContent = growth.interpretation || '—';
+
+    // Growth Factors
+    const factorNames = {
+        revenueGrowth: 'Revenue Growth',
+        epsGrowth: 'EPS Growth',
+        roce: 'ROCE (5Y Avg)',
+        profitConsistency: 'Profit Consistency',
+        marginTrend: 'OPM Trend',
+        debtQuality: 'Debt Quality',
+        ownershipConfidence: 'Ownership'
+    };
+
+    if (growth.factors) {
+        Object.entries(growth.factors).forEach(([key, factor]) => {
+            const el = document.getElementById(`gf-${key}`);
+            if (!el) return;
+
+            const marksEl = el.querySelector('.gf-marks');
+            const barFill = el.querySelector('.gf-bar-fill');
+            const detailEl = el.querySelector('.gf-detail');
+
+            marksEl.textContent = `${factor.marks}/${factor.maxMarks}`;
+            const percent = (factor.marks / factor.maxMarks) * 100;
+            barFill.style.width = `${percent}%`;
+
+            // Color the bar
+            if (percent >= 70) barFill.style.background = 'linear-gradient(90deg, #12b76a, #34d399)';
+            else if (percent >= 40) barFill.style.background = 'linear-gradient(90deg, #f79009, #fbbf24)';
+            else barFill.style.background = 'linear-gradient(90deg, #ef4444, #f87171)';
+
+            // Detail text
+            let detail = '';
+            if (factor.value !== null && factor.value !== undefined) {
+                if (typeof factor.value === 'object' && !Array.isArray(factor.value)) {
+                    // Ownership factor - show key values
+                    const ov = factor.value;
+                    detail = `Promoter: ${ov.promoterHolding ?? 'N/A'}%`;
+                    if (ov.fiiDiiCombined !== null) detail += ` | FII+DII: ${ov.fiiDiiCombined.toFixed(1)}%`;
+                } else if (typeof factor.value === 'string') {
+                    detail = factor.value;
+                } else {
+                    detail = `${factor.value}${key.includes('growth') || key.includes('roce') || key.includes('margin') ? '%' : ''}`;
+                }
+            }
+            detailEl.textContent = detail || '—';
+
+            // Pass/fail styling
+            el.classList.remove('gf-pass', 'gf-fail');
+            el.classList.add(factor.pass ? 'gf-pass' : 'gf-fail');
+        });
+    }
+
+    // PEG Valuation Row
+    if (gv) {
+        document.getElementById('gvGrowthPE').textContent = gv.growthPE?.toFixed(1) || '—';
+        document.getElementById('gvFairValue').textContent = gv.growthFairValue ? '₹' + gv.growthFairValue.toLocaleString('en-IN') : '—';
+        document.getElementById('gvPEG').textContent = gv.peg?.toFixed(2) || '—';
+
+        const pegZoneEl = document.getElementById('gvPEGZone');
+        pegZoneEl.textContent = gv.pegZone?.replace('_', ' ') || '—';
+        pegZoneEl.className = 'gv-sub ' + (gv.pegZone?.toLowerCase().replace('_', '-') || '');
+
+        const upsideEl = document.getElementById('gvUpside');
+        if (gv.upside !== null && gv.upside !== undefined) {
+            upsideEl.textContent = `${gv.upside > 0 ? '+' : ''}${gv.upside}%`;
+            upsideEl.className = 'gv-value ' + (gv.upside > 0 ? 'positive' : 'negative');
+        } else {
+            upsideEl.textContent = '—';
+        }
+
+        document.getElementById('gvConfidence').textContent = gv.confidence || '—';
+        const confEl = document.getElementById('gvConfidence');
+        confEl.className = 'gv-value confidence-' + (gv.confidence?.toLowerCase() || 'medium');
+
+        // Valuation Normalization
+        const vnSection = document.getElementById('valNormSection');
+        if (gv.valuationNorm?.available) {
+            vnSection.style.display = '';
+            document.getElementById('vnCurrentPE').textContent = gv.valuationNorm.currentPE?.toFixed(1) || '—';
+            document.getElementById('vnAvgPE').textContent = gv.valuationNorm.avgPE5Y?.toFixed(1) || '—';
+            const premium = gv.valuationNorm.premiumPercent;
+            const premEl = document.getElementById('vnPremium');
+            premEl.textContent = premium !== null ? `${premium > 0 ? '+' : ''}${premium.toFixed(1)}%` : '—';
+            premEl.className = 'vn-value ' + (premium < 0 ? 'positive' : premium > 25 ? 'negative' : 'neutral');
+            document.getElementById('vnScore').textContent = `${gv.valuationNorm.score}/10`;
+            const vnBadge = document.getElementById('valNormBadge');
+            vnBadge.textContent = gv.valuationNorm.status || '—';
+            vnBadge.className = 'val-norm-badge ' + (premium < 0 ? 'positive' : premium > 25 ? 'negative' : 'neutral');
+        } else {
+            vnSection.style.display = 'none';
+        }
+
+        // Growth Risk Flags
+        const flagsEl = document.getElementById('growthRiskFlags');
+        if (gv.riskFlags && gv.riskFlags.length > 0) {
+            flagsEl.innerHTML = gv.riskFlags.map(flag => `
+                <div class="growth-risk-flag">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>${flag.rule}</strong>
+                        <span>${flag.detail} → ${flag.action}</span>
+                    </div>
+                </div>
+            `).join('');
+        } else {
+            flagsEl.innerHTML = '';
+        }
+    }
 }
 
 // Export for global access

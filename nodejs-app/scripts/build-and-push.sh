@@ -14,10 +14,13 @@ FULL_IMAGE_NAME="${REGISTRY}/${REPO_OWNER}/${IMAGE_NAME}"
 
 # Get version tag from argument or use 'latest'
 VERSION="${1:-latest}"
+# Get description from second argument (optional)
+DESCRIPTION="${2:-Stock Analysis Tool}"
 
 echo "🐳 Stock Analysis - Multi-Platform Docker Build and Push"
 echo "========================================================="
 echo "📦 Image: ${FULL_IMAGE_NAME}:${VERSION}"
+echo "📝 Description: ${DESCRIPTION}"
 echo "🏗️  Platforms: linux/amd64, linux/arm64"
 echo ""
 
@@ -73,6 +76,10 @@ echo "🔨 Building and pushing multi-platform Docker image..."
 docker buildx build \
     --platform linux/amd64,linux/arm64 \
     --tag ${FULL_IMAGE_NAME}:${VERSION} \
+    --label "org.opencontainers.image.description=${DESCRIPTION}" \
+    --label "org.opencontainers.image.version=${VERSION}" \
+    --annotation "index:org.opencontainers.image.description=${DESCRIPTION}" \
+    --annotation "index:org.opencontainers.image.version=${VERSION}" \
     --push \
     .
 
@@ -90,6 +97,10 @@ if [ "${VERSION}" != "latest" ]; then
     docker buildx build \
         --platform linux/amd64,linux/arm64 \
         --tag ${FULL_IMAGE_NAME}:latest \
+        --label "org.opencontainers.image.description=${DESCRIPTION}" \
+        --label "org.opencontainers.image.version=${VERSION}" \
+        --annotation "index:org.opencontainers.image.description=${DESCRIPTION}" \
+        --annotation "index:org.opencontainers.image.version=${VERSION}" \
         --push \
         .
 fi

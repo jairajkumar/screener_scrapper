@@ -75,7 +75,7 @@ router.post('/analyze', async (req, res) => {
             });
         }
 
-        const analysis = analyzeStock(stockData.data);
+        const analysis = await analyzeStock(stockData.data, targetCompany);
         const aiInsights = await generateAIInsights(stockData.data, analysis, stockData.screenshotPath);
 
         // Extract screenshot filename from path
@@ -123,7 +123,7 @@ router.get('/analyze/:companyName', async (req, res) => {
             });
         }
 
-        const analysis = analyzeStock(stockData.data);
+        const analysis = await analyzeStock(stockData.data, companyName);
         const aiInsights = await generateAIInsights(stockData.data, analysis, stockData.screenshotPath);
 
         // Extract screenshot filename from path

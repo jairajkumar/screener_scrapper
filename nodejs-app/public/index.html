@@ -418,6 +418,173 @@
                 </div>
             </div>
 
+            <!-- ===== GROWTH INVESTMENT ENGINE SECTION ===== -->
+            <div id="growthEngineSection" class="growth-engine-section hidden">
+                <div class="growth-engine-header">
+                    <h3>
+                        <i class="fas fa-seedling"></i>
+                        Growth Investment Engine
+                    </h3>
+                    <span class="growth-engine-badge" id="growthEngineBadge">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="growthEngineDecision">—</span>
+                    </span>
+                </div>
+
+                <!-- Dual Perspective Banner -->
+                <div class="dual-perspective">
+                    <div class="perspective-card value-perspective">
+                        <div class="perspective-label">
+                            <i class="fas fa-balance-scale"></i>
+                            Value Perspective
+                        </div>
+                        <div class="perspective-decision" id="valuePerspectiveDecision">—</div>
+                    </div>
+                    <div class="perspective-vs">VS</div>
+                    <div class="perspective-card growth-perspective">
+                        <div class="perspective-label">
+                            <i class="fas fa-seedling"></i>
+                            Growth Perspective
+                        </div>
+                        <div class="perspective-decision" id="growthPerspectiveDecision">—</div>
+                    </div>
+                </div>
+
+                <div class="growth-engine-content">
+                    <!-- Growth Score Card (large) -->
+                    <div class="growth-score-main">
+                        <div class="growth-score-ring-wrapper">
+                            <svg class="growth-score-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52" />
+                                <circle class="ring-fill" id="growthScoreRing" cx="60" cy="60" r="52"
+                                    stroke-dasharray="326.73" stroke-dashoffset="326.73" />
+                            </svg>
+                            <div class="growth-score-value">
+                                <span id="growthScoreNumber">0</span>
+                                <span class="growth-score-total">/100</span>
+                            </div>
+                        </div>
+                        <div class="growth-score-label" id="growthScoreLabel">Growth Score</div>
+                        <div class="growth-score-interpretation" id="growthScoreInterpretation">—</div>
+                    </div>
+
+                    <!-- Growth Factors Grid -->
+                    <div class="growth-factors-grid">
+                        <div class="growth-factor" id="gf-revenueGrowth">
+                            <div class="gf-header">
+                                <span class="gf-name">Revenue Growth</span>
+                                <span class="gf-marks">—/20</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-epsGrowth">
+                            <div class="gf-header">
+                                <span class="gf-name">EPS Growth</span>
+                                <span class="gf-marks">—/20</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-roce">
+                            <div class="gf-header">
+                                <span class="gf-name">ROCE (5Y Avg)</span>
+                                <span class="gf-marks">—/15</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-profitConsistency">
+                            <div class="gf-header">
+                                <span class="gf-name">Profit Consistency</span>
+                                <span class="gf-marks">—/15</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-marginTrend">
+                            <div class="gf-header">
+                                <span class="gf-name">OPM Trend</span>
+                                <span class="gf-marks">—/10</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-debtQuality">
+                            <div class="gf-header">
+                                <span class="gf-name">Debt Quality</span>
+                                <span class="gf-marks">—/10</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                        <div class="growth-factor" id="gf-ownershipConfidence">
+                            <div class="gf-header">
+                                <span class="gf-name">Ownership</span>
+                                <span class="gf-marks">—/10</span>
+                            </div>
+                            <div class="gf-bar"><div class="gf-bar-fill"></div></div>
+                            <div class="gf-detail">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PEG Valuation Row -->
+                <div class="growth-valuation-row">
+                    <div class="gv-card">
+                        <div class="gv-label">Growth PE</div>
+                        <div class="gv-value" id="gvGrowthPE">—</div>
+                    </div>
+                    <div class="gv-card">
+                        <div class="gv-label">Growth Fair Value</div>
+                        <div class="gv-value" id="gvFairValue">—</div>
+                    </div>
+                    <div class="gv-card peg-card">
+                        <div class="gv-label">PEG Ratio</div>
+                        <div class="gv-value" id="gvPEG">—</div>
+                        <div class="gv-sub" id="gvPEGZone">—</div>
+                    </div>
+                    <div class="gv-card">
+                        <div class="gv-label">Upside</div>
+                        <div class="gv-value" id="gvUpside">—</div>
+                    </div>
+                    <div class="gv-card">
+                        <div class="gv-label">Confidence</div>
+                        <div class="gv-value" id="gvConfidence">—</div>
+                    </div>
+                </div>
+
+                <!-- Valuation Normalization -->
+                <div class="val-norm-section" id="valNormSection" style="display:none;">
+                    <div class="val-norm-header">
+                        <i class="fas fa-history"></i>
+                        <span>PE vs Historical Average</span>
+                        <span class="val-norm-badge" id="valNormBadge">—</span>
+                    </div>
+                    <div class="val-norm-content">
+                        <div class="val-norm-stat">
+                            <span class="vn-label">Current PE</span>
+                            <span class="vn-value" id="vnCurrentPE">—</span>
+                        </div>
+                        <div class="val-norm-stat">
+                            <span class="vn-label">5Y Avg PE</span>
+                            <span class="vn-value" id="vnAvgPE">—</span>
+                        </div>
+                        <div class="val-norm-stat">
+                            <span class="vn-label">Premium</span>
+                            <span class="vn-value" id="vnPremium">—</span>
+                        </div>
+                        <div class="val-norm-stat">
+                            <span class="vn-label">Score</span>
+                            <span class="vn-value" id="vnScore">—/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Risk Flags -->
+                <div class="growth-risk-flags" id="growthRiskFlags"></div>
+            </div>
+
             <!-- Factor Details -->
             <div class="factors-section">
                 <h3>

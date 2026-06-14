@@ -9,8 +9,8 @@ describe('Analyzer - Combined Scoring', () => {
     describe('with PETRONET data', () => {
         let result;
 
-        beforeAll(() => {
-            result = analyzeStock(samplePetronetData);
+        beforeAll(async () => {
+            result = await analyzeStock(samplePetronetData);
         });
 
         test('returns correct structure', () => {
@@ -55,7 +55,7 @@ describe('Analyzer - Combined Scoring', () => {
     });
 
     describe('Decision Logic', () => {
-        test('BUY when 3+ scores >= 7', () => {
+        test('BUY when 3+ scores >= 7', async () => {
             // Create data that scores high on 3+ metrics
             const buyData = {
                 ...samplePetronetData,
@@ -69,7 +69,7 @@ describe('Analyzer - Combined Scoring', () => {
                 priceToBook: 1.2
             };
 
-            const result = analyzeStock(buyData);
+            const result = await analyzeStock(buyData);
 
             // If we have 3+ scores above 7, decision should be BUY
             if (result.scoresAbove7 >= 3) {
@@ -77,15 +77,15 @@ describe('Analyzer - Combined Scoring', () => {
             }
         });
 
-        test('HOLD when 2 scores >= 7', () => {
-            const result = analyzeStock(samplePetronetData);
+        test('HOLD when 2 scores >= 7', async () => {
+            const result = await analyzeStock(samplePetronetData);
             if (result.scoresAbove7 === 2) {
                 expect(result.finalDecision).toBe('HOLD');
             }
         });
 
-        test('AVOID when < 2 scores >= 7', () => {
-            const result = analyzeStock(sampleWeakData);
+        test('AVOID when < 2 scores >= 7', async () => {
+            const result = await analyzeStock(sampleWeakData);
             if (result.scoresAbove7 < 2) {
                 expect(result.finalDecision).toBe('AVOID');
             }
@@ -93,14 +93,14 @@ describe('Analyzer - Combined Scoring', () => {
     });
 
     describe('Legacy compatibility', () => {
-        test('includes legacy verdict field', () => {
-            const result = analyzeStock(samplePetronetData);
+        test('includes legacy verdict field', async () => {
+            const result = await analyzeStock(samplePetronetData);
             expect(result).toHaveProperty('verdict');
             expect(result.verdict).toBe(result.finalDecision);
         });
 
-        test('includes legacy analysis object', () => {
-            const result = analyzeStock(samplePetronetData);
+        test('includes legacy analysis object', async () => {
+            const result = await analyzeStock(samplePetronetData);
             expect(result).toHaveProperty('analysis');
             expect(result.analysis).toHaveProperty('roe');
             expect(result.analysis).toHaveProperty('pe_ratio');
@@ -108,8 +108,8 @@ describe('Analyzer - Combined Scoring', () => {
     });
 
     describe('Overall percentage', () => {
-        test('calculates overall percentage as average of 4 scores', () => {
-            const result = analyzeStock(samplePetronetData);
+        test('calculates overall percentage as average of 4 scores', async () => {
+            const result = await analyzeStock(samplePetronetData);
 
             const expectedAvg = Math.round(
                 (result.piotroski.percent + result.buffett.percent +
